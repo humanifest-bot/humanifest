@@ -20,15 +20,25 @@
       "type": "measured",
       "claim": "Read-only issue/timeline inspection on 2026-09-08 found OPEN, unassigned, last updated 2026-04-28, and no returned cross-referenced PR. The bounded timeline is not an exhaustive competing-work search.",
       "source_id": "hot-7227-timeline"
+    },
+    {
+      "type": "measured",
+      "claim": "Four controlled probes of the original hash-checked download handler confirmed a 404 URL opens before status checking and a null browser handle on HTTP 200 shows the same error popup. This is function-level reproduction only; no real browser or deployed service tested.",
+      "source_id": "hot-handler-probe"
+    },
+    {
+      "type": "measured",
+      "claim": "The pinned get_active_projects service filters recent task/chat activity to PUBLISHED projects, excluding ARCHIVED. This is a source observation, not confirmation of production deployment or the specific missing artifact cause.",
+      "source_id": "hot-active-service"
     }
   ],
-  "code_surface": "Pinned tree locates frontend/src/components/projectDetail/downloadOsmData.js, tests/downloadButtons.test.js, and scripts/aws/lambda/TM-Extractor/README.md. File contents and backend call graph remain to be inspected.",
-  "proposed_change": "Research now: trace downloadOsmData.js and the extractor lifecycle to distinguish unavailable links, stale artifacts, and archive scheduling. Propose the smallest coherent option (accurate availability guidance versus an authorized refresh flow) with its tradeoffs. Do not implement permissions or scheduled-job changes without explicit maintainer supervision.",
-  "tests": "Identify existing download component tests and extractor fixtures; plan synthetic published/archived cases with present, absent and stale artifacts. Any refresh proposal needs authorization, rate-limit and failure-path checks. No tests added or run.",
-  "environment": "Tier 0 public source/API inspection only. No target clone, dependency install, setup, test, or production write. Inspect manifests, hooks, services and secrets before any execution.",
+  "code_surface": "Inspected pinned DownloadOsmData handler, messages, AOI-only downloadButtons tests, ProjectService.get_active_projects and TM-Extractor v1.0.1. A hash-checked standalone probe exercises the original handler with mocked browser/network objects; no React component coverage located for this handler.",
+  "proposed_change": "Separate a bounded frontend error-handling proposal (check HEAD success before navigation, handle null browser handles, accurate guidance) from archived-project refresh. The former does not resolve #7227 by itself. The latter requires maintainer decisions on authorization, freshness and workload. Source findings and concrete acceptance cases are in research/2026-09-08-hot-download-audit.md; no upstream patch or inquiry sent.",
+  "tests": "Ran research/fixtures/hot-download-reproduction.mjs against the hash-checked pinned handler on Node v22.16.0: 200 success control, 404 opening before status check, null browser handle misreported as extraction unavailable, and rejected HEAD control all verified; loading cleared in each. No React, browser, target suite or production reproduction. Component plan includes these cases and unsuccessful metadata HEAD requests.",
+  "environment": "Read-only public source retrieval plus a dependency-free probe evaluating only the inspected original handler with mocked network/browser objects. No clone, target setup, package installation, secrets or production calls. Frontend scripts inspected; full setup/CI/hook audit remains incomplete.",
   "maintainer": "Research can proceed independently now. Confirm the specific scope and whether support is wanted before implementation or outbound review.",
-  "risks": "Initial intake is not implementation readiness. Preserve existing contributors, avoid production data, and verify policy and scope before publishing target work.",
-  "priority_rationale": "First new investigation: an operator reported inability to share completed mapping data, a member identified the lifecycle condition, and no competing PR appeared in the retrieved issue timeline. Potential scope may touch privileged or scheduled behavior, so begin with read-only tracing.",
+  "risks": "Frontend error handling cannot restore missing archived artifacts. Actual deployed configuration, CORS and browser popup behavior remain unverified. HOT full AI guide requires human involvement in shared code updates and PR descriptions; no such review is claimed. Refresh crosses protected scheduling/permission boundaries.",
+  "priority_rationale": "Source investigation produced a verified handler failure and a distinct archive-selection path. Retain these findings for a bounded scope discussion; continue Kobo existing-PR verification independently while HOT readiness and human-review requirements remain unresolved.",
   "next_external_status_check": "2026-09-15",
   "gates": {
     "humanitarian_relevance_supported": {
@@ -48,8 +58,13 @@
       "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
     },
     "ai_policy_understood": {
-      "passed": false,
-      "rationale": "Core AI rules read, including protected workflows and human-learning issues. Read the linked full policy and applicable PR instructions before claiming policy review complete."
+      "passed": true,
+      "rationale": "Read repository AI guidance, AGENTS, and the linked full guide. Human-authored PR descriptions and human approval of shared code updates are required; good-first-issue and protected-workflow limits apply. Understanding the policy does not satisfy its review requirements.",
+      "source_ids": [
+        "hot-ai-policy",
+        "hot-agent-guide",
+        "hot-ai-full-policy"
+      ]
     },
     "problem_current_and_consequential": {
       "passed": false,
@@ -57,15 +72,15 @@
     },
     "behavior_reproducible_or_verifiable": {
       "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "rationale": "Four isolated handler cases verified against pinned source. The archived-project end-to-end failure and deployed extractor configuration remain unverified, so the original opportunity gate stays false."
     },
     "code_and_tests_located": {
       "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "rationale": "Download handler, messages, extractor and active-project service read. The neighboring tests exercise AOI download, not this handler; target regression coverage still needs implementation after scope confirmation."
     },
     "change_bounded": {
       "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "rationale": "A frontend error-handling scope is identifiable but does not restore archived data. Maintainers must choose whether that separate contribution or a supervised refresh design is wanted."
     },
     "regression_strategy_credible": {
       "passed": false,
@@ -81,7 +96,7 @@
     },
     "environment_feasible": {
       "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "rationale": "The dependency-free handler probe ran; it does not establish full React or extractor setup feasibility. Frontend scripts include nested setup and optional sourcemap upload; no target setup executed."
     },
     "maintainer_interest_confirmed": {
       "passed": false,
@@ -157,6 +172,41 @@
     {
       "id": "hot-tree",
       "url": "https://api.github.com/repos/hotosm/tasking-manager/git/trees/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9?recursive=1",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-download-handler",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/frontend/src/components/projectDetail/downloadOsmData.js",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-download-tests",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/frontend/src/components/projectDetail/tests/downloadButtons.test.js",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-active-service",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/backend/services/project_service.py#L789",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-extractor-config",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/scripts/aws/lambda/TM-Extractor/_envcommon/lambda.hcl",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-extractor-source",
+      "url": "https://github.com/hotosm/TM-Extractor/blob/070ea82acecde3be49fc5b8622f365840011943a/tm_extractor.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-ai-full-policy",
+      "url": "https://responsibleai.guide/ai-assisted-coding-guide/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-handler-probe",
+      "url": "file:///Users/admin/dev/humanifest/research/fixtures/hot-download-reproduction.mjs",
       "accessed": "2026-09-08"
     }
   ]

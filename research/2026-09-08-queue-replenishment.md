@@ -13,8 +13,10 @@ Neither has earned implementation approval or a claim of realized impact.
    participant explains why completed maps need to be shared with requestors;
    a HOT member identifies archived status as the condition. No cross-referenced
    PR was returned by the issue timeline, but a broader search remains necessary.
-   Read `downloadOsmData.js`, the neighboring download tests, and extractor docs
-   at the pinned tree before considering setup. Do not trigger live extraction.
+   The [completed source audit](2026-09-08-hot-download-audit.md) now traces the
+   archive filter and reproduces two separate handler failures with mocked inputs.
+   Frontend handling alone does not resolve archived data availability. Continue
+   Kobo verification while HOT scope and human-review requirements remain open.
 2. **KoboToolbox #7259 / PR #7260 — incremental-sync verification.** Support the
    existing author with a bounded source and test-gap investigation. Pin the PR
    head and compare edit, validation, attachment and legacy/query behavior with
@@ -42,10 +44,11 @@ immediately; repeat status polling can wait.
 Read-only GitHub metadata, discussions, contribution documents and complete
 recursive trees were inspected on 2026-09-08. Initial screens were bounded:
 the HOT recent list mixed issues and PRs, while Kobo used issue-only search.
-Issue timelines do not prove the absence of unlinked work. Selected source-file
-retrieval did not complete, so component/test paths are leads rather than a
-finished code audit. No target clone, setup, test, production interaction,
-maintainer message or agreement signing occurred.
+Issue timelines do not prove the absence of unlinked work. At initial intake, selected source-file
+retrieval did not complete. The subsequent HOT audit retrieved those files and
+ran an isolated original-handler probe; its note records exact scope and limits.
+No target clone, setup, full target suite, production interaction, maintainer
+message or agreement signing occurred.
 
 HOT's own product documentation supports a mapping-to-data-use pathway. UNHCR's
 handbook supports Kobo's use in humanitarian assessments. Neither proves the

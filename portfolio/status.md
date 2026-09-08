@@ -8,17 +8,16 @@ Open external PRs: 0/2 (at most 1 per organization)
 Status reflects supplied records; source access dates are not a live upstream check.
 Scores do not authorize implementation or external writes. Candidates are listed by state and ID, not ranked by raw score.
 
-- hot-7227-archived-project-data-access: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=13
+- hot-7227-archived-project-data-access: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=12
   Next: Verify the issue is current and bound its code surface and regression strategy.
   - contribution_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - ai_policy_understood: Core AI rules read, including protected workflows and human-learning issues. Read the linked full policy and applicable PR instructions before claiming policy review complete.
   - problem_current_and_consequential: Operational need is reported, but the issue was last updated in April; current deployed behavior must be checked without triggering production extraction.
-  - behavior_reproducible_or_verifiable: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - code_and_tests_located: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - change_bounded: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - behavior_reproducible_or_verifiable: Four isolated handler cases verified against pinned source. The archived-project end-to-end failure and deployed extractor configuration remain unverified, so the original opportunity gate stays false.
+  - code_and_tests_located: Download handler, messages, extractor and active-project service read. The neighboring tests exercise AOI download, not this handler; target regression coverage still needs implementation after scope confirmation.
+  - change_bounded: A frontend error-handling scope is identifiable but does not restore archived data. Maintainers must choose whether that separate contribution or a supervised refresh design is wanted.
   - regression_strategy_credible: Not established in this initial research intake; inspect relevant evidence before advancing.
   - security_and_licensing_risk_acceptable: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - environment_feasible: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - environment_feasible: The dependency-free handler probe ran; it does not establish full React or extractor setup feasibility. Frontend scripts include nested setup and optional sourcemap upload; no target setup executed.
   - maintainer_interest_confirmed: Historical discussion or another contributor's PR does not confirm a Humanifest contribution. No inquiry sent for this opportunity.
   - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
   - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.

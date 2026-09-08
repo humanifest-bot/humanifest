@@ -5,7 +5,11 @@ from humanifest.models import (
     HARD_GATES,
     MAINTAINER_CONFIRMED_STATES,
     failed_gates,
+    generate_candidate_brief,
     generate_handoff,
+    next_action,
+    PIPELINE_STATES,
+    portfolio_report,
     score_opportunity,
     validate_opportunity,
 )
@@ -61,6 +65,44 @@ def opportunity():
 
 
 class ModelTests(unittest.TestCase):
+    def test_inactive_work_cannot_be_build_eligible_even_when_gates_pass(self):
+        for state in ["PARKED", "DECLINED", "MERGED", "RELEASED"]:
+            record = opportunity()
+            record["pipeline_state"] = state
+            score = score_opportunity(record)
+            self.assertFalse(score["eligible_for_building"])
+            self.assertEqual(score["score"], 0)
+            self.assertEqual(score["raw_score"], 2.7)
+            self.assertIn("Implementation blocked", generate_handoff(record, "codex"))
+
+    def test_every_state_has_a_next_action_and_stopped_work_stays_stopped(self):
+        for state in PIPELINE_STATES:
+            record = opportunity()
+            record["pipeline_state"] = state
+            self.assertTrue(next_action(record))
+        self.assertIn("Keep declined", next_action(dict(opportunity(), pipeline_state="DECLINED")))
+        self.assertIn("Keep parked", next_action(dict(opportunity(), pipeline_state="PARKED")))
+
+    def test_brief_and_handoff_preserve_source_urls_dates_and_context(self):
+        record = opportunity()
+        for text in [generate_candidate_brief(record), generate_handoff(record, "codex")]:
+            self.assertIn("https://example.test", text)
+            self.assertIn("accessed 2026-09-06", text)
+            self.assertIn("Next action:", text)
+        text = generate_handoff(record, "codex")
+        self.assertIn("Environment: local", text)
+        self.assertIn("Maintainer context: named reviewer", text)
+        self.assertIn("Risks: low", text)
+        self.assertIn("validate the full Humanifest portfolio", text)
+
+    def test_report_is_deterministic_and_does_not_rank_by_raw_score(self):
+        first = dict(opportunity(), id="a")
+        second = dict(opportunity(), id="b")
+        second["score_inputs"] = dict(second["score_inputs"], humanitarian_benefit=5)
+        report = portfolio_report([], [second, first])
+        self.assertEqual(report, portfolio_report([], [first, second]))
+        self.assertLess(report.index("- a:"), report.index("- b:"))
+
     def test_evidence_must_reference_a_unique_source(self):
         record = opportunity()
         record["evidence"][0]["source_id"] = "unknown"

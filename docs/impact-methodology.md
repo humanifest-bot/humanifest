@@ -20,3 +20,9 @@ The initial weights are:
 - deployment probability: `0.10`
 
 Hard gates dominate scores. If any hard gate fails, the implementation score is zero.
+
+Parked, declined, merged, and released records also have zero implementation score.
+Raw scores remain available for auditing the supplied inputs, but reports list
+candidates by state and ID rather than ranking blocked work by raw score.
+Eligibility in single-record output covers only gates and state; portfolio capacity
+and authorization remain separate requirements.

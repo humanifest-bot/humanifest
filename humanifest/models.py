@@ -31,6 +31,8 @@ PIPELINE_STATES = [
 EVIDENCE_TYPES = {"measured", "modeled", "self_reported", "inferred"}
 MAINTAINER_CONFIRMED_STATES = PIPELINE_STATES[5:13]
 BUILDING_STATES = PIPELINE_STATES[7:13]
+ACTIVE_IMPLEMENTATION_STATES = ["BUILDING", "ADVERSARIAL-REVIEW", "HUMAN-REVIEW"]
+INACTIVE_STATES = ["PARKED", "DECLINED", "MERGED", "RELEASED"]
 
 HARD_GATES = [
     "humanitarian_relevance_supported",
@@ -133,6 +135,8 @@ def validate_project(record: dict[str, Any], record_name: str) -> list[Validatio
     for field in ["maintenance", "contribution"]:
         if not isinstance(record.get(field), dict):
             issues.append(ValidationIssue(record_name, f"{field} must be an object"))
+    if "review_organization" in record:
+        issues.extend(_validate_text_fields(record, ["review_organization"], record_name))
     issues.extend(_validate_sources(record, record_name))
     issues.extend(_validate_evidence_list(record.get("impact_evidence", []), record_name, "impact_evidence", _source_ids(record)))
     return issues
@@ -203,9 +207,10 @@ def score_opportunity(record: dict[str, Any], weights: dict[str, float] | None =
         weighted_total += contribution
 
     failures = failed_gates(record)
-    eligible = not failures
+    eligible = not failures and record.get("pipeline_state") not in INACTIVE_STATES
     return {
         "eligible_for_building": eligible,
+        "eligibility_scope": "Record gates and state only; portfolio capacity and user authorization must be checked separately.",
         "score": round(max(0.0, weighted_total), 3) if eligible else 0.0,
         "raw_score": round(weighted_total, 3),
         "failed_gates": failures,
@@ -228,6 +233,8 @@ def generate_candidate_brief(record: dict[str, Any]) -> str:
             f"Project: {record['project_id']}",
             f"Pipeline state: {record['pipeline_state']}",
             f"Score: {score['score']} (raw {score['raw_score']})",
+            f"Next action: {next_action(record)}",
+            score["eligibility_scope"],
             "",
             "## Problem",
             record["problem"],
@@ -240,6 +247,9 @@ def generate_candidate_brief(record: dict[str, Any]) -> str:
             "",
             "## Failed gates",
             *gate_lines,
+            "",
+            "## Sources",
+            *_source_lines(record),
         ]
     )
 
@@ -254,16 +264,22 @@ def generate_handoff(record: dict[str, Any], target: str) -> str:
         f"Problem: {record['problem']}",
         f"Proposed bounded change: {record['proposed_change']}",
         f"Acceptance criteria: {record['tests']}",
+        f"Environment: {record['environment']}",
+        f"Maintainer context: {record['maintainer']}",
+        f"Risks: {record['risks']}",
+        f"Next action: {next_action(record)}",
+        "Before implementation: validate the full Humanifest portfolio and check its capacity limits; inspect target setup code before executing it.",
         "Constraints: no external writes, no maintainer contact, no private data, stop if evidence contradicts the gate rationale.",
         "Return format: findings, changed files if any, commands run, remaining blockers, and confidence.",
     ]
     failures = failed_gates(record)
     base.insert(2, f"Pipeline state: {record['pipeline_state']}.")
-    if failures or record["pipeline_state"] in {"PARKED", "DECLINED"}:
-        base.append("Implementation blocked. Do not implement; limit work to read-only inspection and resolving the blockers below.")
+    if failures or record["pipeline_state"] in INACTIVE_STATES:
+        base.append("Implementation blocked. Do not implement; respect the current state and limit work to read-only inspection of any listed blockers.")
     else:
         base.append("All hard gates pass. Implementation still requires an approved scope and inspected environment.")
     base.extend(f"Blocker: {item['gate']}: {item['rationale']}" for item in failures)
+    base.extend(["Sources (supplied evidence; not independently refreshed):", *_source_lines(record)])
     if target == "spark":
         base.insert(0, "Use a fast Codex model only for bounded inspection or mechanical verification.")
     elif target == "cursor-red-team":
@@ -278,11 +294,46 @@ def portfolio_report(projects: list[dict[str, Any]], opportunities: list[dict[st
     rows = ["# Portfolio Status", ""]
     rows.append(f"Projects: {len(projects)}")
     rows.append(f"Opportunities: {len(opportunities)}")
+    active = sum(item["pipeline_state"] in ACTIVE_IMPLEMENTATION_STATES for item in opportunities)
+    prs = sum(item["pipeline_state"] == "PR-OPEN" for item in opportunities)
+    rows.extend([f"Active implementations: {active}/1", f"Open external PRs: {prs}/2 (at most 1 per organization)"])
+    rows.extend(["", "Status reflects supplied records; source access dates are not a live upstream check.",
+                 "Scores do not authorize implementation or external writes. Candidates are listed by state and ID, not ranked by raw score."])
     rows.append("")
-    for opportunity in sorted(opportunities, key=lambda item: score_opportunity(item)["raw_score"], reverse=True):
+    for opportunity in sorted(opportunities, key=lambda item: (PIPELINE_STATES.index(item["pipeline_state"]), item["id"])):
         score = score_opportunity(opportunity)
         rows.append(f"- {opportunity['id']}: {opportunity['pipeline_state']}; score={score['score']}; failed_gates={len(score['failed_gates'])}")
+        rows.append(f"  Next: {next_action(opportunity)}")
+        for failure in score["failed_gates"]:
+            rows.append(f"  - {failure['gate']}: {failure['rationale']}")
     return "\n".join(rows)
+
+
+def next_action(record: dict[str, Any]) -> str:
+    """Suggest a bounded action without advancing records or granting permission."""
+    state = record["pipeline_state"]
+    actions = {
+        "QUEUED": "Audit humanitarian relevance and contribution policies using read-only sources.",
+        "PROJECT-AUDIT": "Complete the project audit and record evidence before shortlisting an issue.",
+        "OPPORTUNITY-RESEARCH": "Verify the issue is current and bound its code surface and regression strategy.",
+        "SHORTLISTED": "Prepare a maintainer inquiry draft; obtain user authorization before sending.",
+        "MAINTAINER-CHECK": "Record current maintainer confirmation; obtain user authorization before any inquiry or follow-up.",
+        "ENVIRONMENT-READY": "Reproduce with synthetic data in the inspected environment; record results.",
+        "REPRODUCED": "Check all hard gates and portfolio capacity before starting the approved bounded implementation.",
+        "BUILDING": "Complete the bounded change and regression tests, then prepare adversarial review.",
+        "ADVERSARIAL-REVIEW": "Review correctness, scope, security, tests, and maintainer burden before human review.",
+        "HUMAN-REVIEW": "Review the change line by line and check PR capacity; obtain explicit authorization before opening a PR.",
+        "PR-OPEN": "Review upstream feedback read-only; obtain authorization before any external response or update.",
+        "MERGED": "Verify release and deployment evidence without assuming that merge proves humanitarian impact.",
+        "RELEASED": "Record observed retention and outcomes with sources; do not infer impact from release alone.",
+        "PARKED": "Keep parked until the stopping reason is resolved and evidence supports reconsideration.",
+        "DECLINED": "Keep declined; do not resume work without a new decision supported by evidence.",
+    }
+    return actions[state]
+
+
+def _source_lines(record: dict[str, Any]) -> list[str]:
+    return [f"- {source['id']}: {source['url']} (accessed {source['accessed']})" for source in record["sources"]]
 
 
 def _require_fields(record: dict[str, Any], fields: list[str], record_name: str) -> list[ValidationIssue]:
@@ -384,4 +435,54 @@ def load_portfolio(root: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any
         project_id = record.get("project_id")
         if isinstance(project_id, str) and project_id not in project_ids:
             issues.append(ValidationIssue(str(path), f"project_id references unknown project: {project_id}"))
+    # Capacity checks require valid IDs and states. Preserve structural errors first.
+    if not issues:
+        issues.extend(_validate_capacity(projects, opportunities))
     return [record for _, record in projects], [record for _, record in opportunities], issues
+
+
+def _review_organization(project: dict[str, Any]) -> str | None:
+    explicit = project.get("review_organization")
+    if explicit:
+        return explicit.strip().casefold()
+    try:
+        repository = urlsplit(project["repository"])
+        parts = repository.path.strip("/").split("/")
+        if (repository.scheme in {"http", "https"} and repository.hostname == "github.com"
+                and not repository.username and not repository.password
+                and not repository.query and not repository.fragment
+                and len(parts) == 2 and all(parts)
+                and not any(char.isspace() for char in project["repository"])):
+            return f"github.com/{parts[0].casefold()}"
+    except ValueError:
+        pass
+    return None
+
+
+def _validate_capacity(
+    projects: list[tuple[Path, dict[str, Any]]],
+    opportunities: list[tuple[Path, dict[str, Any]]],
+) -> list[ValidationIssue]:
+    issues = []
+    active = [(path, record) for path, record in opportunities if record["pipeline_state"] in ACTIVE_IMPLEMENTATION_STATES]
+    open_prs = [(path, record) for path, record in opportunities if record["pipeline_state"] == "PR-OPEN"]
+    for records, limit, label in [(active, 1, "active implementations"), (open_prs, 2, "open external PRs")]:
+        if len(records) > limit:
+            ids = ", ".join(record["id"] for _, record in records)
+            for path, _ in records:
+                issues.append(ValidationIssue(str(path), f"portfolio limit exceeded: {len(records)} {label} (maximum {limit}): {ids}"))
+    by_id = {record["id"]: record for _, record in projects}
+    by_organization: dict[str, list[tuple[Path, dict[str, Any]]]] = {}
+    for path, record in open_prs:
+        project = by_id[record["project_id"]]
+        organization = _review_organization(project)
+        if organization is None:
+            issues.append(ValidationIssue(str(path), f"cannot determine review organization for {project['id']}; set the project's review_organization"))
+        else:
+            by_organization.setdefault(organization, []).append((path, record))
+    for organization, records in sorted(by_organization.items()):
+        if len(records) > 1:
+            ids = ", ".join(record["id"] for _, record in records)
+            for path, _ in records:
+                issues.append(ValidationIssue(str(path), f"organization PR limit exceeded for {organization} (maximum 1): {ids}"))
+    return issues

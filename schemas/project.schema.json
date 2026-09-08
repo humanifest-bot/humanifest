@@ -57,6 +57,11 @@
       "items": {
         "$ref": "#/$defs/source"
       }
+    },
+    "review_organization": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Stable review-organization key shared by all projects of one organization; overrides GitHub owner grouping. Required for non-GitHub projects with open PRs."
     }
   },
   "additionalProperties": true,

@@ -13,6 +13,12 @@ references. Missing portfolio directories are errors; existing empty directories
 are allowed. JSON loading rejects duplicate keys and non-standard numeric
 constants instead of silently accepting ambiguous records.
 
+Portfolio validation also enforces implementation and PR workload limits from the
+contribution protocol. Organization grouping uses GitHub owners or the project's
+explicit `review_organization`. Reports expose capacity, blockers, and next actions
+without changing records. Candidate briefs and handoffs preserve source URLs and
+access dates so a fresh reviewer can inspect the evidence.
+
 The schemas describe nested source, evidence, gate, and score shapes as well as
 state-dependent gate requirements. Python additionally checks source-ID uniqueness,
 evidence references, actual calendar dates, and portfolio relationships. JSON Schema

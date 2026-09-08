@@ -14,7 +14,9 @@ This repository contains the first deterministic MVP:
 - Candidate brief, handoff, and portfolio report generation.
 - Unit tests for validation, gates, scoring, and handoff generation.
 
-The first audit found no opportunity that should advance to implementation today. The best next action is a maintainer inquiry for CHT issue #11342.
+Current records contain no opportunity ready for implementation. Run `report` for
+each candidate's blockers and next permitted action; upstream status must be
+rechecked before outreach or implementation.
 
 ## Principles
 
@@ -39,7 +41,16 @@ python3 -m humanifest.cli handoff portfolio/opportunities/cht-dhis2-bs-month-exp
 Every command validates its input before producing output. Invalid records return
 exit code `1` with diagnostics on stderr; argument errors return `2`. `score`
 prints JSON for use by other tools. `validate` and `report` require both portfolio
-record directories and check unique record IDs and opportunity-to-project links.
+record directories and check unique record IDs, opportunity-to-project links, and
+the implementation and PR capacity limits above. Single-record commands cannot
+check portfolio capacity; validate the full portfolio before starting work.
+
+Reports show capacity, blockers, and state-specific next actions in state/ID order.
+To refresh the saved status after validating records:
+
+```bash
+python3 -m humanifest.cli report --root . > /tmp/humanifest-status.md && cp /tmp/humanifest-status.md portfolio/status.md
+```
 
 Sources need unique IDs, absolute HTTP(S) or local `file://` URLs, and real access
 dates in `YYYY-MM-DD` form. Evidence must reference a source in the same record.

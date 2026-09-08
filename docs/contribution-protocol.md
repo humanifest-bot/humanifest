@@ -17,6 +17,38 @@ QUEUED
 → MERGED / RELEASED / PARKED / DECLINED
 ```
 
+## Communication Authorization
+
+User authorization may cover a bounded contribution and its routine follow-ups;
+it does not need to be requested again for each message. Consult the current
+authorization before sending, and verify the actual authenticated GitHub actor.
+Repository ownership and Git commit author settings do not establish the identity
+that will publish a comment or PR.
+
+On 2026-09-08, the user authorized posting the prepared CHT #10155 inquiry,
+handling its follow-ups, and submitting a tested PR and review revisions if
+maintainers confirm the scope, without further routine approvals. Communication
+must use a Humanifest identity, never the user's personal account. This
+authorization does not waive maintainer confirmation, implementation gates,
+portfolio limits, or truthful AI and review disclosures.
+
+The approved posting identity is `humanifest-bot`, registered by the user and
+verified as a GitHub user on 2026-09-08. `humanifest` is the organization that
+owns this repository. The browser session was verified as `humanifest-bot`, and
+the authorized [CHT #10155 inquiry](https://github.com/medic/cht-core/issues/10155#issuecomment-5590328371)
+was posted at 2026-09-08T19:02:19Z. GitHub's API confirmed the author and body.
+Isolated CLI authentication subsequently completed and its API identity was
+verified as `humanifest-bot`. The default CLI and connected GitHub tool still
+resolve to `roryscot`; use the isolated configuration for bot writes.
+Before posting, verify that the exact connection used authenticates as
+`humanifest-bot`. Do not fall back to personal credentials. See
+[GitHub identity setup](github-identity.md) for the separate bot CLI configuration.
+
+GitHub documents [account attribution](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts)
+and [user versus app token identities](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps)
+(accessed 2026-09-08). Organization ownership alone cannot make an issue comment
+appear under the organization's name.
+
 ## Hard Gates
 
 No opportunity may reach `BUILDING` unless every gate in `humanifest.models.HARD_GATES` passes:

@@ -19,12 +19,12 @@
   ],
   "maintenance": {
     "default_branch": "master",
-    "current_public_activity": "GitHub metadata inspected 2026-09-06 showed the web repository updated in August 2026, but many candidate issues are from 2024 and assigned.",
-    "current_risk": "Issue freshness and assignment status make unsolicited work high-risk without maintainer confirmation."
+    "current_public_activity": "GitHub metadata inspected 2026-09-08 reports an unarchived repository, master as default branch, and pushed_at 2026-09-07T22:53:13Z. Source audit pinned master to 64f72babb32346cca0d32c97d6f6dfd8d9dc56c9. Activity alone does not establish issue freshness or reviewer capacity.",
+    "current_risk": "Candidate #1164 remains open without comments since 2024. Its current awaited request path weakens a simple missing-await explanation; synthetic reproduction and maintainer confirmation remain necessary."
   },
   "contribution": {
-    "pathway": "GitHub repository plus CONTRIBUTING/CLA requirement referenced from README.",
-    "ai_policy": "No current project-specific AI policy found during first audit.",
+    "pathway": "Current README links to crisiscleanup-3-web/CONTRIBUTING.md, which requests focused changes, passing tests, review participation, and CLA compliance. Actual CLA text was not retrieved from the JavaScript-only contributions page; current full terms remain unverified.",
+    "ai_policy": "Current AGENTS.md and CLAUDE.md contain instructions for AI coding tools. These do not establish an external AI-assisted contribution policy; disclosure and accountability expectations still need confirmation.",
     "maintainer_check_required": true
   },
   "sources": [
@@ -37,6 +37,31 @@
       "id": "cc-issue-list",
       "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/issues",
       "accessed": "2026-09-06"
+    },
+    {
+      "id": "cc-repo-recheck-2026-09-08",
+      "url": "https://api.github.com/repos/CrisisCleanup/crisiscleanup-4-web",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cc-readme-pinned-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/blob/64f72babb32346cca0d32c97d6f6dfd8d9dc56c9/README.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cc-agent-guide-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/blob/64f72babb32346cca0d32c97d6f6dfd8d9dc56c9/AGENTS.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cc-contributing-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-3-web/blob/master/CONTRIBUTING.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cc-contributions-2026-09-08",
+      "url": "https://www.crisiscleanup.org/contributions",
+      "accessed": "2026-09-08"
     }
   ]
 }

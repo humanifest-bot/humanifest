@@ -15,6 +15,16 @@
       "type": "self_reported",
       "claim": "The CHT documentation presents the project as a Digital Public Good and includes current contributor documentation, AI guidance, releases, and security disclosure routes.",
       "source_id": "cht-contributing"
+    },
+    {
+      "type": "measured",
+      "claim": "On 2026-09-08, the Digital Public Goods Alliance registry listed CHT as Verified, identified medic/cht-core as the evaluated repository, and showed a 2024-11-04 review date. The registry labels scale and SDG relevance as self-reported; verification is not a causal health-outcome evaluation.",
+      "source_id": "cht-dpga-registry-2026-09-08"
+    },
+    {
+      "type": "measured",
+      "claim": "A 2023 randomized trial of a CHT-based two-way texting workflow in South Africa enrolled 1,084 adult male circumcision clients and reported mean follow-up visits of 0.22 versus 1.34 for routine care. This measures the studied workflow, not CHT alone or Humanifest's proposed admin fix. Medic-affiliated coauthors participated; Humanifest has not independently replicated the analysis.",
+      "source_id": "cht-2wt-trial-2023"
     }
   ],
   "maintenance": {
@@ -56,6 +66,16 @@
     {
       "id": "cht-translations-2026-09-08",
       "url": "https://docs.communityhealthtoolkit.org/community/contributing/translations/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-dpga-registry-2026-09-08",
+      "url": "https://www.digitalpublicgoods.net/r/community-health-toolkit",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-2wt-trial-2023",
+      "url": "https://www.jmir.org/2023/1/e42111",
       "accessed": "2026-09-08"
     }
   ]

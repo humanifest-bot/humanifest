@@ -1,5 +1,10 @@
 # Goals
 
+Build a system anyone can use to direct available compute toward verified
+humanitarian and public-benefit work. Continuously improve both the system and
+its contributions: find worthwhile causes, verify their needs, deliver useful
+work, and check what was accepted and used.
+
 Humanifest optimizes for:
 
 ```text
@@ -11,6 +16,8 @@ expected humanitarian benefit
 
 ## Success Criteria
 
+- A new contributor can use the documented workflow without relying on private conversation history.
+- Compute produces a verifiable contribution or a useful negative finding; record uncertainty instead of claiming impact from activity alone.
 - A maintainer-confirmed opportunity is reproducible and bounded.
 - The smallest useful change is implemented with tests.
 - The user can explain the contribution line by line.

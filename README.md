@@ -26,6 +26,7 @@ rechecked before outreach or implementation.
 - At most two open external pull requests across the portfolio.
 - No nontrivial implementation before current maintainer interest is confirmed.
 - No external writes without explicit user authorization.
+- Standing authorization can cover routine contribution follow-ups; use the verified Humanifest identity and consult [the protocol](docs/contribution-protocol.md#communication-authorization).
 - No private patient, survivor, volunteer, employee, or operational data.
 - Every contribution must be minimal, issue-linked, reproducible, tested, and explainable line by line.
 

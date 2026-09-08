@@ -15,23 +15,43 @@
       "type": "measured",
       "claim": "On 2026-09-08, read-only GitHub issue metadata reported OPEN, no assignees, 0 comments, and updatedAt 2024-10-02T16:16:54Z. This does not establish maintainer availability or reproducibility.",
       "source_id": "issue-1164-recheck-2026-09-08"
+    },
+    {
+      "type": "measured",
+      "claim": "At commit 64f72babb32346cca0d32c97d6f6dfd8d9dc56c9, removeNumberFromQueue already awaits completeCallsForPhoneNumber before showing the success toast. This is contrary evidence to a missing-await explanation, not proof the reported bug is fixed.",
+      "source_id": "queue-caller-2026-09-08"
+    },
+    {
+      "type": "measured",
+      "claim": "The model action awaits the POST to update_phone_number_completion. Actual ORM plugin and UI behavior have not been executed.",
+      "source_id": "queue-model-2026-09-08"
+    },
+    {
+      "type": "measured",
+      "claim": "The shared Axios response-error interceptor rethrows errors after optional warning feedback. This source inspection is not an end-to-end reproduction.",
+      "source_id": "queue-interceptor-2026-09-08"
+    },
+    {
+      "type": "measured",
+      "claim": "The existing PhoneOutbound model test file was inspected; it contains neighboring API action tests but no completeCallsForPhoneNumber case. This bounded inspection does not establish absence of coverage elsewhere.",
+      "source_id": "queue-model-tests-2026-09-08"
     }
   ],
-  "code_surface": "Likely CrisisCleanup/crisiscleanup-4-web phone outbound UI/action handling; exact source file was not located during the first read-only pass.",
-  "proposed_change": "Park until maintainers confirm the bug is current and identify the relevant frontend action. If confirmed, ensure success toast displays only after a successful request and add a component/store test.",
-  "tests": "Frontend unit test mocking request failure and asserting error feedback/no success banner.",
+  "code_surface": "At 64f72babb32346cca0d32c97d6f6dfd8d9dc56c9: src/hooks/useConnectFirst.ts:310-313 (removeNumberFromQueue), src/models/PhoneOutbound.ts:74-82 (completeCallsForPhoneNumber), src/main.ts:249-260 (response-error interceptor), and test/unit/models/PhoneOutbound.test.ts (neighboring API action tests).",
+  "proposed_change": "Keep parked. The current caller and model already await the request and the shared interceptor rethrows failures; a missing-await fix is not supported. If maintainers confirm current relevance, first reproduce a rejected request with synthetic data through the ORM and hook before selecting a bounded change.",
+  "tests": "After confirmation and setup inspection, use the existing PhoneOutbound model tests as a fixture pattern for a rejected POST, then verify removeNumberFromQueue emits no success toast on rejection. A hook/integration check must preserve real ORM rejection behavior; a mocked action alone cannot establish the reported cause. No upstream test was run in this audit.",
   "environment": "Tier 1 first, Tier 2 local worktree likely enough after inspecting package scripts; do not touch live phone systems.",
   "maintainer": "No current maintainer confirmation; no assignee.",
-  "risks": "Medium: old issue, possibly transient outage, exact code surface unknown, and phone workflow may need staging credentials.",
+  "risks": "Medium: old issue and possibly a transient outage or different deployed revision. Current source contradicts a simple missing-await explanation. ORM rejection behavior and UI error feedback remain unverified; use synthetic data without live phone services. README links to an older repository's contributing guide and a JavaScript-only CLA page, so full current contribution terms remain unresolved.",
   "gates": {
     "humanitarian_relevance_supported": { "passed": true, "rationale": "Crisis Cleanup supports disaster response coordination." },
     "repository_active": { "passed": true, "rationale": "Repository updated in 2026." },
     "external_contributions_accepted": { "passed": true, "rationale": "README references contribution terms and CLA." },
-    "contribution_policy_understood": { "passed": false, "rationale": "Full CONTRIBUTING and CLA terms were not inspected in this run." },
-    "ai_policy_understood": { "passed": false, "rationale": "No AI policy found." },
+    "contribution_policy_understood": { "passed": false, "rationale": "Read the contributing guide linked by the current README: bounded PRs, tests, ongoing review participation, and CLA terms apply. The actual CLA text was not retrieved from the JavaScript-only contributions page, so the full terms remain unverified.", "source_ids": ["cc-contributing-2026-09-08", "cc-contributions-2026-09-08"] },
+    "ai_policy_understood": { "passed": false, "rationale": "Current AGENTS.md and CLAUDE.md provide AI-tool development instructions, but these are not an explicit external AI-assisted contribution policy. Disclosure and accountability requirements remain unconfirmed.", "source_ids": ["cc-agent-guide-2026-09-08"] },
     "problem_current_and_consequential": { "passed": false, "rationale": "Rechecked 2026-09-08: open but last updated 2024-10-02, with no comments; current behavior remains unconfirmed.", "source_ids": ["issue-1164-recheck-2026-09-08"] },
     "behavior_reproducible_or_verifiable": { "passed": false, "rationale": "No reproduction performed and may require phone workflow context." },
-    "code_and_tests_located": { "passed": false, "rationale": "Exact frontend source and tests not located." },
+    "code_and_tests_located": { "passed": true, "rationale": "Located the queue-removal hook, model POST action, shared interceptor, and existing PhoneOutbound model test patterns. No regression test for this specific failure was found in the inspected model test file.", "source_ids": ["queue-caller-2026-09-08", "queue-model-2026-09-08", "queue-interceptor-2026-09-08", "queue-model-tests-2026-09-08"] },
     "change_bounded": { "passed": true, "rationale": "If current, the fix is likely bounded to error handling in one UI workflow." },
     "regression_strategy_credible": { "passed": true, "rationale": "Mocked failure test is plausible." },
     "no_private_data_required": { "passed": true, "rationale": "Can test with mocked HTTP failure." },
@@ -58,6 +78,41 @@
     {
       "id": "issue-1164-recheck-2026-09-08",
       "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/issues/1164",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "queue-caller-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/blob/64f72babb32346cca0d32c97d6f6dfd8d9dc56c9/src/hooks/useConnectFirst.ts#L310-L313",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "queue-model-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/blob/64f72babb32346cca0d32c97d6f6dfd8d9dc56c9/src/models/PhoneOutbound.ts#L74-L82",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "queue-interceptor-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/blob/64f72babb32346cca0d32c97d6f6dfd8d9dc56c9/src/main.ts#L249-L260",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "queue-model-tests-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/blob/64f72babb32346cca0d32c97d6f6dfd8d9dc56c9/test/unit/models/PhoneOutbound.test.ts",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cc-contributing-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-3-web/blob/master/CONTRIBUTING.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cc-contributions-2026-09-08",
+      "url": "https://www.crisiscleanup.org/contributions",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cc-agent-guide-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/blob/64f72babb32346cca0d32c97d6f6dfd8d9dc56c9/AGENTS.md",
       "accessed": "2026-09-08"
     }
   ]

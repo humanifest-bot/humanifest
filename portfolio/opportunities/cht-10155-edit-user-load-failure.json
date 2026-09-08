@@ -56,7 +56,7 @@
   "proposed_change": "Prepare a replacement PR only after current maintainer confirmation. The local prep branch adds loadingUserDetails and userDetailsLoadFailed controller state, hides the form until data is loaded, disables/guards submit while loading or failed, surfaces admin.user.load.error through the existing modal error path, and adds focused controller tests.",
   "tests": "Focused tests added locally in admin/tests/unit/controllers/edit-user.spec.js for loading state, failed detail load, and submit guards. Not run under Karma because dependencies are not installed; exact target command is npm run unit-admin after approved setup. If work is confirmed, also capture a short synthetic-data video of the loading and error flow requested during prior review; no such video was produced in this recheck.",
   "environment": "Tier 1 now for source/test inspection. Tier 3 devcontainer/Codespaces before implementation because CHT admin tests may require project-controlled npm setup.",
-  "maintainer": "As of 2026-09-08, prior guidance remains historical; no current invitation to replace closed PR #10824 was found in the six issue comments and the PR discussion inspected.",
+  "maintainer": "The authorized replacement inquiry was posted as humanifest-bot at 2026-09-08T19:02:19Z and verified through GitHub's API. Await maintainer response; sending the inquiry does not establish maintainer confirmation.",
   "risks": "Medium: likely bounded frontend/admin work, but translations, templates, and prior stale PR history can increase maintainer burden if not handled exactly. Current translation documentation permits tool-assisted drafts with fluent-speaker validation before merge; historical English-placeholder preparation alone is not evidence of compliance.",
   "gates": {
     "humanitarian_relevance_supported": { "passed": true, "rationale": "CHT is a deployed community-health platform and admin user setup affects operational access." },
@@ -72,7 +72,7 @@
     "no_private_data_required": { "passed": true, "rationale": "Can use mocked SSO user data and offline/error simulation." },
     "security_and_licensing_risk_acceptable": { "passed": true, "rationale": "No secret, auth-policy, or data-model change required if limited to UI error state." },
     "environment_feasible": { "passed": true, "rationale": "Feasible in a CHT devcontainer/Codespaces after setup inspection." },
-    "maintainer_interest_confirmed": { "passed": false, "rationale": "Rechecked 2026-09-08: no current invitation to replace closed, unmerged PR #10824 was found in the inspected discussions.", "source_ids": ["issue-10155-recheck-2026-09-08", "pr-10824-recheck-2026-09-08"] },
+    "maintainer_interest_confirmed": { "passed": false, "rationale": "Replacement inquiry sent as humanifest-bot at 2026-09-08T19:02:19Z. Await maintainer response; the outbound inquiry is not confirmation.", "source_ids": ["humanifest-inquiry-10155"] },
     "probable_reviewer_identified": { "passed": true, "rationale": "Prior maintainer comments identify likely reviewers involved in the issue/PR." },
     "benefit_justifies_review_cost": { "passed": true, "rationale": "If current, a small admin UX fix should have low review cost." },
     "user_can_explain_line_by_line": { "passed": true, "rationale": "The likely patch is small enough for line-by-line explanation." }
@@ -85,6 +85,11 @@
     "deployment_probability": 2.5
   },
   "sources": [
+    {
+      "id": "humanifest-inquiry-10155",
+      "url": "https://github.com/medic/cht-core/issues/10155#issuecomment-5590328371",
+      "accessed": "2026-09-08"
+    },
     {
       "id": "issue-10155",
       "url": "https://github.com/medic/cht-core/issues/10155",

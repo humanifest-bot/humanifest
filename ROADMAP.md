@@ -10,7 +10,7 @@
 
 ## Phase 1: Maintainer-Confirmed Pilot
 
-- Send one approved maintainer inquiry.
+- The CHT #10155 inquiry is sent as `humanifest-bot`; await maintainer response.
 - If maintainers confirm, prepare an isolated environment manifest.
 - Reproduce the issue with synthetic data.
 - Implement the smallest safe fix.
@@ -19,7 +19,7 @@
 ## Phase 2: Selective Automation
 
 - Add read-only GitHub metadata ingestion only after manual records prove useful.
-- Keep outreach human-approved.
+- Keep outreach within standing user authorization and verify the posting identity.
 - Track post-merge retention and maintainer satisfaction before adding scale.
 
 ## Explicitly Deferred

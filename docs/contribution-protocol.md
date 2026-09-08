@@ -40,4 +40,10 @@ No opportunity may reach `BUILDING` unless every gate in `humanifest.models.HARD
 
 ## Stopping Conditions
 
+Validation enforces maintainer confirmation from `ENVIRONMENT-READY` through
+`RELEASED`, and every hard gate from `BUILDING` through `RELEASED`. `PARKED` and
+`DECLINED` records retain their unresolved gates without being treated as active
+work. Gate results must be booleans with non-empty rationales. Generated handoffs
+include failed gates and explicitly block implementation while any gate fails.
+
 Park the work if the issue is stale, already assigned, already under PR, too broad, security-sensitive without the target disclosure path, or dependent on private data.

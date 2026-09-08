@@ -21,8 +21,12 @@
     "sources"
   ],
   "properties": {
-    "id": { "type": "string" },
-    "project_id": { "type": "string" },
+    "id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
     "pipeline_state": {
       "enum": [
         "QUEUED",
@@ -42,9 +46,526 @@
         "DECLINED"
       ]
     },
-    "gates": { "type": "object" },
-    "score_inputs": { "type": "object" },
-    "sources": { "type": "array" }
+    "gates": {
+      "type": "object",
+      "required": [
+        "humanitarian_relevance_supported",
+        "repository_active",
+        "external_contributions_accepted",
+        "contribution_policy_understood",
+        "ai_policy_understood",
+        "problem_current_and_consequential",
+        "behavior_reproducible_or_verifiable",
+        "code_and_tests_located",
+        "change_bounded",
+        "regression_strategy_credible",
+        "no_private_data_required",
+        "security_and_licensing_risk_acceptable",
+        "environment_feasible",
+        "maintainer_interest_confirmed",
+        "probable_reviewer_identified",
+        "benefit_justifies_review_cost",
+        "user_can_explain_line_by_line"
+      ],
+      "properties": {
+        "humanitarian_relevance_supported": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "repository_active": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "external_contributions_accepted": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "contribution_policy_understood": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "ai_policy_understood": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "problem_current_and_consequential": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "behavior_reproducible_or_verifiable": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "code_and_tests_located": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "change_bounded": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "regression_strategy_credible": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "no_private_data_required": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "security_and_licensing_risk_acceptable": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "environment_feasible": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "maintainer_interest_confirmed": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "probable_reviewer_identified": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "benefit_justifies_review_cost": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        },
+        "user_can_explain_line_by_line": {
+          "type": "object",
+          "required": [
+            "passed",
+            "rationale"
+          ],
+          "properties": {
+            "passed": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          }
+        }
+      }
+    },
+    "score_inputs": {
+      "type": "object",
+      "required": [
+        "humanitarian_benefit",
+        "acceptance_probability",
+        "technical_confidence",
+        "review_burden",
+        "deployment_probability"
+      ],
+      "properties": {
+        "humanitarian_benefit": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "acceptance_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "technical_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "review_burden": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "deployment_probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        }
+      }
+    },
+    "sources": {
+      "type": "array"
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "pipeline_state": {
+            "enum": [
+              "ENVIRONMENT-READY",
+              "REPRODUCED",
+              "BUILDING",
+              "ADVERSARIAL-REVIEW",
+              "HUMAN-REVIEW",
+              "PR-OPEN",
+              "MERGED",
+              "RELEASED"
+            ]
+          }
+        },
+        "required": [
+          "pipeline_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "maintainer_interest_confirmed": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "pipeline_state": {
+            "enum": [
+              "BUILDING",
+              "ADVERSARIAL-REVIEW",
+              "HUMAN-REVIEW",
+              "PR-OPEN",
+              "MERGED",
+              "RELEASED"
+            ]
+          }
+        },
+        "required": [
+          "pipeline_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "humanitarian_relevance_supported": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "repository_active": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "external_contributions_accepted": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "contribution_policy_understood": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "ai_policy_understood": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "problem_current_and_consequential": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "behavior_reproducible_or_verifiable": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "code_and_tests_located": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "change_bounded": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "regression_strategy_credible": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "no_private_data_required": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "security_and_licensing_risk_acceptable": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "environment_feasible": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "maintainer_interest_confirmed": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "probable_reviewer_identified": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "benefit_justifies_review_cost": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              },
+              "user_can_explain_line_by_line": {
+                "properties": {
+                  "passed": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

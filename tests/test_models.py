@@ -1,6 +1,9 @@
 import unittest
 
 from humanifest.models import (
+    BUILDING_STATES,
+    HARD_GATES,
+    MAINTAINER_CONFIRMED_STATES,
     failed_gates,
     generate_handoff,
     score_opportunity,
@@ -58,6 +61,65 @@ def opportunity():
 
 
 class ModelTests(unittest.TestCase):
+    def test_advanced_states_require_maintainer_confirmation(self):
+        for state in MAINTAINER_CONFIRMED_STATES:
+            with self.subTest(state=state):
+                record = opportunity()
+                record["pipeline_state"] = state
+                record["gates"]["maintainer_interest_confirmed"]["passed"] = False
+                self.assertTrue(validate_opportunity(record, "sample"))
+
+    def test_building_and_later_require_every_gate(self):
+        for state in BUILDING_STATES:
+            for gate in HARD_GATES:
+                with self.subTest(state=state, gate=gate):
+                    record = opportunity()
+                    record["pipeline_state"] = state
+                    record["gates"][gate]["passed"] = False
+                    self.assertTrue(validate_opportunity(record, "sample"))
+
+    def test_early_and_stopped_states_can_retain_failed_gates(self):
+        for state in ["MAINTAINER-CHECK", "PARKED", "DECLINED"]:
+            record = opportunity()
+            record["pipeline_state"] = state
+            record["gates"]["maintainer_interest_confirmed"]["passed"] = False
+            self.assertEqual(validate_opportunity(record, "sample"), [])
+
+    def test_invalid_gate_shapes_fail_closed(self):
+        for value in [None, [], True, "yes"]:
+            record = opportunity()
+            record["gates"] = value
+            self.assertTrue(validate_opportunity(record, "sample"))
+            self.assertEqual(len(failed_gates(record)), len(HARD_GATES))
+        record = opportunity()
+        record["gates"][HARD_GATES[0]] = None
+        self.assertTrue(validate_opportunity(record, "sample"))
+        self.assertEqual(len(failed_gates(record)), 1)
+
+    def test_gate_values_require_boolean_and_explanation(self):
+        for value in [1, "true", None]:
+            record = opportunity()
+            record["gates"][HARD_GATES[0]]["passed"] = value
+            self.assertTrue(validate_opportunity(record, "sample"))
+        for value in ["", "  ", None]:
+            record = opportunity()
+            record["gates"][HARD_GATES[0]]["rationale"] = value
+            self.assertTrue(validate_opportunity(record, "sample"))
+
+    def test_invalid_scores_are_rejected(self):
+        for value in [True, float("nan"), float("inf"), -1, 6, "3"]:
+            record = opportunity()
+            record["score_inputs"]["humanitarian_benefit"] = value
+            self.assertTrue(validate_opportunity(record, "sample"))
+
+    def test_handoff_exposes_blockers_for_every_target(self):
+        record = opportunity()
+        record["gates"]["maintainer_interest_confirmed"] = {"passed": False, "rationale": "not yet asked"}
+        for target in ["codex", "spark", "cursor-red-team"]:
+            text = generate_handoff(record, target)
+            self.assertIn("Implementation blocked. Do not implement", text)
+            self.assertIn("maintainer_interest_confirmed: not yet asked", text)
+
     def test_validation_accepts_complete_opportunity(self):
         self.assertEqual(validate_opportunity(opportunity(), "sample"), [])
 

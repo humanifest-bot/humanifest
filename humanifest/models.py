@@ -27,6 +27,8 @@ PIPELINE_STATES = [
 ]
 
 EVIDENCE_TYPES = {"measured", "modeled", "self_reported", "inferred"}
+MAINTAINER_CONFIRMED_STATES = PIPELINE_STATES[5:13]
+BUILDING_STATES = PIPELINE_STATES[7:13]
 
 HARD_GATES = [
     "humanitarian_relevance_supported",
@@ -132,13 +134,25 @@ def validate_opportunity(record: dict[str, Any], record_name: str) -> list[Valid
             item = gates.get(gate)
             if not isinstance(item, dict) or "passed" not in item or "rationale" not in item:
                 issues.append(ValidationIssue(record_name, f"gate {gate} must include passed and rationale"))
+                continue
+            if not isinstance(item["passed"], bool):
+                issues.append(ValidationIssue(record_name, f"gate {gate}.passed must be a boolean"))
+            if not isinstance(item["rationale"], str) or not item["rationale"].strip():
+                issues.append(ValidationIssue(record_name, f"gate {gate}.rationale must be a non-empty string"))
+    failures = failed_gates(record)
+    if state in MAINTAINER_CONFIRMED_STATES and any(
+        item["gate"] == "maintainer_interest_confirmed" for item in failures
+    ):
+        issues.append(ValidationIssue(record_name, f"{state} requires maintainer_interest_confirmed to pass"))
+    if state in BUILDING_STATES and failures:
+        issues.append(ValidationIssue(record_name, f"{state} requires every hard gate to pass"))
     score_inputs = record.get("score_inputs", {})
     if not isinstance(score_inputs, dict):
         issues.append(ValidationIssue(record_name, "score_inputs must be an object"))
     else:
         for key in SCORE_WEIGHTS:
             value = score_inputs.get(key)
-            if not isinstance(value, (int, float)) or value < 0 or value > 5:
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value <= 5:
                 issues.append(ValidationIssue(record_name, f"score_inputs.{key} must be a number from 0 to 5"))
     issues.extend(_validate_sources(record, record_name))
     issues.extend(_validate_evidence_list(record.get("evidence", []), record_name, "evidence"))
@@ -147,8 +161,13 @@ def validate_opportunity(record: dict[str, Any], record_name: str) -> list[Valid
 
 def failed_gates(record: dict[str, Any]) -> list[dict[str, str]]:
     failures = []
+    gates = record.get("gates")
+    if not isinstance(gates, dict):
+        gates = {}
     for gate in HARD_GATES:
-        item = record.get("gates", {}).get(gate, {})
+        item = gates.get(gate)
+        if not isinstance(item, dict):
+            item = {}
         if item.get("passed") is not True:
             failures.append({"gate": gate, "rationale": str(item.get("rationale", "missing rationale"))})
     return failures
@@ -219,6 +238,13 @@ def generate_handoff(record: dict[str, Any], target: str) -> str:
         "Constraints: no external writes, no maintainer contact, no private data, stop if evidence contradicts the gate rationale.",
         "Return format: findings, changed files if any, commands run, remaining blockers, and confidence.",
     ]
+    failures = failed_gates(record)
+    base.insert(2, f"Pipeline state: {record['pipeline_state']}.")
+    if failures or record["pipeline_state"] in {"PARKED", "DECLINED"}:
+        base.append("Implementation blocked. Do not implement; limit work to read-only inspection and resolving the blockers below.")
+    else:
+        base.append("All hard gates pass. Implementation still requires an approved scope and inspected environment.")
+    base.extend(f"Blocker: {item['gate']}: {item['rationale']}" for item in failures)
     if target == "spark":
         base.insert(0, "Use a fast Codex model only for bounded inspection or mechanical verification.")
     elif target == "cursor-red-team":

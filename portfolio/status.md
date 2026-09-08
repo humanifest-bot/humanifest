@@ -8,9 +8,10 @@ Open external PRs: 0/2 (at most 1 per organization)
 Status reflects supplied records; source access dates are not a live upstream check.
 Scores do not authorize implementation or external writes. Candidates are listed by state and ID, not ranked by raw score.
 
-- cht-10155-edit-user-load-failure: MAINTAINER-CHECK; score=0.0; failed_gates=2
+- cht-10155-edit-user-load-failure: MAINTAINER-CHECK; score=0.0; failed_gates=3
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - behavior_reproducible_or_verifiable: Source-level behavior is mapped, but UI/Karma reproduction has not been run because dependencies are not installed.
+  - environment_feasible: Read-only audit identified omitted admin dependencies, generated bundles, Chrome, and a workspace postinstall build. No tracked devcontainer or verified isolated installation recipe is available yet; resource estimates remain unmeasured. Complete runner/setup inspection and demonstrate feasibility after maintainer confirmation.
   - maintainer_interest_confirmed: Replacement inquiry sent as humanifest-bot at 2026-09-08T19:02:19Z. Await maintainer response; the outbound inquiry is not confirmation.
 - cht-11342-dhis2-bs-month-export: MAINTAINER-CHECK; score=0.0; failed_gates=2
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.

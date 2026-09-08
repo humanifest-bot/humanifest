@@ -4,24 +4,69 @@
   "local_branch": "/private/tmp/humanifest-cht-core@10155-edit-user-load-state",
   "commit": "not committed",
   "tier": 3,
-  "runner": "github-codespaces-or-devcontainer",
+  "runner": "Disposable Linux environment to be selected and inspected; no tracked .devcontainer found at source_commit",
   "operating_system": "Linux",
   "architecture": "x86_64 preferred",
-  "cpu": "4 cores suggested",
+  "cpu": "4 cores is an earlier planning estimate, not measured",
   "ram_gb": 8,
   "disk_gb": 32,
-  "package_managers": ["npm"],
-  "lockfiles": ["package-lock.json"],
-  "project_controlled_setup_scripts": ["postinstall: patch-package", "prepare: husky"],
-  "services": [],
-  "ports": [],
-  "secrets": [],
-  "setup_commands": ["npm install or npm ci only after explicit approval or in disposable Codespaces/devcontainer"],
-  "test_commands": ["npm run unit-admin"],
-  "checks_already_run": ["node --check admin/src/js/controllers/edit-user.js", "git diff --check"],
+  "package_managers": [
+    "npm"
+  ],
+  "lockfiles": [
+    "package-lock.json",
+    "admin/package-lock.json"
+  ],
+  "project_controlled_setup_scripts": [
+    "root postinstall: patch-package; two tracked dependency patches inspected",
+    "root prepare: husky; tracked pre-commit hook rejects main/master commits",
+    "shared-libs/cht-datasource postinstall: rm -rf dist && npm run build; build invokes TypeScript"
+  ],
+  "services": [
+    "Karma test server and Chrome process for unit-admin; bind addresses and Karma port must be verified before execution",
+    "Live API/CouchDB/UI demonstration is a separate, unaudited runtime path"
+  ],
+  "ports": [
+    "Chrome launcher explicitly sets remote-debugging-port=9222; keep internal to disposable environment",
+    "Karma port is not explicitly set in the inspected project config; do not assume no listener"
+  ],
+  "secrets": [
+    "No application secret reference found in the inspected unit-admin launcher/config; this is not an exhaustive dependency audit",
+    "Do not provide personal GitHub, cloud, registry, or production credentials to target setup"
+  ],
+  "setup_commands": [],
+  "test_commands": [
+    "npm run unit-admin (only after prerequisites; not executed)"
+  ],
+  "checks_already_run": [
+    "Historical local prep: node --check admin/src/js/controllers/edit-user.js",
+    "Historical local prep: git diff --check",
+    "2026-09-08: read-only committed manifest, lockfile, launcher, Karma config, bundler, workspace hook and CI inspection"
+  ],
   "residual_risks": [
-    "Karma/admin tests not run yet",
-    "UI behavior not visually verified",
-    "maintainer confirmation needed before opening replacement PR"
+    "No isolated image or complete installation recipe verified; no dependency setup executed",
+    "Transitive install hooks and Git dependency contents not fully inspected",
+    "Karma/admin tests not run; generated bundle requirements do not prove runtime success",
+    "UI behavior and video reproduction require separate synthetic-data runtime inspection",
+    "Upstream advanced one commit; comparison changes infodoc and integration-test files, not the directly inspected setup files",
+    "Historical uncommitted preparation patch remains separate from inspected upstream source"
+  ],
+  "inspected_at": "2026-09-08",
+  "source_commit": "35b2bb6dac0844bee3228476591d08d56c5dd10d",
+  "upstream_head_at_review": "372677567640d1d3e77e6e46f168fe69a8a9e218",
+  "audit": "research/2026-09-08-cht-admin-environment-audit.md",
+  "status": "Read-only setup inspection; execution recipe and isolated runner not verified. Await maintainer confirmation.",
+  "resource_estimate_status": "RAM and disk are earlier planning estimates, not verified requirements",
+  "runtime_requirements": {
+    "node": ">=22.15.0",
+    "npm": ">=10.9.0",
+    "browser": "Chrome executable required by Chrome_Headless; actual version and launch environment unverified"
+  },
+  "setup_prerequisites": [
+    "Current maintainer confirmation before advancing beyond MAINTAINER-CHECK",
+    "Select and inspect isolated runner/image, lifecycle code, privileges, mounts, network and cleanup",
+    "Review applicable transitive lifecycle scripts and Git dependency before enabling installation",
+    "Install root and admin locked dependencies; root workspace install alone does not install admin",
+    "Build api/build/static/admin/js/main.js and templates.js with inspected admin bundling scripts; proposed minimal sequence remains untested"
   ]
 }

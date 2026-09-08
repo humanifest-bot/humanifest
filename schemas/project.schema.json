@@ -15,16 +15,100 @@
     "sources"
   ],
   "properties": {
-    "id": { "type": "string" },
-    "name": { "type": "string" },
-    "repository": { "type": "string" },
-    "homepage": { "type": "string" },
-    "license": { "type": "string" },
-    "humanitarian_domain": { "type": "string" },
-    "impact_evidence": { "type": "array" },
-    "maintenance": { "type": "object" },
-    "contribution": { "type": "object" },
-    "sources": { "type": "array" }
+    "id": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "homepage": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "license": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "humanitarian_domain": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "impact_evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "maintenance": {
+      "type": "object"
+    },
+    "contribution": {
+      "type": "object"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "url",
+        "accessed"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^(https?://[^/\\s?#]+|file://(/|localhost/))\\S*$"
+        },
+        "accessed": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "type",
+        "claim",
+        "source_id"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "measured",
+            "modeled",
+            "self_reported",
+            "inferred"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      }
+    }
+  }
 }

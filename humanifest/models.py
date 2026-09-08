@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 import json
 from typing import Any
+from urllib.parse import urlsplit
 
 
 PIPELINE_STATES = [
@@ -98,8 +100,19 @@ class ValidationIssue:
 
 
 def load_json(path: Path) -> dict[str, Any]:
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f"duplicate JSON key: {key}")
+            result[key] = value
+        return result
+
+    def reject_constant(value):
+        raise ValueError(f"invalid JSON constant: {value}")
+
     with path.open(encoding="utf-8") as handle:
-        data = json.load(handle)
+        data = json.load(handle, object_pairs_hook=unique_object, parse_constant=reject_constant)
     if not isinstance(data, dict):
         raise ValueError(f"{path} must contain a JSON object")
     return data
@@ -116,13 +129,19 @@ def iter_records(directory: Path) -> list[tuple[Path, dict[str, Any]]]:
 
 def validate_project(record: dict[str, Any], record_name: str) -> list[ValidationIssue]:
     issues = _require_fields(record, REQUIRED_PROJECT_FIELDS, record_name)
+    issues.extend(_validate_text_fields(record, REQUIRED_PROJECT_FIELDS[:6], record_name))
+    for field in ["maintenance", "contribution"]:
+        if not isinstance(record.get(field), dict):
+            issues.append(ValidationIssue(record_name, f"{field} must be an object"))
     issues.extend(_validate_sources(record, record_name))
-    issues.extend(_validate_evidence_list(record.get("impact_evidence", []), record_name, "impact_evidence"))
+    issues.extend(_validate_evidence_list(record.get("impact_evidence", []), record_name, "impact_evidence", _source_ids(record)))
     return issues
 
 
 def validate_opportunity(record: dict[str, Any], record_name: str) -> list[ValidationIssue]:
     issues = _require_fields(record, REQUIRED_OPPORTUNITY_FIELDS, record_name)
+    issues.extend(_validate_text_fields(record, [field for field in REQUIRED_OPPORTUNITY_FIELDS
+                                               if field not in {"evidence", "gates", "score_inputs", "sources"}], record_name))
     state = record.get("pipeline_state")
     if state not in PIPELINE_STATES:
         issues.append(ValidationIssue(record_name, f"pipeline_state must be one of {', '.join(PIPELINE_STATES)}"))
@@ -155,7 +174,7 @@ def validate_opportunity(record: dict[str, Any], record_name: str) -> list[Valid
             if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value <= 5:
                 issues.append(ValidationIssue(record_name, f"score_inputs.{key} must be a number from 0 to 5"))
     issues.extend(_validate_sources(record, record_name))
-    issues.extend(_validate_evidence_list(record.get("evidence", []), record_name, "evidence"))
+    issues.extend(_validate_evidence_list(record.get("evidence", []), record_name, "evidence", _source_ids(record)))
     return issues
 
 
@@ -270,22 +289,53 @@ def _require_fields(record: dict[str, Any], fields: list[str], record_name: str)
     return [ValidationIssue(record_name, f"missing required field: {field}") for field in fields if field not in record]
 
 
+def _validate_text_fields(record: dict[str, Any], fields: list[str], record_name: str) -> list[ValidationIssue]:
+    return [ValidationIssue(record_name, f"{field} must be a non-empty string")
+            for field in fields if not isinstance(record.get(field), str) or not record[field].strip()]
+
+
+def _source_ids(record: dict[str, Any]) -> set[str]:
+    sources = record.get("sources")
+    if not isinstance(sources, list):
+        return set()
+    return {source["id"] for source in sources if isinstance(source, dict) and isinstance(source.get("id"), str)}
+
+
 def _validate_sources(record: dict[str, Any], record_name: str) -> list[ValidationIssue]:
     issues = []
     sources = record.get("sources", [])
     if not isinstance(sources, list) or not sources:
         return [ValidationIssue(record_name, "sources must be a non-empty list")]
+    seen = set()
     for index, source in enumerate(sources):
         if not isinstance(source, dict):
             issues.append(ValidationIssue(record_name, f"sources[{index}] must be an object"))
             continue
-        for field in ["id", "url", "accessed"]:
-            if field not in source:
-                issues.append(ValidationIssue(record_name, f"sources[{index}] missing {field}"))
+        issues.extend(_validate_text_fields(source, ["id", "url", "accessed"], f"{record_name}: sources[{index}]"))
+        source_id = source.get("id")
+        if isinstance(source_id, str):
+            if source_id in seen:
+                issues.append(ValidationIssue(record_name, f"duplicate source id: {source_id}"))
+            seen.add(source_id)
+        try:
+            accessed = source.get("accessed")
+            if not isinstance(accessed, str) or date.fromisoformat(accessed).isoformat() != accessed:
+                raise ValueError
+        except ValueError:
+            issues.append(ValidationIssue(record_name, f"sources[{index}].accessed must be a valid YYYY-MM-DD date"))
+        try:
+            url = source.get("url")
+            parsed = urlsplit(url) if isinstance(url, str) else None
+            web_url = parsed is not None and parsed.scheme in {"https", "http"} and bool(parsed.hostname)
+            local_url = parsed is not None and parsed.scheme == "file" and parsed.netloc in {"", "localhost"} and parsed.path.startswith("/")
+            if not (web_url or local_url) or any(c.isspace() for c in url):
+                raise ValueError
+        except ValueError:
+            issues.append(ValidationIssue(record_name, f"sources[{index}].url must be an absolute HTTP(S) or local file URL"))
     return issues
 
 
-def _validate_evidence_list(items: Any, record_name: str, field: str) -> list[ValidationIssue]:
+def _validate_evidence_list(items: Any, record_name: str, field: str, source_ids: set[str]) -> list[ValidationIssue]:
     issues = []
     if not isinstance(items, list):
         return [ValidationIssue(record_name, f"{field} must be a list")]
@@ -294,8 +344,44 @@ def _validate_evidence_list(items: Any, record_name: str, field: str) -> list[Va
             issues.append(ValidationIssue(record_name, f"{field}[{index}] must be an object"))
             continue
         evidence_type = item.get("type")
-        if evidence_type not in EVIDENCE_TYPES:
+        if not isinstance(evidence_type, str) or evidence_type not in EVIDENCE_TYPES:
             issues.append(ValidationIssue(record_name, f"{field}[{index}].type must be measured, modeled, self_reported, or inferred"))
-        if "claim" not in item or "source_id" not in item:
-            issues.append(ValidationIssue(record_name, f"{field}[{index}] must include claim and source_id"))
+        issues.extend(_validate_text_fields(item, ["claim", "source_id"], f"{record_name}: {field}[{index}]"))
+        source_id = item.get("source_id")
+        if isinstance(source_id, str) and source_id not in source_ids:
+            issues.append(ValidationIssue(record_name, f"{field}[{index}].source_id references unknown source: {source_id}"))
     return issues
+
+
+def load_portfolio(root: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[ValidationIssue]]:
+    """Collect diagnostics across the portfolio before any report is rendered."""
+    issues = []
+    collections = []
+    for kind, validator in [("projects", validate_project), ("opportunities", validate_opportunity)]:
+        directory = root / "portfolio" / kind
+        records = []
+        seen = set()
+        if not directory.is_dir():
+            issues.append(ValidationIssue(str(directory), "required record directory is missing"))
+        else:
+            for path in sorted(directory.glob("*.json")):
+                try:
+                    record = load_json(path)
+                except (OSError, ValueError) as error:
+                    issues.append(ValidationIssue(str(path), str(error)))
+                    continue
+                issues.extend(validator(record, str(path)))
+                record_id = record.get("id")
+                if isinstance(record_id, str):
+                    if record_id in seen:
+                        issues.append(ValidationIssue(str(path), f"duplicate {kind} id: {record_id}"))
+                    seen.add(record_id)
+                records.append((path, record))
+        collections.append(records)
+    projects, opportunities = collections
+    project_ids = {record["id"] for _, record in projects if isinstance(record.get("id"), str)}
+    for path, record in opportunities:
+        project_id = record.get("project_id")
+        if isinstance(project_id, str) and project_id not in project_ids:
+            issues.append(ValidationIssue(str(path), f"project_id references unknown project: {project_id}"))
+    return [record for _, record in projects], [record for _, record in opportunities], issues

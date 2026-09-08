@@ -61,6 +61,34 @@ def opportunity():
 
 
 class ModelTests(unittest.TestCase):
+    def test_evidence_must_reference_a_unique_source(self):
+        record = opportunity()
+        record["evidence"][0]["source_id"] = "unknown"
+        self.assertTrue(any("unknown source" in issue.message for issue in validate_opportunity(record, "sample")))
+        record = opportunity()
+        record["sources"].append(dict(record["sources"][0]))
+        self.assertTrue(any("duplicate source id" in issue.message for issue in validate_opportunity(record, "sample")))
+
+    def test_source_dates_and_urls_are_validated(self):
+        for field, values in {"accessed": ["2026-02-30", "20260906", "", None],
+                              "url": ["relative/path", "https://", "https://[", "https://bad host", None]}.items():
+            for value in values:
+                record = opportunity()
+                record["sources"][0][field] = value
+                self.assertTrue(validate_opportunity(record, "sample"), (field, value))
+        record = opportunity()
+        record["sources"][0]["url"] = "file:///private/tmp/inspected-repo"
+        self.assertEqual(validate_opportunity(record, "sample"), [])
+
+    def test_malformed_nested_data_returns_issues(self):
+        for field, values in {"evidence": [None, [None], [{"type": []}]],
+                              "sources": [None, [None], [{"id": []}]],
+                              "title": [None, "", []], "pipeline_state": [None, [], {}]}.items():
+            for value in values:
+                record = opportunity()
+                record[field] = value
+                self.assertTrue(validate_opportunity(record, "sample"), (field, value))
+
     def test_advanced_states_require_maintainer_confirmation(self):
         for state in MAINTAINER_CONFIRMED_STATES:
             with self.subTest(state=state):

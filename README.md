@@ -31,9 +31,20 @@ The first audit found no opportunity that should advance to implementation today
 ```bash
 python3 -m humanifest.cli validate --root .
 python3 -m humanifest.cli report --root .
+python3 -m humanifest.cli score portfolio/opportunities/cht-dhis2-bs-month-export.json
 python3 -m humanifest.cli brief portfolio/opportunities/cht-dhis2-bs-month-export.json
 python3 -m humanifest.cli handoff portfolio/opportunities/cht-dhis2-bs-month-export.json --target codex
 ```
+
+Every command validates its input before producing output. Invalid records return
+exit code `1` with diagnostics on stderr; argument errors return `2`. `score`
+prints JSON for use by other tools. `validate` and `report` require both portfolio
+record directories and check unique record IDs and opportunity-to-project links.
+
+Sources need unique IDs, absolute HTTP(S) or local `file://` URLs, and real access
+dates in `YYYY-MM-DD` form. Evidence must reference a source in the same record.
+These checks validate record consistency; they do not fetch sources or establish
+that a claim is true. Reports and handoffs never advance opportunity states.
 
 ## Repository Map
 

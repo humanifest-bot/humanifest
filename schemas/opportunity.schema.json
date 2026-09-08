@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Humanifest opportunity record",
+  "type": "object",
+  "required": [
+    "id",
+    "project_id",
+    "title",
+    "pipeline_state",
+    "problem",
+    "humanitarian_relevance",
+    "evidence",
+    "code_surface",
+    "proposed_change",
+    "tests",
+    "environment",
+    "maintainer",
+    "risks",
+    "gates",
+    "score_inputs",
+    "sources"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "pipeline_state": {
+      "enum": [
+        "QUEUED",
+        "PROJECT-AUDIT",
+        "OPPORTUNITY-RESEARCH",
+        "SHORTLISTED",
+        "MAINTAINER-CHECK",
+        "ENVIRONMENT-READY",
+        "REPRODUCED",
+        "BUILDING",
+        "ADVERSARIAL-REVIEW",
+        "HUMAN-REVIEW",
+        "PR-OPEN",
+        "MERGED",
+        "RELEASED",
+        "PARKED",
+        "DECLINED"
+      ]
+    },
+    "gates": { "type": "object" },
+    "score_inputs": { "type": "object" },
+    "sources": { "type": "array" }
+  },
+  "additionalProperties": true
+}

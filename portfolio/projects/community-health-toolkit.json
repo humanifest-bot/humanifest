@@ -1,0 +1,47 @@
+{
+  "id": "community-health-toolkit",
+  "name": "Community Health Toolkit Core",
+  "repository": "https://github.com/medic/cht-core",
+  "homepage": "https://communityhealthtoolkit.org/",
+  "license": "AGPL-3.0",
+  "humanitarian_domain": "Community health worker digital health systems",
+  "impact_evidence": [
+    {
+      "type": "self_reported",
+      "claim": "Medic reported CHT growth from about 40,000 to more than 180,000 community health workers across 24 countries by the end of 2025.",
+      "source_id": "cht-scale-2026"
+    },
+    {
+      "type": "self_reported",
+      "claim": "The CHT documentation presents the project as a Digital Public Good and includes current contributor documentation, AI guidance, releases, and security disclosure routes.",
+      "source_id": "cht-contributing"
+    }
+  ],
+  "maintenance": {
+    "default_branch": "master",
+    "current_public_activity": "GitHub repository metadata and issue activity inspected 2026-09-06; open bugs updated as recently as 2026-09-05.",
+    "current_risk": "Large multi-package JavaScript/TypeScript application with Docker/Kubernetes paths; environment setup may be heavier than the initial Humanifest core."
+  },
+  "contribution": {
+    "pathway": "GitHub issues, contributor guide, forum, and Good First Issue labels.",
+    "ai_policy": "CHT docs expose AI assistance guidelines; individual issue #11413 includes an AI disclosure example.",
+    "maintainer_check_required": true
+  },
+  "sources": [
+    {
+      "id": "cht-scale-2026",
+      "url": "https://medic.org/stories/digital-solutions-at-scale-growing-the-community-health-toolkit-for-lasting-impact/",
+      "accessed": "2026-09-06"
+    },
+    {
+      "id": "cht-contributing",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/",
+      "accessed": "2026-09-06"
+    },
+    {
+      "id": "cht-repo",
+      "url": "https://github.com/medic/cht-core",
+      "accessed": "2026-09-06"
+    }
+  ]
+}

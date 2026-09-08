@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Humanifest project record",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "repository",
+    "homepage",
+    "license",
+    "humanitarian_domain",
+    "impact_evidence",
+    "maintenance",
+    "contribution",
+    "sources"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "repository": { "type": "string" },
+    "homepage": { "type": "string" },
+    "license": { "type": "string" },
+    "humanitarian_domain": { "type": "string" },
+    "impact_evidence": { "type": "array" },
+    "maintenance": { "type": "object" },
+    "contribution": { "type": "object" },
+    "sources": { "type": "array" }
+  },
+  "additionalProperties": true
+}

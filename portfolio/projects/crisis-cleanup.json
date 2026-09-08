@@ -1,0 +1,42 @@
+{
+  "id": "crisis-cleanup",
+  "name": "Crisis Cleanup Web",
+  "repository": "https://github.com/CrisisCleanup/crisiscleanup-4-web",
+  "homepage": "https://www.crisiscleanup.org/",
+  "license": "Apache-2.0",
+  "humanitarian_domain": "Collaborative disaster recovery and volunteer cleanup coordination",
+  "impact_evidence": [
+    {
+      "type": "self_reported",
+      "claim": "The repository README reports use across 207 disasters in 7 countries, connecting 600,000+ volunteers from 2,500+ organizations with 140,000+ households.",
+      "source_id": "cc-repo"
+    },
+    {
+      "type": "modeled",
+      "claim": "The README reports modeled monetary value and volunteer-efficiency estimates; these are useful scale proxies but not independently measured beneficiary outcomes.",
+      "source_id": "cc-repo"
+    }
+  ],
+  "maintenance": {
+    "default_branch": "master",
+    "current_public_activity": "GitHub metadata inspected 2026-09-06 showed the web repository updated in August 2026, but many candidate issues are from 2024 and assigned.",
+    "current_risk": "Issue freshness and assignment status make unsolicited work high-risk without maintainer confirmation."
+  },
+  "contribution": {
+    "pathway": "GitHub repository plus CONTRIBUTING/CLA requirement referenced from README.",
+    "ai_policy": "No current project-specific AI policy found during first audit.",
+    "maintainer_check_required": true
+  },
+  "sources": [
+    {
+      "id": "cc-repo",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web",
+      "accessed": "2026-09-06"
+    },
+    {
+      "id": "cc-issue-list",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/issues",
+      "accessed": "2026-09-06"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "cht-10241-unique-race",
+  "project_id": "community-health-toolkit",
+  "title": "unique() validation can race during concurrent submissions",
+  "pipeline_state": "PARKED",
+  "problem": "CHT issue #10241 reports duplicate records can pass unique() validation when concurrent SMS/API submissions validate before either write is committed.",
+  "humanitarian_relevance": "Duplicate maternal or patient records can affect frontline health data quality, but the issue touches concurrency design and should not be approached without maintainer design approval.",
+  "evidence": [
+    {
+      "type": "self_reported",
+      "claim": "Issue report cites production-observed duplicate LMP registrations and provides request timing logs.",
+      "source_id": "issue-10241"
+    },
+    {
+      "type": "self_reported",
+      "claim": "A maintainer pushed back on a global queue proposal as too broad and blocking, leaving design unresolved.",
+      "source_id": "issue-10241"
+    }
+  ],
+  "code_surface": "Likely validation utilities, API record/SMS processing, and transition save path in medic/cht-core; exact minimal surface not established.",
+  "proposed_change": "Park until maintainers specify desired concurrency semantics; possible paths include scoped in-flight claims, CouchDB-backed lock docs, or gateway/API queuing tradeoffs.",
+  "tests": "Would require a deterministic concurrent submission regression test with synthetic records and no production data.",
+  "environment": "Tier 3 isolated environment likely required; issue involves API, CouchDB, timing, and resource-constrained concurrency behavior.",
+  "maintainer": "A maintainer commented that the best solution was unclear and a global queue was undesirable.",
+  "risks": "High: concurrency changes can reduce throughput, create deadlocks, affect multi-pod deployments, or change data-consistency semantics.",
+  "gates": {
+    "humanitarian_relevance_supported": { "passed": true, "rationale": "The affected validation protects health records." },
+    "repository_active": { "passed": true, "rationale": "Issue remains open and was discussed in 2026." },
+    "external_contributions_accepted": { "passed": true, "rationale": "CHT accepts external contributions under documented policies." },
+    "contribution_policy_understood": { "passed": true, "rationale": "Contributor guide identified." },
+    "ai_policy_understood": { "passed": true, "rationale": "CHT AI contribution guidance exists but must be reviewed before any PR." },
+    "problem_current_and_consequential": { "passed": true, "rationale": "Open issue describes production-observed duplicate writes." },
+    "behavior_reproducible_or_verifiable": { "passed": false, "rationale": "Reproduction depends on timing/resource constraints and was not independently reproduced in this run." },
+    "code_and_tests_located": { "passed": false, "rationale": "Exact code and test surface not yet located." },
+    "change_bounded": { "passed": false, "rationale": "Potential solutions alter concurrency behavior across endpoints." },
+    "regression_strategy_credible": { "passed": false, "rationale": "A credible deterministic concurrency test has not been designed." },
+    "no_private_data_required": { "passed": true, "rationale": "Synthetic records should be sufficient." },
+    "security_and_licensing_risk_acceptable": { "passed": false, "rationale": "Concurrency and API behavior risks remain unresolved." },
+    "environment_feasible": { "passed": true, "rationale": "Likely feasible, but heavier than first contribution target." },
+    "maintainer_interest_confirmed": { "passed": false, "rationale": "Maintainer has not selected a desired approach." },
+    "probable_reviewer_identified": { "passed": true, "rationale": "A maintainer participating in the thread is a probable reviewer if work is approved." },
+    "benefit_justifies_review_cost": { "passed": false, "rationale": "Potential benefit is high, but review/design cost is also high." },
+    "user_can_explain_line_by_line": { "passed": false, "rationale": "Not until a bounded approach is selected and reproduced." }
+  },
+  "score_inputs": {
+    "humanitarian_benefit": 4,
+    "acceptance_probability": 1.5,
+    "technical_confidence": 1.5,
+    "review_burden": 4.5,
+    "deployment_probability": 2
+  },
+  "sources": [
+    {
+      "id": "issue-10241",
+      "url": "https://github.com/medic/cht-core/issues/10241",
+      "accessed": "2026-09-06"
+    }
+  ]
+}

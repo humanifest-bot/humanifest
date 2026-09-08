@@ -1,0 +1,27 @@
+{
+  "opportunity_id": "cht-10155-edit-user-load-failure",
+  "repository": "https://github.com/medic/cht-core",
+  "local_branch": "/private/tmp/humanifest-cht-core@10155-edit-user-load-state",
+  "commit": "not committed",
+  "tier": 3,
+  "runner": "github-codespaces-or-devcontainer",
+  "operating_system": "Linux",
+  "architecture": "x86_64 preferred",
+  "cpu": "4 cores suggested",
+  "ram_gb": 8,
+  "disk_gb": 32,
+  "package_managers": ["npm"],
+  "lockfiles": ["package-lock.json"],
+  "project_controlled_setup_scripts": ["postinstall: patch-package", "prepare: husky"],
+  "services": [],
+  "ports": [],
+  "secrets": [],
+  "setup_commands": ["npm install or npm ci only after explicit approval or in disposable Codespaces/devcontainer"],
+  "test_commands": ["npm run unit-admin"],
+  "checks_already_run": ["node --check admin/src/js/controllers/edit-user.js", "git diff --check"],
+  "residual_risks": [
+    "Karma/admin tests not run yet",
+    "UI behavior not visually verified",
+    "maintainer confirmation needed before opening replacement PR"
+  ]
+}

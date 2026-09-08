@@ -1,0 +1,54 @@
+{
+  "id": "crisiscleanup-1164-success-banner-failure",
+  "project_id": "crisis-cleanup",
+  "title": "Phone queue UI shows success after failed request",
+  "pipeline_state": "PARKED",
+  "problem": "Crisis Cleanup issue #1164 reports that a phone outbound update request failed with a CORS/network error while the UI still showed a green success banner saying the phone number was removed from the queue.",
+  "humanitarian_relevance": "Incorrect success feedback in disaster-response phone workflows can mislead operators, but the issue is old and may have depended on a transient outage.",
+  "evidence": [
+    {
+      "type": "self_reported",
+      "claim": "Issue report provides expected/current behavior and the failing endpoint path.",
+      "source_id": "issue-1164"
+    }
+  ],
+  "code_surface": "Likely CrisisCleanup/crisiscleanup-4-web phone outbound UI/action handling; exact source file was not located during the first read-only pass.",
+  "proposed_change": "Park until maintainers confirm the bug is current and identify the relevant frontend action. If confirmed, ensure success toast displays only after a successful request and add a component/store test.",
+  "tests": "Frontend unit test mocking request failure and asserting error feedback/no success banner.",
+  "environment": "Tier 1 first, Tier 2 local worktree likely enough after inspecting package scripts; do not touch live phone systems.",
+  "maintainer": "No current maintainer confirmation; no assignee.",
+  "risks": "Medium: old issue, possibly transient outage, exact code surface unknown, and phone workflow may need staging credentials.",
+  "gates": {
+    "humanitarian_relevance_supported": { "passed": true, "rationale": "Crisis Cleanup supports disaster response coordination." },
+    "repository_active": { "passed": true, "rationale": "Repository updated in 2026." },
+    "external_contributions_accepted": { "passed": true, "rationale": "README references contribution terms and CLA." },
+    "contribution_policy_understood": { "passed": false, "rationale": "Full CONTRIBUTING and CLA terms were not inspected in this run." },
+    "ai_policy_understood": { "passed": false, "rationale": "No AI policy found." },
+    "problem_current_and_consequential": { "passed": false, "rationale": "Issue is from 2024 with no comments; current behavior unconfirmed." },
+    "behavior_reproducible_or_verifiable": { "passed": false, "rationale": "No reproduction performed and may require phone workflow context." },
+    "code_and_tests_located": { "passed": false, "rationale": "Exact frontend source and tests not located." },
+    "change_bounded": { "passed": true, "rationale": "If current, the fix is likely bounded to error handling in one UI workflow." },
+    "regression_strategy_credible": { "passed": true, "rationale": "Mocked failure test is plausible." },
+    "no_private_data_required": { "passed": true, "rationale": "Can test with mocked HTTP failure." },
+    "security_and_licensing_risk_acceptable": { "passed": true, "rationale": "No security-sensitive code required if limited to UI feedback." },
+    "environment_feasible": { "passed": true, "rationale": "Likely frontend-only." },
+    "maintainer_interest_confirmed": { "passed": false, "rationale": "No maintainer confirmation." },
+    "probable_reviewer_identified": { "passed": false, "rationale": "No reviewer identified." },
+    "benefit_justifies_review_cost": { "passed": false, "rationale": "Staleness and uncertainty make review cost unjustified until confirmed." },
+    "user_can_explain_line_by_line": { "passed": true, "rationale": "Likely small if confirmed." }
+  },
+  "score_inputs": {
+    "humanitarian_benefit": 2.5,
+    "acceptance_probability": 1.5,
+    "technical_confidence": 1.5,
+    "review_burden": 2.5,
+    "deployment_probability": 1.5
+  },
+  "sources": [
+    {
+      "id": "issue-1164",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/issues/1164",
+      "accessed": "2026-09-06"
+    }
+  ]
+}

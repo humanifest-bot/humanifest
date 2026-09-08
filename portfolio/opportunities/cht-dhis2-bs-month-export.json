@@ -1,0 +1,64 @@
+{
+  "id": "cht-11342-dhis2-bs-month-export",
+  "project_id": "community-health-toolkit",
+  "title": "DHIS2 export reads the wrong Bikram Sambat month when month_start_date is not 1",
+  "pipeline_state": "MAINTAINER-CHECK",
+  "problem": "CHT issue #11342 reports that with Bikram Sambat reporting months enabled and month_start_date not equal to 1, DHIS2 target export can read an adjacent target month or zero because the export key derives from the raw selected date rather than the reporting interval used by target writers.",
+  "humanitarian_relevance": "Target exports can feed health program reporting and supervision workflows. Incorrect month aggregation could misstate operational performance for Nepali-language deployments, but Humanifest should not overclaim patient outcome impact from this issue alone.",
+  "evidence": [
+    {
+      "type": "self_reported",
+      "claim": "Issue author reports a local 5.2.0 reproduction where an August 2026 export returned the BS 2083-04 total rather than the stored 2083-05 total.",
+      "source_id": "issue-11342"
+    },
+    {
+      "type": "measured",
+      "claim": "Read-only source inspection confirmed api/src/services/export/dhis.js targetDocsInMonth builds the BS key from moment(timestamp), while webapp and rules-engine paths use interval end dates for target tags.",
+      "source_id": "dhis-source"
+    }
+  ],
+  "code_surface": "medic/cht-core: api/src/services/export/dhis.js plus likely API unit tests for DHIS export and calendar interval behavior.",
+  "proposed_change": "After maintainer confirmation, derive the target-doc lookup key from the same reporting interval semantics used by the writer, and add a regression test for use_bikram_sambat_months with non-default month_start_date.",
+  "tests": "Expected narrow tests: DHIS export unit coverage for BS month_start_date != 1, preserving existing Gregorian behavior. Full verification would likely include npm unit-api or the repository's narrower export test target.",
+  "environment": "Tier 1 for source inspection; Tier 3 Codespaces/devcontainer recommended before implementation because cht-core is large and uses multiple package workspaces, CouchDB-related services, and project-controlled npm scripts.",
+  "maintainer": "No maintainer has confirmed desired approach for this issue yet; inquiry should ask whether the interval-derived lookup and period-label semantics are the preferred direction.",
+  "risks": "Medium: date/calendar reporting semantics are consequential and cross-system with DHIS2. Risk of a technically simple patch that encodes the wrong product decision.",
+  "gates": {
+    "humanitarian_relevance_supported": { "passed": true, "rationale": "CHT is a deployed community-health platform and the issue affects reporting exports." },
+    "repository_active": { "passed": true, "rationale": "cht-core has current 2026 issue and repository activity." },
+    "external_contributions_accepted": { "passed": true, "rationale": "CHT publishes contributor documentation and accepts same-license contributions." },
+    "contribution_policy_understood": { "passed": true, "rationale": "Contributor guide and repository README were identified." },
+    "ai_policy_understood": { "passed": true, "rationale": "CHT contributor documentation includes AI assistance guidance; final implementation still needs exact policy review." },
+    "problem_current_and_consequential": { "passed": true, "rationale": "Issue remains open as of 2026-09-06 and describes incorrect exports." },
+    "behavior_reproducible_or_verifiable": { "passed": true, "rationale": "Issue includes reproduction and source inspection verified the diverging key derivation sites." },
+    "code_and_tests_located": { "passed": true, "rationale": "Primary source file api/src/services/export/dhis.js was located; exact test file still needs repository clone." },
+    "change_bounded": { "passed": true, "rationale": "Likely bounded to target-doc lookup semantics and tests." },
+    "regression_strategy_credible": { "passed": true, "rationale": "A focused export unit test can encode the non-default month_start_date case." },
+    "no_private_data_required": { "passed": true, "rationale": "Reproduction can use synthetic settings and target docs." },
+    "security_and_licensing_risk_acceptable": { "passed": true, "rationale": "No security-sensitive path identified; project license is known." },
+    "environment_feasible": { "passed": true, "rationale": "Feasible in Codespaces/devcontainer or bounded local clone after setup inspection." },
+    "maintainer_interest_confirmed": { "passed": false, "rationale": "No maintainer has confirmed that this is wanted or chosen a period-label approach." },
+    "probable_reviewer_identified": { "passed": false, "rationale": "No reviewer is assigned on the issue." },
+    "benefit_justifies_review_cost": { "passed": true, "rationale": "If maintainers confirm the approach, a small export correctness fix plausibly justifies review." },
+    "user_can_explain_line_by_line": { "passed": true, "rationale": "The likely change is small enough for line-by-line explanation after implementation." }
+  },
+  "score_inputs": {
+    "humanitarian_benefit": 3.5,
+    "acceptance_probability": 3,
+    "technical_confidence": 3.5,
+    "review_burden": 2,
+    "deployment_probability": 3
+  },
+  "sources": [
+    {
+      "id": "issue-11342",
+      "url": "https://github.com/medic/cht-core/issues/11342",
+      "accessed": "2026-09-06"
+    },
+    {
+      "id": "dhis-source",
+      "url": "https://github.com/medic/cht-core/blob/master/api/src/services/export/dhis.js",
+      "accessed": "2026-09-06"
+    }
+  ]
+}

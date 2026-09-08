@@ -5,7 +5,8 @@
 - Define hard gates, scoring, records, and handoffs.
 - Audit two candidate projects.
 - Produce one maintainer inquiry draft.
-- Park every opportunity that lacks maintainer confirmation.
+- Keep unconfirmed opportunities out of implementation: retain viable candidates
+  in `MAINTAINER-CHECK`, and use `PARKED` when stopping conditions apply.
 
 ## Phase 1: Maintainer-Confirmed Pilot
 

@@ -19,6 +19,12 @@ explicit `review_organization`. Reports expose capacity, blockers, and next acti
 without changing records. Candidate briefs and handoffs preserve source URLs and
 access dates so a fresh reviewer can inspect the evidence.
 
+The `sources` command derives a review list in `humanifest/review.py` from validated
+records, an explicit as-of date, and a user-selected age window. It flags older
+sources, future dates, and local-only references without accessing their contents.
+Markdown and JSON outputs preserve record-level provenance even when URLs repeat.
+Review reminders never affect eligibility, scores, or pipeline states.
+
 The schemas describe nested source, evidence, gate, and score shapes as well as
 state-dependent gate requirements. Python additionally checks source-ID uniqueness,
 evidence references, actual calendar dates, and portfolio relationships. JSON Schema

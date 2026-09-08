@@ -55,6 +55,7 @@ def main() -> None:
             ["--help"], ["validate", "--root", str(root)], ["report", "--root", str(root)],
             ["score", str(candidate)], ["brief", str(candidate)],
             ["handoff", str(candidate), "--target", "codex"],
+            ["sources", "--root", str(root), "--as-of", "2026-09-08", "--max-age-days", "30", "--format", "json"],
         ]
         for args in commands:
             result = subprocess.run([str(cli), *args], cwd=temp, env=environment,
@@ -65,6 +66,8 @@ def main() -> None:
                 raise AssertionError("Installed score bypassed the maintainer gate")
             if args[0] == "handoff" and "Implementation blocked" not in result.stdout:
                 raise AssertionError("Installed handoff bypassed the maintainer gate")
+            if args[0] == "sources" and json.loads(result.stdout)["as_of"] != "2026-09-08":
+                raise AssertionError("Installed source review did not preserve its as-of date")
             print(f"Installed CLI passed: {args[0]}")
         invalid = subprocess.run([str(cli), "validate", "--root", temp], cwd=temp,
                                  env=environment, capture_output=True, text=True)

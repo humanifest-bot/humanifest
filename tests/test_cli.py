@@ -102,6 +102,41 @@ class CliTests(unittest.TestCase):
         self.assertEqual((status, out), (1, ""))
         self.assertIn("requires every hard gate", err)
 
+    def test_sources_command_renders_json_and_read_only_review_reminders(self):
+        self.seed_portfolio()
+        path = self.root / "portfolio/opportunities/sample.json"
+        record = json.loads(path.read_text())
+        record["sources"][0]["url"] = "file:///tmp/evidence"
+        path.write_text(json.dumps(record))
+        before = path.read_bytes()
+        args = ["sources", "--root", str(self.root), "--as-of", "2026-09-08", "--max-age-days", "30"]
+        status, out, err = self.run_cli(*args, "--format", "json", "--needs-review")
+        self.assertEqual((status, err), (0, ""))
+        review = json.loads(out)
+        self.assertEqual(review["total_sources"], 2)
+        self.assertEqual(review["sources_needing_review"], 1)
+        self.assertEqual(review["sources"][0]["review_reasons"], ["local-file"])
+        self.assertEqual(path.read_bytes(), before)
+        status, out, err = self.run_cli(*args)
+        self.assertEqual((status, err), (0, ""))
+        self.assertIn("# Source Review", out)
+        self.assertIn("file:///tmp/evidence", out)
+
+    def test_sources_requires_explicit_valid_review_parameters(self):
+        for args in [[], ["--as-of", "2026-09-08"],
+                     ["--as-of", "2026-02-30", "--max-age-days", "30"],
+                     ["--as-of", "20260908", "--max-age-days", "30"],
+                     ["--as-of", "2026-09-08", "--max-age-days", "-1"]]:
+            with self.subTest(args=args), self.assertRaises(SystemExit) as raised:
+                self.run_cli("sources", *args)
+            self.assertEqual(raised.exception.code, 2)
+
+    def test_sources_rejects_invalid_portfolio_before_rendering(self):
+        status, out, err = self.run_cli("sources", "--root", str(self.root),
+                                        "--as-of", "2026-09-08", "--max-age-days", "30")
+        self.assertEqual((status, out), (1, ""))
+        self.assertIn("required record directory", err)
+
     def add_opportunity(self, record_id, state, project_id="sample-project"):
         record = opportunity()
         record.update(id=record_id, pipeline_state=state, project_id=project_id)

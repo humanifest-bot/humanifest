@@ -11,3 +11,6 @@ dependencies = []
 
 [project.scripts]
 humanifest = "humanifest.cli:main"
+
+[tool.setuptools]
+packages = ["humanifest"]

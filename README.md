@@ -30,6 +30,9 @@ rechecked before outreach or implementation.
 
 ## Use
 
+Python 3.11 or newer is required. The commands below run directly from this
+checkout without installing dependencies.
+
 ```bash
 python3 -m humanifest.cli validate --root .
 python3 -m humanifest.cli report --root .
@@ -37,6 +40,19 @@ python3 -m humanifest.cli score portfolio/opportunities/cht-dhis2-bs-month-expor
 python3 -m humanifest.cli brief portfolio/opportunities/cht-dhis2-bs-month-export.json
 python3 -m humanifest.cli handoff portfolio/opportunities/cht-dhis2-bs-month-export.json --target codex
 ```
+
+For an installed `humanifest` command, create a virtual environment and install
+the local app:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install .
+.venv/bin/humanifest report --root .
+```
+
+The installed package contains the Python app. Records, schemas, and research stay
+in the checkout; pass `--root /path/to/humanifest` when running portfolio commands
+from elsewhere. Installation does not publish a package.
 
 Every command validates its input before producing output. Invalid records return
 exit code `1` with diagnostics on stderr; argument errors return `2`. `score`

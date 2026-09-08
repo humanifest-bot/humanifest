@@ -17,8 +17,9 @@ controls the authorized contribution scope.
   include private repository control, workflow updates, gist creation, and
   organization/team read access. The pending flow later completed outside the
   rejected action; a fresh CLI API check confirmed `humanifest-bot` (ID 326603023).
-- The bot currently has read-only access to `humanifest/humanifest`; repository
-  write permission is still needed for pushes.
+- A subsequent authenticated API check on 2026-09-08 confirmed the bot has push
+  permission on `humanifest/humanifest`. Bot CLI authentication and repository
+  access are now ready for authorized pushes.
 - The [CHT #10155 inquiry](https://github.com/medic/cht-core/issues/10155#issuecomment-5590328371)
   was posted through that browser at 2026-09-08T19:02:19Z. A read-only API check
   verified its author and body. Do not post a duplicate.

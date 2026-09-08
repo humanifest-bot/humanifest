@@ -75,6 +75,11 @@ dates in `YYYY-MM-DD` form. Evidence must reference a source in the same record.
 These checks validate record consistency; they do not fetch sources or establish
 that a claim is true. Reports and handoffs never advance opportunity states.
 
+Gates can cite their supporting evidence with `source_ids`. A passing maintainer
+confirmation gate requires at least one valid citation to the record's own sources;
+see the [contribution protocol](docs/contribution-protocol.md) for the format and
+review requirements. Briefs and handoffs preserve these gate-to-source links.
+
 `sources` collects source references for manual rechecking. Both `--as-of` and
 `--max-age-days` are required so repeated reviews are deterministic and no age
 policy is assumed. The window includes its last day: at 30 days, a 30-day-old

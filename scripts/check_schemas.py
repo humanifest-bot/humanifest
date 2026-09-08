@@ -64,6 +64,18 @@ def check_opportunity_rules(validator: Draft202012Validator) -> None:
         record = opportunity()
         record["sources"][0][field] = value
         reject(validator, record, f"source {field}={value!r}")
+    for references in [None, [], ["s1", "s1"], [" "], [1], "s1"]:
+        record = opportunity()
+        gate = record["gates"]["maintainer_interest_confirmed"]
+        if references is None:
+            del gate["source_ids"]
+        else:
+            gate["source_ids"] = references
+        reject(validator, record, f"confirmation source_ids={references!r}")
+    record = opportunity()
+    record["gates"]["maintainer_interest_confirmed"]["passed"] = False
+    del record["gates"]["maintainer_interest_confirmed"]["source_ids"]
+    validator.validate(record)
 
 
 def reject(validator: Draft202012Validator, record: dict, label: str) -> None:

@@ -46,6 +46,30 @@ Validation enforces maintainer confirmation from `ENVIRONMENT-READY` through
 work. Gate results must be booleans with non-empty rationales. Generated handoffs
 include failed gates and explicitly block implementation while any gate fails.
 
+Gate rationales can cite evidence using an optional `source_ids` list. If present,
+the list must be non-empty, contain unique non-empty IDs, and reference entries in
+the opportunity's own `sources` list. A passing `maintainer_interest_confirmed`
+gate requires this list in every state. Link the actual confirmation and explain
+the agreed scope in the rationale; an issue being open or labelled "help wanted"
+does not establish current maintainer interest.
+
+For example, after inspecting an actual confirmation and adding its source entry:
+
+```json
+"maintainer_interest_confirmed": {
+  "passed": true,
+  "rationale": "The maintainer confirmed the bounded approach described in this record.",
+  "source_ids": ["maintainer-confirmation"]
+}
+```
+
+The `maintainer-confirmation` source must include its real URL and access date.
+The validator checks traceability, not the source's meaning, author identity, or
+continuing relevance. A reviewer must still verify those claims. Unconfirmed gates
+remain false and do not need invented citations. Existing records with a passing
+maintainer gate but no citation must add verified evidence or correct that gate
+before validation, scoring, or handoff generation can succeed.
+
 Park the work if the issue is stale, already assigned, already under PR, too broad, security-sensitive without the target disclosure path, or dependent on private data.
 
 ## Portfolio Capacity

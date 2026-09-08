@@ -102,6 +102,18 @@ class CliTests(unittest.TestCase):
         self.assertEqual((status, out), (1, ""))
         self.assertIn("requires every hard gate", err)
 
+    def test_uncited_confirmation_cannot_render_score_or_handoff(self):
+        record = opportunity()
+        del record["gates"]["maintainer_interest_confirmed"]["source_ids"]
+        path = self.write_record("uncited.json", record)
+        for command in ["score", "brief", "handoff"]:
+            args = [command, str(path)]
+            if command == "handoff":
+                args.extend(["--target", "codex"])
+            status, out, err = self.run_cli(*args)
+            self.assertEqual((status, out), (1, ""))
+            self.assertIn("must cite confirmation evidence", err)
+
     def test_sources_command_renders_json_and_read_only_review_reminders(self):
         self.seed_portfolio()
         path = self.root / "portfolio/opportunities/sample.json"

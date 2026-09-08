@@ -38,6 +38,7 @@ def opportunity():
             "user_can_explain_line_by_line",
         ]
     }
+    gates["maintainer_interest_confirmed"]["source_ids"] = ["s1"]
     return {
         "id": "sample",
         "project_id": "sample-project",
@@ -65,6 +66,46 @@ def opportunity():
 
 
 class ModelTests(unittest.TestCase):
+    def test_passing_maintainer_gate_requires_traceable_evidence(self):
+        for references in [None, [], ["missing"], ["s1", "s1"], [None], [["s1"]], "s1", [" "]]:
+            with self.subTest(references=references):
+                record = opportunity()
+                gate = record["gates"]["maintainer_interest_confirmed"]
+                if references is None:
+                    del gate["source_ids"]
+                else:
+                    gate["source_ids"] = references
+                self.assertTrue(validate_opportunity(record, "sample"))
+                self.assertFalse(score_opportunity(record)["eligible_for_building"])
+                self.assertIn("maintainer_interest_confirmed", [item["gate"] for item in failed_gates(record)])
+
+    def test_optional_gate_evidence_must_resolve_even_for_failed_gates(self):
+        record = opportunity()
+        gate = record["gates"]["repository_active"]
+        gate["source_ids"] = ["s1"]
+        self.assertEqual(validate_opportunity(record, "sample"), [])
+        gate["source_ids"] = ["unknown"]
+        for passed in [True, False]:
+            gate["passed"] = passed
+            self.assertTrue(validate_opportunity(record, "sample"))
+            self.assertFalse(score_opportunity(record)["eligible_for_building"])
+
+    def test_unconfirmed_gate_does_not_need_fabricated_evidence(self):
+        record = opportunity()
+        record["gates"]["maintainer_interest_confirmed"] = {"passed": False, "rationale": "Not yet asked"}
+        self.assertEqual(validate_opportunity(record, "sample"), [])
+
+    def test_gate_evidence_is_preserved_in_briefs_and_handoffs(self):
+        record = opportunity()
+        for text in [generate_candidate_brief(record), generate_handoff(record, "codex")]:
+            self.assertIn("Gate evidence: maintainer_interest_confirmed cites s1", text)
+            self.assertIn("https://example.test", text)
+
+    def test_missing_rationale_cannot_produce_eligible_score(self):
+        record = opportunity()
+        del record["gates"]["repository_active"]["rationale"]
+        self.assertFalse(score_opportunity(record)["eligible_for_building"])
+
     def test_inactive_work_cannot_be_build_eligible_even_when_gates_pass(self):
         for state in ["PARKED", "DECLINED", "MERGED", "RELEASED"]:
             record = opportunity()

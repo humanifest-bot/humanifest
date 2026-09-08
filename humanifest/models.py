@@ -162,6 +162,8 @@ def validate_opportunity(record: dict[str, Any], record_name: str) -> list[Valid
                 issues.append(ValidationIssue(record_name, f"gate {gate}.passed must be a boolean"))
             if not isinstance(item["rationale"], str) or not item["rationale"].strip():
                 issues.append(ValidationIssue(record_name, f"gate {gate}.rationale must be a non-empty string"))
+            issues.extend(ValidationIssue(record_name, message) for message in
+                          _gate_reference_errors(gate, item, _source_ids(record)))
     failures = failed_gates(record)
     if state in MAINTAINER_CONFIRMED_STATES and any(
         item["gate"] == "maintainer_interest_confirmed" for item in failures
@@ -193,6 +195,12 @@ def failed_gates(record: dict[str, Any]) -> list[dict[str, str]]:
             item = {}
         if item.get("passed") is not True:
             failures.append({"gate": gate, "rationale": str(item.get("rationale", "missing rationale"))})
+        else:
+            errors = _gate_reference_errors(gate, item, _source_ids(record))
+            if not isinstance(item.get("rationale"), str) or not item["rationale"].strip():
+                errors.append(f"gate {gate}.rationale must be a non-empty string")
+            if errors:
+                failures.append({"gate": gate, "rationale": "; ".join(errors)})
     return failures
 
 
@@ -249,6 +257,7 @@ def generate_candidate_brief(record: dict[str, Any]) -> str:
             *gate_lines,
             "",
             "## Sources",
+            *_gate_evidence_lines(record),
             *_source_lines(record),
         ]
     )
@@ -279,6 +288,7 @@ def generate_handoff(record: dict[str, Any], target: str) -> str:
     else:
         base.append("All hard gates pass. Implementation still requires an approved scope and inspected environment.")
     base.extend(f"Blocker: {item['gate']}: {item['rationale']}" for item in failures)
+    base.extend(_gate_evidence_lines(record))
     base.extend(["Sources (supplied evidence; not independently refreshed):", *_source_lines(record)])
     if target == "spark":
         base.insert(0, "Use a fast Codex model only for bounded inspection or mechanical verification.")
@@ -336,6 +346,19 @@ def _source_lines(record: dict[str, Any]) -> list[str]:
     return [f"- {source['id']}: {source['url']} (accessed {source['accessed']})" for source in record["sources"]]
 
 
+def _gate_evidence_lines(record: dict[str, Any]) -> list[str]:
+    gates = record.get("gates")
+    if not isinstance(gates, dict):
+        return []
+    lines = []
+    for gate in HARD_GATES:
+        item = gates.get(gate)
+        if (isinstance(item, dict) and item.get("source_ids")
+                and not _gate_reference_errors(gate, item, _source_ids(record))):
+            lines.append(f"- Gate evidence: {gate} cites {', '.join(item['source_ids'])}")
+    return lines
+
+
 def _require_fields(record: dict[str, Any], fields: list[str], record_name: str) -> list[ValidationIssue]:
     return [ValidationIssue(record_name, f"missing required field: {field}") for field in fields if field not in record]
 
@@ -350,6 +373,28 @@ def _source_ids(record: dict[str, Any]) -> set[str]:
     if not isinstance(sources, list):
         return set()
     return {source["id"] for source in sources if isinstance(source, dict) and isinstance(source.get("id"), str)}
+
+
+def _gate_reference_errors(gate: str, item: dict[str, Any], source_ids: set[str]) -> list[str]:
+    if "source_ids" not in item:
+        if gate == "maintainer_interest_confirmed" and item.get("passed") is True:
+            return [f"gate {gate} must cite confirmation evidence in source_ids before passing"]
+        return []
+    references = item["source_ids"]
+    if not isinstance(references, list) or not references:
+        return [f"gate {gate}.source_ids must be a non-empty list"]
+    errors = []
+    seen = set()
+    for index, reference in enumerate(references):
+        if not isinstance(reference, str) or not reference.strip():
+            errors.append(f"gate {gate}.source_ids[{index}] must be a non-empty string")
+            continue
+        if reference in seen:
+            errors.append(f"gate {gate}.source_ids contains duplicate source: {reference}")
+        seen.add(reference)
+        if reference not in source_ids:
+            errors.append(f"gate {gate}.source_ids references unknown source: {reference}")
+    return errors
 
 
 def _validate_sources(record: dict[str, Any], record_name: str) -> list[ValidationIssue]:

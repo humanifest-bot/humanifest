@@ -73,6 +73,13 @@ def main() -> None:
                                  env=environment, capture_output=True, text=True)
         if invalid.returncode != 1 or invalid.stdout or "required record directory" not in invalid.stderr:
             raise AssertionError(f"Installed CLI accepted a missing portfolio: {invalid}")
+        record["gates"]["maintainer_interest_confirmed"]["passed"] = True
+        del record["gates"]["maintainer_interest_confirmed"]["source_ids"]
+        candidate.write_text(json.dumps(record), encoding="utf-8")
+        uncited = subprocess.run([str(cli), "score", str(candidate)], cwd=temp,
+                                 env=environment, capture_output=True, text=True)
+        if uncited.returncode != 1 or uncited.stdout or "must cite confirmation evidence" not in uncited.stderr:
+            raise AssertionError(f"Installed CLI accepted uncited confirmation: {uncited}")
     print("Wheel contents and installed CLI smoke checks passed.")
 
 

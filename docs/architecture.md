@@ -30,6 +30,12 @@ state-dependent gate requirements. Python additionally checks source-ID uniquene
 evidence references, actual calendar dates, and portfolio relationships. JSON Schema
 consumers must enable date format checking for equivalent calendar validation.
 
+Gates support optional `source_ids` references; passing maintainer confirmation
+requires them. Both schemas and Python enforce the reference-list shape, and Python
+resolves each ID against the record's sources. Gate evaluation fails closed on
+missing or invalid required references and rationales, including direct scoring
+calls. These checks establish traceability, not the truth of the cited claim.
+
 No database, server, dashboard, GitHub App, package publishing, or LLM framework is included.
 
 GitHub Actions runs the offline suite, public JSON Schema validation, a generated

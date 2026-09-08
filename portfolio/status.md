@@ -13,8 +13,9 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - behavior_reproducible_or_verifiable: Source-level behavior is mapped, but UI/Karma reproduction has not been run because dependencies are not installed.
   - environment_feasible: Read-only audit identified omitted admin dependencies, generated bundles, Chrome, and a workspace postinstall build. No tracked devcontainer or verified isolated installation recipe is available yet; resource estimates remain unmeasured. Complete runner/setup inspection and demonstrate feasibility after maintainer confirmation.
   - maintainer_interest_confirmed: Replacement inquiry sent as humanifest-bot at 2026-09-08T19:02:19Z. Await maintainer response; the outbound inquiry is not confirmation.
-- cht-11342-dhis2-bs-month-export: MAINTAINER-CHECK; score=0.0; failed_gates=2
+- cht-11342-dhis2-bs-month-export: MAINTAINER-CHECK; score=0.0; failed_gates=3
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
+  - change_bounded: Writer and exporter tags differ, but the admin picker retains a day-dependent timestamp and payload period remains Gregorian. Maintainers have not chosen whether lookup, picker, and label changes belong in one bounded fix. A backend-only change cannot yet be assumed to resolve the full report.
   - maintainer_interest_confirmed: Rechecked 2026-09-08: the issue has no comments or assignees; no issue-level confirmation was found.
   - probable_reviewer_identified: No reviewer is assigned on the issue.
 - cht-10241-unique-race: PARKED; score=0.0; failed_gates=8

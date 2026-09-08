@@ -41,7 +41,8 @@ Isolated CLI authentication subsequently completed and its API identity was
 verified as `humanifest-bot`. The default CLI and connected GitHub tool still
 resolve to `roryscot`. Configuration separation alone proved insufficient for
 Keychain isolation; use `scripts.bot_github` to select and verify the bot's actual
-credential before writes. Repository push permission remains pending.
+credential before writes. Upstream Write permission is not required for the
+fork-and-PR workflow below.
 Before posting, verify that the exact connection used authenticates as
 `humanifest-bot`. Do not fall back to personal credentials. See
 [GitHub identity setup](github-identity.md) for the separate bot CLI configuration.
@@ -50,6 +51,36 @@ GitHub documents [account attribution](https://docs.github.com/en/get-started/le
 and [user versus app token identities](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps)
 (accessed 2026-09-08). Organization ownership alone cannot make an issue comment
 appear under the organization's name.
+
+## Fork and Pull Request Workflow
+
+On 2026-09-08, the user explicitly directed Humanifest to use forks and pull
+requests. Their standing authorization to improve this system covers creating
+the bot-owned Humanifest fork, pushing useful tested changes on dedicated
+branches, opening PRs, and handling routine review revisions through the bot.
+It does not authorize permission grants or automatic merging. External project
+work retains its contribution-specific authorization and all opportunity gates.
+
+1. Read the target's contribution and AI policies, check existing work, and
+   confirm the authorized scope. For external opportunities, preserve maintainer
+   confirmation and portfolio gates before implementation or PR submission.
+2. Verify `humanifest-bot` with the account-specific credential helper. Create or
+   reuse its fork and verify that the fork's parent is the intended upstream.
+3. Start a dedicated `codex/` branch from the current upstream base. Keep unrelated
+   work out of the PR; keep external checkouts outside this control repository.
+4. Make the bounded change, run applicable checks, and inspect the final diff.
+   Use truthful commit attribution and follow the target's signoff requirements.
+5. Push only the contribution branch to the verified bot-owned fork, using the
+   same verified bot credential. Open a PR with an explicit upstream repository,
+   base branch, and bot-fork head. No upstream Write grant is needed.
+6. Explain the problem, resulting behavior, validation, and remaining limits.
+   Disclose AI assistance and only claim human review actually performed. Verify
+   the published PR's author, head, base, and checks; address review in the same
+   branch. Leave merging to the upstream maintainer unless separately authorized.
+
+This follows GitHub's [fork-based contribution workflow](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
+(accessed 2026-09-08). Do not treat permission to write to the bot's fork as
+permission to merge or change upstream repository settings.
 
 ## Hard Gates
 

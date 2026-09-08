@@ -1,0 +1,42 @@
+{
+  "id": "kobotoolbox-kpi",
+  "name": "KoboToolbox KPI",
+  "repository": "https://github.com/kobotoolbox/kpi",
+  "homepage": "https://www.kobotoolbox.org/",
+  "license": "AGPL-3.0 (GitHub detection; exact license terms must be read before implementation)",
+  "humanitarian_domain": "Humanitarian survey collection, assessment data management, and downstream analysis",
+  "impact_evidence": [
+    {
+      "type": "self_reported",
+      "claim": "UNHCR describes its own Kobo instance for assessments and humanitarian projects, including reusable question blocks and survey templates. This is operator evidence of operational use, not evidence that a particular patch improves response outcomes.",
+      "source_id": "unhcr-use"
+    }
+  ],
+  "maintenance": {
+    "default_branch": "main",
+    "inspected_tree_revision": "74e520c0bc2ce33afe911f041cdb7071947cdae9",
+    "current_public_activity": "Unarchived; GitHub pushed_at 2026-09-08T19:19:32Z. Recursive tree was not truncated."
+  },
+  "contribution": {
+    "pathway": "CONTRIBUTING welcomes fork-based PRs from main, tests, API documentation updates, lint, and same-license contributions. Its container execution instructions have been read but not executed or setup-audited.",
+    "ai_policy": "No explicit external AI policy was established from the retrieved CONTRIBUTING file. Inspect remaining policy/template sources and confirm disclosure expectations before submission.",
+    "maintainer_check_required": true
+  },
+  "sources": [
+    {
+      "id": "unhcr-use",
+      "url": "https://emergency.unhcr.org/coordination-and-communication/information-management/data-and-information-management",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-repo",
+      "url": "https://api.github.com/repos/kobotoolbox/kpi",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-contributing",
+      "url": "https://github.com/kobotoolbox/kpi/blob/74e520c0bc2ce33afe911f041cdb7071947cdae9/CONTRIBUTING.md",
+      "accessed": "2026-09-08"
+    }
+  ]
+}

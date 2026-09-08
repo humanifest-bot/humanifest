@@ -1,0 +1,149 @@
+{
+  "id": "kobo-7259-incremental-sync-verification",
+  "project_id": "kobotoolbox-kpi",
+  "title": "Verify edited-submission detection in the existing incremental-sync PR",
+  "pipeline_state": "OPPORTUNITY-RESEARCH",
+  "problem": "Issue #7259 reports that API consumers must re-download and compare entire submission collections to detect edits. Existing PR #7260 implements a modified-time field; Humanifest should investigate verification gaps and support its author, not open a replacement.",
+  "humanitarian_relevance": "Correct incremental updates could reduce repeated data transfer and keep humanitarian analysis current. The reported workload is one user's account, not an independently measured platform-wide compute saving.",
+  "evidence": [
+    {
+      "type": "self_reported",
+      "claim": "The issue author reports nightly replication of about 35 forms and 230,000 submissions to detect roughly 0.1% changed records. No Humanifest benchmark verifies those figures or achievable savings.",
+      "source_id": "kobo-7259"
+    },
+    {
+      "type": "self_reported",
+      "claim": "A second commenter says the feature is needed for their project and points to the existing PR. This is demand evidence, not maintainer approval.",
+      "source_id": "kobo-second-user"
+    },
+    {
+      "type": "measured",
+      "claim": "On 2026-09-08 the issue timeline links open PR #7260 by another contributor. The public PR description identifies tests and a remaining API-schema documentation question; its automated review is not independent validation.",
+      "source_id": "kobo-7260"
+    }
+  ],
+  "code_surface": "Issue points to kobo/apps/openrosa/apps/viewer/models/parsed_instance.py and logger/utils/instance.py. PR description names viewer/tests/test_date_modified.py and API schema documentation. PR diff and actual test contents still need pinned inspection.",
+  "proposed_change": "Research now: pin the current PR #7260 head, read its diff and existing tests, and build an evidence matrix for ordinary edits, bulk validation changes, attachment-only changes, legacy records and incremental-query boundaries. Identify only uncovered behaviors or documentation gaps; coordinate with the existing author before proposing additions. Do not send an unsolicited automated PR review.",
+  "tests": "Compare the author's tests with the update-path matrix. Plan synthetic checks for timestamp monotonicity, equal-time pagination boundaries, legacy fallback/query consistency and unchanged exports. These are investigation questions, not established defects or executed tests.",
+  "environment": "Tier 0 public source/API inspection only. No target clone, dependency install, setup, test, or production write. Inspect manifests, hooks, services and secrets before any execution.",
+  "maintainer": "Research can proceed independently now. Confirm the specific scope and whether support is wanted before implementation or outbound review.",
+  "risks": "Initial intake is not implementation readiness. Preserve existing contributors, avoid production data, and verify policy and scope before publishing target work.",
+  "priority_rationale": "Second new investigation, across a different maintainer team: two public users describe incremental-sync need, and an existing author has provided a patch. Independent gap analysis could reduce review burden without duplicating implementation.",
+  "next_external_status_check": "2026-09-15",
+  "gates": {
+    "humanitarian_relevance_supported": {
+      "passed": true,
+      "rationale": "UNHCR documents operational use of Kobo for assessments and humanitarian projects."
+    },
+    "repository_active": {
+      "passed": true,
+      "rationale": "Unarchived repository pushed on 2026-09-08; main tree pinned."
+    },
+    "external_contributions_accepted": {
+      "passed": true,
+      "rationale": "CONTRIBUTING welcomes fork-based PRs, tests, and API documentation updates."
+    },
+    "contribution_policy_understood": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "ai_policy_understood": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "problem_current_and_consequential": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "behavior_reproducible_or_verifiable": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "code_and_tests_located": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "change_bounded": {
+      "passed": false,
+      "rationale": "The next source-review job is bounded; implementation or review-addition scope is not selected until the existing PR and tests are inspected."
+    },
+    "regression_strategy_credible": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "no_private_data_required": {
+      "passed": true,
+      "rationale": "Source review and future synthetic submission fixtures need no production records."
+    },
+    "security_and_licensing_risk_acceptable": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "environment_feasible": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "maintainer_interest_confirmed": {
+      "passed": false,
+      "rationale": "Historical discussion or another contributor's PR does not confirm a Humanifest contribution. No inquiry sent for this opportunity."
+    },
+    "probable_reviewer_identified": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "benefit_justifies_review_cost": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "user_can_explain_line_by_line": {
+      "passed": false,
+      "rationale": "No implementation or human line-by-line review has occurred."
+    }
+  },
+  "score_inputs": {
+    "humanitarian_benefit": 3.5,
+    "acceptance_probability": 0,
+    "technical_confidence": 0,
+    "review_burden": 3,
+    "deployment_probability": 0
+  },
+  "score_basis": "Provisional research estimate only: operational relevance supports investigation, but acceptance, technical confidence and deployment are unknown. Failed gates keep implementation score at zero.",
+  "sources": [
+    {
+      "id": "unhcr-use",
+      "url": "https://emergency.unhcr.org/coordination-and-communication/information-management/data-and-information-management",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-repo",
+      "url": "https://api.github.com/repos/kobotoolbox/kpi",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-contributing",
+      "url": "https://github.com/kobotoolbox/kpi/blob/74e520c0bc2ce33afe911f041cdb7071947cdae9/CONTRIBUTING.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-7259",
+      "url": "https://github.com/kobotoolbox/kpi/issues/7259",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-second-user",
+      "url": "https://github.com/kobotoolbox/kpi/issues/7259#issuecomment-5415945472",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-7260",
+      "url": "https://github.com/kobotoolbox/kpi/pull/7260",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-7259-timeline",
+      "url": "https://api.github.com/repos/kobotoolbox/kpi/issues/7259/timeline",
+      "accessed": "2026-09-08"
+    }
+  ],
+  "work_kind": "support-existing-contribution"
+}

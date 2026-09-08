@@ -1,0 +1,52 @@
+{
+  "id": "hot-tasking-manager",
+  "name": "HOT Tasking Manager",
+  "repository": "https://github.com/hotosm/tasking-manager",
+  "homepage": "https://tasks.hotosm.org/",
+  "license": "BSD-2-Clause",
+  "humanitarian_domain": "Coordinating and validating open mapping for disaster preparedness, response, and local planning",
+  "impact_evidence": [
+    {
+      "type": "self_reported",
+      "claim": "HOT describes coordinated remote mapping, validation, and project data access for humanitarian organizations and local communities. This establishes the intended operational pathway, not the realized benefit of any proposed fix.",
+      "source_id": "hot-purpose"
+    }
+  ],
+  "maintenance": {
+    "default_branch": "develop",
+    "inspected_revision": "2b917a14ea7b0b76935c4e2d6985ab25764cd1c9",
+    "current_public_activity": "Unarchived; GitHub pushed_at 2026-09-08T17:01:32Z. Recursive tree was not truncated. Activity does not prove issue freshness or available review capacity."
+  },
+  "contribution": {
+    "pathway": "Fork-based PRs against develop; issue linkage, tests, frontend formatting and extracted source strings are documented. Inspect submit/review instructions and environment before execution.",
+    "ai_policy": "Explicitly permits disclosed AI assistance, requires understanding and tests, and reserves good first issues for human learning. AGENTS requires honest assistance-level disclosure and a draft for unreviewed level-5 output; sensitive state, permission, geometry, scheduled-job and deployment changes must not be autonomous. The linked full responsible-AI guide remains to be read.",
+    "maintainer_check_required": true
+  },
+  "sources": [
+    {
+      "id": "hot-purpose",
+      "url": "https://www.hotosm.org/en/tools-resources/tech-product-suite/tasking-manager/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-repo",
+      "url": "https://api.github.com/repos/hotosm/tasking-manager",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-contributing",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/docs/developers/contributing-guidelines.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-ai-policy",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/docs/developers/contributing.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-agent-guide",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/AGENTS.md",
+      "accessed": "2026-09-08"
+    }
+  ]
+}

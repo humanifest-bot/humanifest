@@ -1,13 +1,43 @@
 # Portfolio Status
 
-Projects: 2
-Opportunities: 4
+Projects: 4
+Opportunities: 6
 Active implementations: 0/1
 Open external PRs: 0/2 (at most 1 per organization)
 
 Status reflects supplied records; source access dates are not a live upstream check.
 Scores do not authorize implementation or external writes. Candidates are listed by state and ID, not ranked by raw score.
 
+- hot-7227-archived-project-data-access: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=13
+  Next: Verify the issue is current and bound its code surface and regression strategy.
+  - contribution_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - ai_policy_understood: Core AI rules read, including protected workflows and human-learning issues. Read the linked full policy and applicable PR instructions before claiming policy review complete.
+  - problem_current_and_consequential: Operational need is reported, but the issue was last updated in April; current deployed behavior must be checked without triggering production extraction.
+  - behavior_reproducible_or_verifiable: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - code_and_tests_located: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - change_bounded: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - regression_strategy_credible: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - security_and_licensing_risk_acceptable: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - environment_feasible: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - maintainer_interest_confirmed: Historical discussion or another contributor's PR does not confirm a Humanifest contribution. No inquiry sent for this opportunity.
+  - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - user_can_explain_line_by_line: No implementation or human line-by-line review has occurred.
+- kobo-7259-incremental-sync-verification: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=13
+  Next: Verify the issue is current and bound its code surface and regression strategy.
+  - contribution_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - ai_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - problem_current_and_consequential: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - behavior_reproducible_or_verifiable: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - code_and_tests_located: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - change_bounded: The next source-review job is bounded; implementation or review-addition scope is not selected until the existing PR and tests are inspected.
+  - regression_strategy_credible: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - security_and_licensing_risk_acceptable: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - environment_feasible: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - maintainer_interest_confirmed: Historical discussion or another contributor's PR does not confirm a Humanifest contribution. No inquiry sent for this opportunity.
+  - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - user_can_explain_line_by_line: No implementation or human line-by-line review has occurred.
 - cht-10155-edit-user-load-failure: MAINTAINER-CHECK; score=0.0; failed_gates=3
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - behavior_reproducible_or_verifiable: Source-level behavior is mapped, but UI/Karma reproduction has not been run because dependencies are not installed.

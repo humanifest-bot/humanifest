@@ -1,0 +1,163 @@
+{
+  "id": "hot-7227-archived-project-data-access",
+  "project_id": "hot-tasking-manager",
+  "title": "Investigate unavailable OSM data downloads for completed, archived projects",
+  "pipeline_state": "OPPORTUNITY-RESEARCH",
+  "problem": "Issue #7227 reports that a completed project cannot supply its building GeoJSON to data requestors. A HOT member identifies archived status as the reason downloads are not updated and suggests considering on-demand refresh for authorized project users.",
+  "humanitarian_relevance": "Enabling access to validated mapping outputs has a direct operational pathway to requestors using maps. The affected user describes an immediate sharing problem; reach and realized benefit remain unmeasured.",
+  "evidence": [
+    {
+      "type": "self_reported",
+      "claim": "The reporter could not share completed project map data through the download feature; a later comment explains why post-completion access matters.",
+      "source_id": "hot-user-need"
+    },
+    {
+      "type": "self_reported",
+      "claim": "A GitHub MEMBER attributes stale downloads to archived project status and proposes considering authorized on-demand fetching. This is historical context, not approval of Humanifest work.",
+      "source_id": "hot-archive-explanation"
+    },
+    {
+      "type": "measured",
+      "claim": "Read-only issue/timeline inspection on 2026-09-08 found OPEN, unassigned, last updated 2026-04-28, and no returned cross-referenced PR. The bounded timeline is not an exhaustive competing-work search.",
+      "source_id": "hot-7227-timeline"
+    }
+  ],
+  "code_surface": "Pinned tree locates frontend/src/components/projectDetail/downloadOsmData.js, tests/downloadButtons.test.js, and scripts/aws/lambda/TM-Extractor/README.md. File contents and backend call graph remain to be inspected.",
+  "proposed_change": "Research now: trace downloadOsmData.js and the extractor lifecycle to distinguish unavailable links, stale artifacts, and archive scheduling. Propose the smallest coherent option (accurate availability guidance versus an authorized refresh flow) with its tradeoffs. Do not implement permissions or scheduled-job changes without explicit maintainer supervision.",
+  "tests": "Identify existing download component tests and extractor fixtures; plan synthetic published/archived cases with present, absent and stale artifacts. Any refresh proposal needs authorization, rate-limit and failure-path checks. No tests added or run.",
+  "environment": "Tier 0 public source/API inspection only. No target clone, dependency install, setup, test, or production write. Inspect manifests, hooks, services and secrets before any execution.",
+  "maintainer": "Research can proceed independently now. Confirm the specific scope and whether support is wanted before implementation or outbound review.",
+  "risks": "Initial intake is not implementation readiness. Preserve existing contributors, avoid production data, and verify policy and scope before publishing target work.",
+  "priority_rationale": "First new investigation: an operator reported inability to share completed mapping data, a member identified the lifecycle condition, and no competing PR appeared in the retrieved issue timeline. Potential scope may touch privileged or scheduled behavior, so begin with read-only tracing.",
+  "next_external_status_check": "2026-09-15",
+  "gates": {
+    "humanitarian_relevance_supported": {
+      "passed": true,
+      "rationale": "HOT documents mapping coordination and access to data for humanitarian operations."
+    },
+    "repository_active": {
+      "passed": true,
+      "rationale": "Unarchived repository pushed on 2026-09-08; inspected tree pinned."
+    },
+    "external_contributions_accepted": {
+      "passed": true,
+      "rationale": "Retrieved contribution guides explicitly welcome volunteer code contributions and fork-based PRs."
+    },
+    "contribution_policy_understood": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "ai_policy_understood": {
+      "passed": false,
+      "rationale": "Core AI rules read, including protected workflows and human-learning issues. Read the linked full policy and applicable PR instructions before claiming policy review complete."
+    },
+    "problem_current_and_consequential": {
+      "passed": false,
+      "rationale": "Operational need is reported, but the issue was last updated in April; current deployed behavior must be checked without triggering production extraction."
+    },
+    "behavior_reproducible_or_verifiable": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "code_and_tests_located": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "change_bounded": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "regression_strategy_credible": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "no_private_data_required": {
+      "passed": true,
+      "rationale": "Initial investigation uses public source and synthetic artifact states only."
+    },
+    "security_and_licensing_risk_acceptable": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "environment_feasible": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "maintainer_interest_confirmed": {
+      "passed": false,
+      "rationale": "Historical discussion or another contributor's PR does not confirm a Humanifest contribution. No inquiry sent for this opportunity."
+    },
+    "probable_reviewer_identified": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "benefit_justifies_review_cost": {
+      "passed": false,
+      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+    },
+    "user_can_explain_line_by_line": {
+      "passed": false,
+      "rationale": "No implementation or human line-by-line review has occurred."
+    }
+  },
+  "score_inputs": {
+    "humanitarian_benefit": 3.5,
+    "acceptance_probability": 0,
+    "technical_confidence": 0,
+    "review_burden": 3,
+    "deployment_probability": 0
+  },
+  "score_basis": "Provisional research estimate only: operational relevance supports investigation, but acceptance, technical confidence and deployment are unknown. Failed gates keep implementation score at zero.",
+  "sources": [
+    {
+      "id": "hot-purpose",
+      "url": "https://www.hotosm.org/en/tools-resources/tech-product-suite/tasking-manager/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-repo",
+      "url": "https://api.github.com/repos/hotosm/tasking-manager",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-contributing",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/docs/developers/contributing-guidelines.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-ai-policy",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/docs/developers/contributing.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-agent-guide",
+      "url": "https://github.com/hotosm/tasking-manager/blob/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9/AGENTS.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-7227",
+      "url": "https://github.com/hotosm/tasking-manager/issues/7227",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-archive-explanation",
+      "url": "https://github.com/hotosm/tasking-manager/issues/7227#issuecomment-4334109989",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-user-need",
+      "url": "https://github.com/hotosm/tasking-manager/issues/7227#issuecomment-4334172918",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-7227-timeline",
+      "url": "https://api.github.com/repos/hotosm/tasking-manager/issues/7227/timeline",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "hot-tree",
+      "url": "https://api.github.com/repos/hotosm/tasking-manager/git/trees/2b917a14ea7b0b76935c4e2d6985ab25764cd1c9?recursive=1",
+      "accessed": "2026-09-08"
+    }
+  ]
+}

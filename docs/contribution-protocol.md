@@ -39,7 +39,9 @@ the authorized [CHT #10155 inquiry](https://github.com/medic/cht-core/issues/101
 was posted at 2026-09-08T19:02:19Z. GitHub's API confirmed the author and body.
 Isolated CLI authentication subsequently completed and its API identity was
 verified as `humanifest-bot`. The default CLI and connected GitHub tool still
-resolve to `roryscot`; use the isolated configuration for bot writes.
+resolve to `roryscot`. Configuration separation alone proved insufficient for
+Keychain isolation; use `scripts.bot_github` to select and verify the bot's actual
+credential before writes. Repository push permission remains pending.
 Before posting, verify that the exact connection used authenticates as
 `humanifest-bot`. Do not fall back to personal credentials. See
 [GitHub identity setup](github-identity.md) for the separate bot CLI configuration.

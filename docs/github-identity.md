@@ -17,9 +17,11 @@ controls the authorized contribution scope.
   include private repository control, workflow updates, gist creation, and
   organization/team read access. The pending flow later completed outside the
   rejected action; a fresh CLI API check confirmed `humanifest-bot` (ID 326603023).
-- A subsequent authenticated API check on 2026-09-08 confirmed the bot has push
-  permission on `humanifest/humanifest`. Bot CLI authentication and repository
-  access are now ready for authorized pushes.
+- Correction: a configuration-only check appeared to show push permission, but
+  the next identity guard found that credential resolved to `roryscot`. An
+  account-specific credential check on 2026-09-08 verified `humanifest-bot` and
+  `push: false`. Bot Write access to `humanifest/humanifest` remains pending
+  explicit approval after automatic approval review rejected granting it.
 - The [CHT #10155 inquiry](https://github.com/medic/cht-core/issues/10155#issuecomment-5590328371)
   was posted through that browser at 2026-09-08T19:02:19Z. A read-only API check
   verified its author and body. Do not post a duplicate.
@@ -35,10 +37,12 @@ Account registration is complete. GitHub's account terms require a human to
 create the account and accept responsibility for its automated actions.
 
 Authenticate `humanifest-bot` through the GitHub CLI's browser login. This host
-uses `GH_CONFIG_DIR=/Users/admin/.config/gh-humanifest` for the bot so the default
-personal CLI configuration is preserved. Set that variable on every bot CLI
-command, including identity checks; a plain `gh` command may use the personal
-account. Keep credentials in the authentication tool's
+uses `GH_CONFIG_DIR=/Users/admin/.config/gh-humanifest` for bot login configuration,
+but configuration separation alone does not isolate Keychain token selection.
+Use `python3 -m scripts.bot_github <gh arguments>` for bot operations. The helper
+selects the existing credential with `gh auth token --user humanifest-bot`, then
+verifies GitHub's actual response before executing the requested command. It
+does not grant authorization or bypass repository permissions. Keep credentials in the authentication tool's
 credential store, never in this repository or a chat message. Verify the username
 returned by the exact connection that will perform the write; signing one
 connection in does not change the other connection.
@@ -63,3 +67,4 @@ Inspected 2026-09-08:
 - [GitHub account types and attribution](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts)
 - [GitHub machine account registration requirements](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#3-account-requirements)
 - [GitHub App installation access and token identity](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps)
+- [Reported config-directory and Keychain identity mismatch](https://github.com/cli/cli/issues/12885)

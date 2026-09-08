@@ -12,7 +12,9 @@ Before opening nontrivial work:
 
 Do not submit mass formatting, dependency churn, broad rewrites, automated issue reports, or unsolicited AI-generated PR reviews.
 
-Code contributions are accepted under the repository license. Contributors should use DCO signoff unless the project later adopts a CLA.
+No repository license has been selected yet. The owner must approve the license
+before outside contributions are accepted; see [Licensing Options](docs/licensing.md).
+Contributors should use DCO signoff unless the project later adopts a CLA.
 
 ## Development checks
 

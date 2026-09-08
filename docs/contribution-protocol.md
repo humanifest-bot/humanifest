@@ -139,6 +139,44 @@ Park the work if the issue is stale, already assigned, already under PR, too bro
 
 ## Portfolio Capacity
 
+### Keep work moving while reviews are pending
+
+The user clarified on 2026-09-08 that donated compute should continue through the
+queue and identify additional high-impact work while earlier contributions await
+responses. A pending inquiry or PR blocks its dependent steps, not independent
+research or another eligible contribution. Discovery and source inspection do
+not consume implementation or external-PR slots.
+
+Choose the next useful action in this order:
+
+1. Address actionable maintainer feedback on an existing contribution.
+2. Advance a confirmed, gate-passing contribution when capacity permits.
+3. Resolve a specific evidence, scope, policy, or reproduction-planning gap in
+   another candidate using the permitted level of source inspection.
+4. Refill the research queue with a small batch of promising opportunities from
+   other maintainer teams. Verify the cause, current issue, competing work, and
+   contribution policy; record an exact next investigation and why it matters.
+
+Prefer operational correctness, access to useful data, accessibility, and
+reliability where evidence supports likely benefit. Public reach alone is not
+proof of a high-impact patch. Keep unconfirmed work in a research state and
+explain prioritization without assigning it a nonzero implementation score.
+Do not crowd out another active contributor or inflate the queue with vague work.
+
+Do not repeatedly poll unchanged discussions in consecutive work cycles. Unless
+a maintainer asks for faster follow-up or a deadline warrants it, schedule the
+next manual external-status check about a week after the last one and spend the
+intervening work on independent candidates. A recorded check date is a work plan,
+not an installed monitor or permission to send reminders.
+
+Only treat the portfolio as blocked after checking the actionable queue and a
+bounded refill for useful independent work. Per-project confirmation, setup,
+privacy, authorization, and review-capacity requirements still apply. Waiting on
+Humanifest's own control-repository PRs does not consume external-contribution
+slots or prevent queue research.
+
+### Implementation and publication limits
+
 `validate` and `report` enforce one active implementation across `BUILDING`,
 `ADVERSARIAL-REVIEW`, and `HUMAN-REVIEW`. A `PR-OPEN` record occupies one of two
 portfolio PR slots and its organization's single PR slot. Stopped and completed

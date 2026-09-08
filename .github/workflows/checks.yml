@@ -1,0 +1,43 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.14']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install check dependencies
+        run: python -m pip install -r requirements-checks.txt
+      - name: Unit tests
+        run: python -m unittest
+      - name: Validate portfolio
+        run: python -m humanifest.cli validate --root .
+      - name: Validate public schemas
+        run: python -m scripts.check_schemas
+      - name: Check generated status
+        run: |
+          python -m humanifest.cli report --root . > "$RUNNER_TEMP/portfolio-status.md"
+          diff -u portfolio/status.md "$RUNNER_TEMP/portfolio-status.md"
+      - name: Build and smoke-test installed CLI
+        run: python -m scripts.check_install

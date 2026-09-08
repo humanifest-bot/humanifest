@@ -26,6 +26,13 @@ consumers must enable date format checking for equivalent calendar validation.
 
 No database, server, dashboard, GitHub App, package publishing, or LLM framework is included.
 
+GitHub Actions runs the offline suite, public JSON Schema validation, a generated
+status comparison, and a wheel installation smoke test on Python 3.11 and 3.14.
+Schema validation uses a pinned development dependency; application installation
+and use still require no runtime dependencies. See `CONTRIBUTING.md` for local
+equivalents. The scripts under `scripts/` are development checks and are excluded
+from the installed app.
+
 ## Why Python
 
 Python was chosen because the first MVP is offline data validation and report generation. The standard library covers JSON parsing, CLI behavior, and unit tests without dependencies. TypeScript may become appropriate later if Humanifest develops a web UI or GitHub App, but that is explicitly deferred.

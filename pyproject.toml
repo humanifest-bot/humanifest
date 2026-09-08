@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "A thin coordination protocol for verified humanitarian OSS contributions."
 requires-python = ">=3.11"
 dependencies = []
+license = "MIT"
 
 [project.scripts]
 humanifest = "humanifest.cli:main"

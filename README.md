@@ -4,6 +4,21 @@ Humanifest converts donated AI-assisted engineering capacity into verified, main
 
 It is deliberately a thin coordination layer. Its job is to help decide what not to do, then prepare a small number of excellent upstream contributions only after evidence and maintainer interest support the work.
 
+## Open-Source Mission
+
+Humanifest is intended to become an open protocol and toolkit for directing
+donated engineering and AI-assisted review time toward work that humanitarian
+maintainers actually want. The project values restraint as much as output:
+refreshing evidence, parking a weak opportunity, or reducing reviewer burden can
+be as useful as writing code.
+
+Public participation should strengthen this standard. Contributors can help by
+auditing project records, refreshing stale sources, improving gates and schemas,
+reviewing proposed handoffs, hardening the CLI, and documenting repeatable
+workflows. Upstream outreach, issue comments, pull requests, and other external
+writes remain controlled by the contribution protocol and require explicit
+authorization.
+
 ## Current Status
 
 This repository contains the first deterministic MVP:
@@ -105,9 +120,38 @@ their individual source IDs and access dates. Review reminders return exit code
 - `handoffs/`: bounded prompts for Codex, Spark, Cursor, and reviewers.
 - `tests/`: offline unit tests.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) before opening work. The best first
+contributions are small and evidence-preserving:
+
+- refresh a stale source review;
+- improve an opportunity record without advancing unsupported gates;
+- add tests for validation, scoring, or report behavior;
+- clarify documentation where the workflow is hard to follow;
+- adversarially review a handoff or proposed implementation.
+
+Do not contact external maintainers, post issue comments, open upstream pull
+requests, or submit AI-generated reviews on behalf of Humanifest unless the
+current protocol and authorization explicitly allow it.
+
+## Donations
+
+Donations support Humanifest's coordination work: evidence review, maintainer
+communication, reproducible environments, adversarial review, and small,
+maintainer-approved contributions to humanitarian and public-interest open
+source. Sponsorship is not a purchase of influence, priority, outreach, ranking,
+or a guaranteed upstream contribution.
+
+Use [GitHub Sponsors](https://github.com/sponsors/humanifest) or this
+repository's Sponsor button. Funding configuration lives in
+[.github/FUNDING.yml](.github/FUNDING.yml).
+
 ## License
 
-No license has been applied yet. See `docs/licensing.md` for options requiring owner approval before outside contributions are accepted.
+Humanifest is licensed under the [MIT License](LICENSE). See
+[docs/licensing.md](docs/licensing.md) for licensing notes and contribution
+expectations.
 
 ## Non-Goals
 

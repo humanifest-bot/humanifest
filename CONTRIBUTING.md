@@ -2,7 +2,18 @@
 
 Humanifest protects maintainers from speculative AI-generated contribution noise. Contributions here should model that standard.
 
-Before opening nontrivial work:
+## Contribution lanes
+
+Useful work is not limited to code. Good first contributions include:
+
+- refreshing source access dates and flagging stale evidence;
+- improving project or opportunity records while preserving provenance;
+- tightening schemas, validators, reports, and tests;
+- documenting confusing workflow steps;
+- adversarially reviewing a candidate handoff or proposed implementation;
+- preparing bounded implementation work only after every hard gate passes.
+
+## Before opening nontrivial work
 
 1. Open or identify an issue.
 2. Confirm the maintainer wants the work.
@@ -12,9 +23,26 @@ Before opening nontrivial work:
 
 Do not submit mass formatting, dependency churn, broad rewrites, automated issue reports, or unsolicited AI-generated PR reviews.
 
-No repository license has been selected yet. The owner must approve the license
-before outside contributions are accepted; see [Licensing Options](docs/licensing.md).
-Contributors should use DCO signoff unless the project later adopts a CLA.
+Do not contact external maintainers, post issue comments, open upstream pull
+requests, or make other external writes on behalf of Humanifest unless the
+current protocol and authorization explicitly allow it. When communication is
+authorized, use the verified Humanifest identity required by
+[the contribution protocol](docs/contribution-protocol.md#communication-authorization).
+
+Do not advance an opportunity record beyond the evidence it actually supports.
+A useful negative finding, parked opportunity, or failed gate is a valid
+contribution when it prevents low-quality work from reaching a maintainer.
+
+Humanifest is licensed under the MIT License. Contributors should use DCO signoff
+unless the project later adopts a CLA; see [Licensing](docs/licensing.md).
+
+## Donations and sponsorship
+
+Sponsorship supports Humanifest coordination work, not donor direction over the
+portfolio. Donations do not guarantee project selection, priority, maintainer
+outreach, pull requests, merge outcomes, or favorable scoring. Conflicts of
+interest should be disclosed in any contribution that affects project selection,
+opportunity scoring, or public claims of impact.
 
 ## Development checks
 

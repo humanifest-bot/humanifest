@@ -1,0 +1,9 @@
+# GitHub Sponsors funding configuration.
+#
+# Sponsorship supports Humanifest coordination work: evidence review,
+# maintainer-confirmed humanitarian OSS contributions, reproducible environments,
+# and adversarial review. It does not buy project ranking, outreach priority, or
+# guaranteed upstream pull requests.
+
+github:
+  - humanifest

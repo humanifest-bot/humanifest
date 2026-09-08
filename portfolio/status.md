@@ -29,7 +29,7 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - user_can_explain_line_by_line: Not until a bounded approach is selected and reproduced.
 - crisiscleanup-1164-success-banner-failure: PARKED; score=0.0; failed_gates=7
   Next: Keep parked until the stopping reason is resolved and evidence supports reconsideration.
-  - contribution_policy_understood: Read the contributing guide linked by the current README: bounded PRs, tests, ongoing review participation, and CLA terms apply. The actual CLA text was not retrieved from the JavaScript-only contributions page, so the full terms remain unverified.
+  - contribution_policy_understood: Retrieved the live contribution page and ICLA. Published guidance differs on signing expectations; Humanifest signatory and agreement status, including application to bot/AI-assisted submissions, are unresolved. Retrieval is complete, but contribution readiness is not. No agreement was signed or submitted.
   - ai_policy_understood: Current AGENTS.md and CLAUDE.md provide AI-tool development instructions, but these are not an explicit external AI-assisted contribution policy. Disclosure and accountability requirements remain unconfirmed.
   - problem_current_and_consequential: Rechecked 2026-09-08: open but last updated 2024-10-02, with no comments; current behavior remains unconfirmed.
   - behavior_reproducible_or_verifiable: No reproduction performed and may require phone workflow context.

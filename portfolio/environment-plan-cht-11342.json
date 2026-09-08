@@ -1,7 +1,7 @@
 {
   "opportunity_id": "cht-11342-dhis2-bs-month-export",
   "repository": "https://github.com/medic/cht-core",
-  "commit": "to be pinned after maintainer confirmation and clone",
+  "commit": "Pin the implementation revision after maintainer confirmation; the source_inspection_commit records read-only inspection only.",
   "architecture": "x86_64 preferred for parity; arm64 acceptable only if project tests support it",
   "operating_system": "Linux",
   "runner": "github-codespaces-or-devcontainer",
@@ -19,13 +19,10 @@
   "secrets": [],
   "setup_commands": ["defer until project setup scripts are inspected"],
   "start_commands": [],
-  "test_commands": ["locate narrow DHIS export unit test command before implementation"],
+  "test_commands": ["npm run unit-api (identified in the root package; not run, setup/services must be inspected first)"],
   "reset_commands": ["delete disposable environment or reset worktree"],
   "cleanup_commands": ["remove external clone/workspace after contribution is parked or submitted"],
-  "known_deviations": "No clone or dependency install performed during first Humanifest run.",
-  "residual_risks": [
-    "date-period product semantics require maintainer confirmation",
-    "large repository setup may be slow",
-    "API tests may require service fixtures"
-  ]
+  "known_deviations": "No clone or dependency install performed during first Humanifest run. On 2026-09-08, the existing external checkout was inspected read-only and the exact DHIS Mocha test file was located; no new clone, setup, or target tests were performed.",
+  "residual_risks": ["date-period product semantics require maintainer confirmation", "large repository setup may be slow", "API tests may require service fixtures"],
+  "source_inspection_commit": "35b2bb6dac0844bee3228476591d08d56c5dd10d"
 }

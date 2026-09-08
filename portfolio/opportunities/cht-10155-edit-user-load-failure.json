@@ -30,20 +30,40 @@
       "type": "measured",
       "claim": "Local branch /private/tmp/humanifest-cht-core@10155-edit-user-load-state maps the source, template, translation, and unit-test surfaces and passes node --check plus git diff --check.",
       "source_id": "local-prep-10155"
+    },
+    {
+      "type": "measured",
+      "claim": "On 2026-09-08, read-only GitHub issue metadata reported OPEN, no assignees, 6 comments, and updatedAt 2026-06-26T05:47:40Z. This does not establish maintainer availability or reproducibility.",
+      "source_id": "issue-10155-recheck-2026-09-08"
+    },
+    {
+      "type": "measured",
+      "claim": "PR #10824 remained CLOSED with mergedAt null on 2026-09-08. Its timeline cross-reference was the only linked work returned by the inspected #10155 issue timeline; this is not an exhaustive search for competing work.",
+      "source_id": "pr-10824-recheck-2026-09-08"
+    },
+    {
+      "type": "self_reported",
+      "claim": "The April 22 reviewer requested a short video of the intended loading flow because the fix was not visible in their reproduction attempt.",
+      "source_id": "pr-10824-video-request"
+    },
+    {
+      "type": "measured",
+      "claim": "At the inspected commit, setupPromise catches and logs model-population failure without setting a modal error state. The separate local working tree contains an uncommitted preparation patch.",
+      "source_id": "edit-user-pinned-2026-09-08"
     }
   ],
   "code_surface": "medic/cht-core: admin/src/js/controllers/edit-user.js, admin modal template for edit user, admin translation files, and associated admin unit tests once located.",
   "proposed_change": "Prepare a replacement PR only after current maintainer confirmation. The local prep branch adds loadingUserDetails and userDetailsLoadFailed controller state, hides the form until data is loaded, disables/guards submit while loading or failed, surfaces admin.user.load.error through the existing modal error path, and adds focused controller tests.",
-  "tests": "Focused tests added locally in admin/tests/unit/controllers/edit-user.spec.js for loading state, failed detail load, and submit guards. Not run under Karma because dependencies are not installed; exact target command is npm run unit-admin after approved setup.",
+  "tests": "Focused tests added locally in admin/tests/unit/controllers/edit-user.spec.js for loading state, failed detail load, and submit guards. Not run under Karma because dependencies are not installed; exact target command is npm run unit-admin after approved setup. If work is confirmed, also capture a short synthetic-data video of the loading and error flow requested during prior review; no such video was produced in this recheck.",
   "environment": "Tier 1 now for source/test inspection. Tier 3 devcontainer/Codespaces before implementation because CHT admin tests may require project-controlled npm setup.",
-  "maintainer": "Prior maintainer comments indicate the problem and desired workflow, but no current maintainer has invited a replacement PR after #10824 went stale.",
-  "risks": "Medium: likely bounded frontend/admin work, but translations, templates, and prior stale PR history can increase maintainer burden if not handled exactly.",
+  "maintainer": "As of 2026-09-08, prior guidance remains historical; no current invitation to replace closed PR #10824 was found in the six issue comments and the PR discussion inspected.",
+  "risks": "Medium: likely bounded frontend/admin work, but translations, templates, and prior stale PR history can increase maintainer burden if not handled exactly. Current translation documentation permits tool-assisted drafts with fluent-speaker validation before merge; historical English-placeholder preparation alone is not evidence of compliance.",
   "gates": {
     "humanitarian_relevance_supported": { "passed": true, "rationale": "CHT is a deployed community-health platform and admin user setup affects operational access." },
     "repository_active": { "passed": true, "rationale": "cht-core is active and the issue was updated in 2026." },
     "external_contributions_accepted": { "passed": true, "rationale": "CHT publishes contributor documentation and Help wanted labels." },
-    "contribution_policy_understood": { "passed": true, "rationale": "Contributor guide identified; exact local setup still needs reading before implementation." },
-    "ai_policy_understood": { "passed": true, "rationale": "CHT contributor docs include AI assistance guidance; exact disclosure text must be followed before PR." },
+    "contribution_policy_understood": { "passed": true, "rationale": "Reviewed 2026-09-08: follow the branch/PR workflow, link the issue, provide testing evidence, self-review, and coordinate with a reviewer. Environment setup remains separately gated.", "source_ids": ["cht-workflow-2026-09-08"] },
+    "ai_policy_understood": { "passed": true, "rationale": "Reviewed 2026-09-08: disclose the AI tool and its role; retain responsibility for review, regression tests, dependency/license checks, and explaining the contribution.", "source_ids": ["cht-ai-guidelines-2026-09-08", "cht-translations-2026-09-08"] },
     "problem_current_and_consequential": { "passed": true, "rationale": "Issue remains open, is labeled Help wanted, and prior PR #10824 closed stale rather than merged." },
     "behavior_reproducible_or_verifiable": { "passed": false, "rationale": "Source-level behavior is mapped, but UI/Karma reproduction has not been run because dependencies are not installed." },
     "code_and_tests_located": { "passed": true, "rationale": "Controller, template, translation, and admin unit-test surfaces were located." },
@@ -52,7 +72,7 @@
     "no_private_data_required": { "passed": true, "rationale": "Can use mocked SSO user data and offline/error simulation." },
     "security_and_licensing_risk_acceptable": { "passed": true, "rationale": "No secret, auth-policy, or data-model change required if limited to UI error state." },
     "environment_feasible": { "passed": true, "rationale": "Feasible in a CHT devcontainer/Codespaces after setup inspection." },
-    "maintainer_interest_confirmed": { "passed": false, "rationale": "Past maintainer interest exists, but no current confirmation to revive or replace stale PR #10824." },
+    "maintainer_interest_confirmed": { "passed": false, "rationale": "Rechecked 2026-09-08: no current invitation to replace closed, unmerged PR #10824 was found in the inspected discussions.", "source_ids": ["issue-10155-recheck-2026-09-08", "pr-10824-recheck-2026-09-08"] },
     "probable_reviewer_identified": { "passed": true, "rationale": "Prior maintainer comments identify likely reviewers involved in the issue/PR." },
     "benefit_justifies_review_cost": { "passed": true, "rationale": "If current, a small admin UX fix should have low review cost." },
     "user_can_explain_line_by_line": { "passed": true, "rationale": "The likely patch is small enough for line-by-line explanation." }
@@ -84,6 +104,41 @@
       "id": "local-prep-10155",
       "url": "file:///private/tmp/humanifest-cht-core",
       "accessed": "2026-09-06"
+    },
+    {
+      "id": "issue-10155-recheck-2026-09-08",
+      "url": "https://github.com/medic/cht-core/issues/10155",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-ai-guidelines-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/ai-guidelines/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-workflow-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/code/workflow/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "pr-10824-recheck-2026-09-08",
+      "url": "https://github.com/medic/cht-core/pull/10824",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "pr-10824-video-request",
+      "url": "https://github.com/medic/cht-core/pull/10824#issuecomment-4298432595",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-translations-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/translations/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "edit-user-pinned-2026-09-08",
+      "url": "https://github.com/medic/cht-core/blob/35b2bb6dac0844bee3228476591d08d56c5dd10d/admin/src/js/controllers/edit-user.js#L178-L187",
+      "accessed": "2026-09-08"
     }
   ]
 }

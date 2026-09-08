@@ -48,3 +48,12 @@ Both passed.
 ## Next Step
 
 Ask maintainers whether they want a replacement PR for #10155 and whether the loading/error/submit-guard approach matches current expectations.
+
+## Recheck: 2026-09-08
+
+The [current recheck](2026-09-08-opportunity-recheck.md) confirms the local patch is
+still uncommitted; no Karma result was verified in that recheck. Current translation guidance
+has changed since the historical PR discussion; the original English-placeholder
+preparation must not be presented as completing today's translation requirements.
+Current opportunity records remain controlling, and maintainer confirmation is
+still absent from the inspected discussions.

@@ -24,7 +24,7 @@
   },
   "contribution": {
     "pathway": "GitHub issues, contributor guide, forum, and Good First Issue labels.",
-    "ai_policy": "CHT docs expose AI assistance guidelines; individual issue #11413 includes an AI disclosure example.",
+    "ai_policy": "Reviewed 2026-09-08: disclose tool and use in the PR; retain human understanding, review, and testing responsibility. Current translation guidance requires fluent-speaker validation of non-fluent drafts.",
     "maintainer_check_required": true
   },
   "sources": [
@@ -42,6 +42,21 @@
       "id": "cht-repo",
       "url": "https://github.com/medic/cht-core",
       "accessed": "2026-09-06"
+    },
+    {
+      "id": "cht-ai-guidelines-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/ai-guidelines/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-workflow-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/code/workflow/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-translations-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/translations/",
+      "accessed": "2026-09-08"
     }
   ]
 }

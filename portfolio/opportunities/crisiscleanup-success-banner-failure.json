@@ -10,6 +10,11 @@
       "type": "self_reported",
       "claim": "Issue report provides expected/current behavior and the failing endpoint path.",
       "source_id": "issue-1164"
+    },
+    {
+      "type": "measured",
+      "claim": "On 2026-09-08, read-only GitHub issue metadata reported OPEN, no assignees, 0 comments, and updatedAt 2024-10-02T16:16:54Z. This does not establish maintainer availability or reproducibility.",
+      "source_id": "issue-1164-recheck-2026-09-08"
     }
   ],
   "code_surface": "Likely CrisisCleanup/crisiscleanup-4-web phone outbound UI/action handling; exact source file was not located during the first read-only pass.",
@@ -24,7 +29,7 @@
     "external_contributions_accepted": { "passed": true, "rationale": "README references contribution terms and CLA." },
     "contribution_policy_understood": { "passed": false, "rationale": "Full CONTRIBUTING and CLA terms were not inspected in this run." },
     "ai_policy_understood": { "passed": false, "rationale": "No AI policy found." },
-    "problem_current_and_consequential": { "passed": false, "rationale": "Issue is from 2024 with no comments; current behavior unconfirmed." },
+    "problem_current_and_consequential": { "passed": false, "rationale": "Rechecked 2026-09-08: open but last updated 2024-10-02, with no comments; current behavior remains unconfirmed.", "source_ids": ["issue-1164-recheck-2026-09-08"] },
     "behavior_reproducible_or_verifiable": { "passed": false, "rationale": "No reproduction performed and may require phone workflow context." },
     "code_and_tests_located": { "passed": false, "rationale": "Exact frontend source and tests not located." },
     "change_bounded": { "passed": true, "rationale": "If current, the fix is likely bounded to error handling in one UI workflow." },
@@ -32,7 +37,7 @@
     "no_private_data_required": { "passed": true, "rationale": "Can test with mocked HTTP failure." },
     "security_and_licensing_risk_acceptable": { "passed": true, "rationale": "No security-sensitive code required if limited to UI feedback." },
     "environment_feasible": { "passed": true, "rationale": "Likely frontend-only." },
-    "maintainer_interest_confirmed": { "passed": false, "rationale": "No maintainer confirmation." },
+    "maintainer_interest_confirmed": { "passed": false, "rationale": "Rechecked 2026-09-08: no comments or assignees; no current maintainer confirmation was found.", "source_ids": ["issue-1164-recheck-2026-09-08"] },
     "probable_reviewer_identified": { "passed": false, "rationale": "No reviewer identified." },
     "benefit_justifies_review_cost": { "passed": false, "rationale": "Staleness and uncertainty make review cost unjustified until confirmed." },
     "user_can_explain_line_by_line": { "passed": true, "rationale": "Likely small if confirmed." }
@@ -49,6 +54,11 @@
       "id": "issue-1164",
       "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/issues/1164",
       "accessed": "2026-09-06"
+    },
+    {
+      "id": "issue-1164-recheck-2026-09-08",
+      "url": "https://github.com/CrisisCleanup/crisiscleanup-4-web/issues/1164",
+      "accessed": "2026-09-08"
     }
   ]
 }

@@ -15,6 +15,11 @@
       "type": "self_reported",
       "claim": "A maintainer pushed back on a global queue proposal as too broad and blocking, leaving design unresolved.",
       "source_id": "issue-10241"
+    },
+    {
+      "type": "measured",
+      "claim": "On 2026-09-08, read-only GitHub issue metadata reported OPEN, no assignees, 6 comments, and updatedAt 2026-04-08T08:22:17Z. This does not establish maintainer availability or reproducibility.",
+      "source_id": "issue-10241-recheck-2026-09-08"
     }
   ],
   "code_surface": "Likely validation utilities, API record/SMS processing, and transition save path in medic/cht-core; exact minimal surface not established.",
@@ -27,8 +32,8 @@
     "humanitarian_relevance_supported": { "passed": true, "rationale": "The affected validation protects health records." },
     "repository_active": { "passed": true, "rationale": "Issue remains open and was discussed in 2026." },
     "external_contributions_accepted": { "passed": true, "rationale": "CHT accepts external contributions under documented policies." },
-    "contribution_policy_understood": { "passed": true, "rationale": "Contributor guide identified." },
-    "ai_policy_understood": { "passed": true, "rationale": "CHT AI contribution guidance exists but must be reviewed before any PR." },
+    "contribution_policy_understood": { "passed": true, "rationale": "Reviewed 2026-09-08: follow the branch/PR workflow, link the issue, provide testing evidence, self-review, and coordinate with a reviewer. Environment setup remains separately gated.", "source_ids": ["cht-workflow-2026-09-08"] },
+    "ai_policy_understood": { "passed": true, "rationale": "Reviewed 2026-09-08: disclose the AI tool and its role; retain responsibility for review, regression tests, dependency/license checks, and explaining the contribution.", "source_ids": ["cht-ai-guidelines-2026-09-08"] },
     "problem_current_and_consequential": { "passed": true, "rationale": "Open issue describes production-observed duplicate writes." },
     "behavior_reproducible_or_verifiable": { "passed": false, "rationale": "Reproduction depends on timing/resource constraints and was not independently reproduced in this run." },
     "code_and_tests_located": { "passed": false, "rationale": "Exact code and test surface not yet located." },
@@ -37,7 +42,7 @@
     "no_private_data_required": { "passed": true, "rationale": "Synthetic records should be sufficient." },
     "security_and_licensing_risk_acceptable": { "passed": false, "rationale": "Concurrency and API behavior risks remain unresolved." },
     "environment_feasible": { "passed": true, "rationale": "Likely feasible, but heavier than first contribution target." },
-    "maintainer_interest_confirmed": { "passed": false, "rationale": "Maintainer has not selected a desired approach." },
+    "maintainer_interest_confirmed": { "passed": false, "rationale": "Rechecked 2026-09-08: the inspected discussion still contains no selected approach following the maintainer objection to a global queue.", "source_ids": ["issue-10241-recheck-2026-09-08", "queue-design-pushback"] },
     "probable_reviewer_identified": { "passed": true, "rationale": "A maintainer participating in the thread is a probable reviewer if work is approved." },
     "benefit_justifies_review_cost": { "passed": false, "rationale": "Potential benefit is high, but review/design cost is also high." },
     "user_can_explain_line_by_line": { "passed": false, "rationale": "Not until a bounded approach is selected and reproduced." }
@@ -54,6 +59,26 @@
       "id": "issue-10241",
       "url": "https://github.com/medic/cht-core/issues/10241",
       "accessed": "2026-09-06"
+    },
+    {
+      "id": "issue-10241-recheck-2026-09-08",
+      "url": "https://github.com/medic/cht-core/issues/10241",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-ai-guidelines-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/ai-guidelines/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "cht-workflow-2026-09-08",
+      "url": "https://docs.communityhealthtoolkit.org/community/contributing/code/workflow/",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "queue-design-pushback",
+      "url": "https://github.com/medic/cht-core/issues/10241#issuecomment-4204494893",
+      "accessed": "2026-09-08"
     }
   ]
 }

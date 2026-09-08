@@ -14,4 +14,4 @@ Before doing implementation work, I wanted to check whether this is currently wa
 
 If that direction is not right, I would be grateful for the preferred approach or a pointer to the right owner. I will avoid opening a PR unless a maintainer confirms the work is appropriate.
 
-AI assistance disclosure: I am using AI-assisted code reading and planning, with human review and line-by-line responsibility for any proposed patch.
+AI assistance disclosure: I am using OpenAI Codex for code reading and planning, with human review and line-by-line responsibility for any proposed patch.

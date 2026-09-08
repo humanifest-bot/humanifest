@@ -13,8 +13,8 @@ Would a replacement PR still be welcome for this? My planned scope is narrow:
 - surface an error through the existing modal error path if loading fails;
 - prevent submit while loading or after load failure;
 - add focused admin controller tests for those states;
-- keep translations limited to the supported language files, using English placeholders if that is still the preferred process.
+- follow the current translation process, including fluent-speaker validation where required.
 
 I will avoid opening a PR unless this is still wanted.
 
-AI assistance disclosure: I am using AI-assisted source reading and patch preparation, with human review and line-by-line responsibility for any submitted changes.
+AI assistance disclosure: I am using OpenAI Codex for source reading and patch preparation, with human review and line-by-line responsibility for any submitted changes.

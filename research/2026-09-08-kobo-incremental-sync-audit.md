@@ -89,8 +89,8 @@ Test the chosen contract against multiple equal-time records and delayed Mongo
 visibility before promising lossless incremental sync. Preserve creation-time
 and export behavior; keep backfill and schema generation separate unless requested.
 
-No target code changed, full target tests ran, human review occurred, or compute
-savings were measured. The existing author's workload report supports relevance
+No target code was changed and no full target test suite was run. No human
+review or measured compute savings are claimed. The author's workload report supports relevance
 but does not establish actual savings. Full environment inspection, policy and
 maintainer confirmation remain required before implementation. Continue other
 independent work while this bounded support proposal awaits coordination.

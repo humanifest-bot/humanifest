@@ -20,15 +20,20 @@
       "type": "inferred",
       "claim": "Premature truncation can erase a nonzero value or discard up to almost one million dollars under the current nonnegative midpoint arithmetic. This does not validate that aggregation model or establish a real-world loss-estimation error.",
       "source_id": "monty-usgs"
+    },
+    {
+      "type": "measured",
+      "claim": "Three full-transformer synthetic cases emitted the previously predicted rounded economic values while fatality and country controls held. All 8 existing USGS tests passed with networking blocked. No target code was changed; runtime warnings and limits are recorded.",
+      "source_id": "monty-runtime-note"
     }
   ],
   "code_surface": "pystac_monty/sources/usgs.py economic caller and _calculate_value_from_bins; validators/usgs.py AlertBin; tests/extensions/test_usgs.py and tests/data/usgs/venezuela_alerts.json.",
-  "proposed_change": "Investigate a focused economic-item regression and source-faithful unit fixtures. Confirm whether scaling before integer conversion can proceed separately from the paused loss-model redesign. Preserve fatality and empty/error behavior; no target patch until scope and all hard gates pass.",
-  "tests": "Four dependency-free original-helper/caller cases pass: submillion, fractional-million, exact-integer and empty controls. Next verify full item values, source-unit fixtures and unchanged fatality behavior using target tests after setup inspection.",
-  "environment": "Public source/API reads and standard-library probe only; no clone, target import, setup, database, service or production action. Python 3.11+ and cassette-based pytest documented, full feasibility unknown.",
+  "proposed_change": "Seek confirmation for a focused economic precision correction: scale before integer rounding while preserving fatality values and empty/error behavior. The full item output reproduces the problem. Add acceptance tests for 500000 and 5500000 USD plus controls after all hard gates pass; do not revive the paused loss-model redesign.",
+  "tests": "Executed 3 real-transformer reproduction cases with networking blocked: emitted economic values 0, 5000000 and 1000000 USD; unchanged fatality control 139 people and VEN country. All 8 existing USGS tests passed offline. Probe checks current faulty behavior, not acceptance of a fix. Earlier 4 arithmetic cases also passed; whole-project suite and production behavior not tested.",
+  "environment": "Verified clean temporary checkout at /private/tmp/humanifest-ifrc-pystac-monty, source 7dd2d48cd599c3e0b894f1676b5de88c19028c46, schema submodule b363a751f2d51b4169cd08aa5c17f0fc7b985763. Explicit Python 3.13.9, frozen lock, 86 wheel-only dependencies in temporary venv. No target package build, global install or service. Focused tests ran with --block-network --record-mode=none. Runtime note records setup attempts and sandbox diagnostics.",
   "maintainer": "Prior collaborator guidance establishes the original unit-fix intent, not approval of this new contribution. Prepare a focused scope question after checking remaining setup and policy evidence.",
   "risks": "Do not revive paused histogram-model changes or duplicate #204. The repository fixture uses different economic-bin magnitudes from the cited USGS payload; it is not verified original source data. No impact or production-loss claims.",
-  "priority_rationale": "Independent IFRC team, published operational use, a deterministic numeric finding and located tests make this a concrete research candidate. Unresolved scope and environment gates keep implementation score at zero.",
+  "priority_rationale": "Independent IFRC work now has a feasible focused test environment and a reproduced item-output defect. Seek current maintainer confirmation and AI/contribution expectations before implementing; keep unrelated queue work moving while awaiting decisions.",
   "next_external_status_check": "2026-09-15",
   "gates": {
     "humanitarian_relevance_supported": {
@@ -66,8 +71,12 @@
       "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
     },
     "behavior_reproducible_or_verifiable": {
-      "passed": false,
-      "rationale": "Four original-helper/caller arithmetic cases reproduced. Full economic-item output and target environment remain unverified, so end-to-end readiness is not claimed."
+      "passed": true,
+      "rationale": "Three hash-checked unmodified-transformer cases reproduce the rounding defect in serialized economic impact items; fatality/country controls hold. This is synthetic offline reproduction, not production observation.",
+      "source_ids": [
+        "monty-runtime-note",
+        "monty-runtime-probe"
+      ]
     },
     "code_and_tests_located": {
       "passed": true,
@@ -83,8 +92,12 @@
       "rationale": "Candidate scope is economic scaling before integer rounding with fatality behavior preserved. Maintainers must confirm separation from the paused uncertainty/representation redesign."
     },
     "regression_strategy_credible": {
-      "passed": false,
-      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+      "passed": true,
+      "rationale": "Existing USGS tests pass; a real-transformer fixture reaches economic item serialization and checks fatality/country controls. Future acceptance tests can replace current-behavior expectations after scope confirmation.",
+      "source_ids": [
+        "monty-runtime-note",
+        "monty-runtime-probe"
+      ]
     },
     "no_private_data_required": {
       "passed": true,
@@ -98,8 +111,12 @@
       "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
     },
     "environment_feasible": {
-      "passed": false,
-      "rationale": "Standard-library arithmetic probe ran without target imports. Full hooks, CI, submodule and HTTP-cassette behavior must be inspected before target execution."
+      "passed": true,
+      "rationale": "Inspected setup, fetched pinned source/submodule and installed frozen wheel-only dependencies on explicit Python 3.13.9. All 8 existing USGS tests plus 3 focused reproduction cases pass with networking blocked. Full CI/platform matrix remains untested.",
+      "source_ids": [
+        "monty-runtime-note",
+        "monty-runtime-probe"
+      ]
     },
     "maintainer_interest_confirmed": {
       "passed": false,
@@ -200,6 +217,26 @@
     {
       "id": "monty-rounding-probe",
       "url": "file:///Users/admin/dev/humanifest/research/fixtures/ifrc-usgs-rounding-reproduction.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-runtime-probe",
+      "url": "file:///Users/admin/dev/humanifest/research/fixtures/test_ifrc_usgs_item_reproduction.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-runtime-note",
+      "url": "file:///Users/admin/dev/humanifest/research/2026-09-08-ifrc-runtime-verification.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-ci",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/.github/workflows/ci.yml",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-test-script",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/scripts/test",
       "accessed": "2026-09-08"
     }
   ]

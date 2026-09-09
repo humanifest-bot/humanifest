@@ -92,3 +92,11 @@ test environment has not been verified. No implementation gates were waived.
 
 The new project/opportunity records control readiness. Research can continue now;
 the planned September 15 status check does not install a monitor or pause work.
+
+## Subsequent runtime verification
+
+The [runtime note](2026-09-08-ifrc-runtime-verification.md) now records a clean,
+pinned temporary environment, three real-transformer reproduction cases and
+all eight existing USGS tests passing with networking blocked. It supersedes
+the earlier setup/reproduction unknowns for this focused path. Maintainer scope,
+policy and human review gates remain unresolved; no target fix has been made.

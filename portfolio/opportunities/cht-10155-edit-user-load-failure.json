@@ -4,13 +4,17 @@
   "title": "Show a loading/error state when edit-user details fail to load",
   "pipeline_state": "MAINTAINER-CHECK",
   "next_external_status_check": "2026-09-15",
-  "research_next_step": "Verify the rendered edit-user template with synthetic pending and failed requests in the established baseline runner; keep visual/video evidence separate from the completed controller probes and do not implement the proposed fix before confirmation.",
   "problem": "CHT issue #10155 reports that the admin edit-user modal can render empty fields when user-detail population fails, including an SSO username request failure reproduced with Chrome DevTools offline throttling.",
   "humanitarian_relevance": "Reliable user administration matters for health-system deployments, especially where offline users, SSO, and role/facility assignment affect field access. This is operational tooling rather than direct clinical logic.",
   "evidence": [
     {
       "type": "measured",
-      "claim": "A clean pinned baseline passes all 431 admin tests and three additional browser-based controller probes. Failed SSO/settings requests leave editUserModel unset and only log errors; the successful SSO control populates the model. No target patch or rendered-modal/video reproduction is claimed.",
+      "claim": "Two Chrome DOM probes compile the original edit-user template, modal directive and controller with the real Modal scope service. Pending and failed synthetic SSO lookup both leave an editable blank Add User form, enabled submit action and no error alert. Successful resolution populates and locks the username and changes the title to Edit User. Production styling, Bootstrap window, submission side effects and video remain unverified.",
+      "source_id": "cht-admin-runtime-2026-09-08"
+    },
+    {
+      "type": "measured",
+      "claim": "A clean pinned baseline passes all 431 admin tests and three additional browser-based controller probes. Failed SSO/settings requests leave editUserModel unset and only log errors; the successful SSO control populates the model. Those three controller probes alone do not establish rendered-modal/video behavior; subsequent DOM verification is recorded separately. No target patch is claimed.",
       "source_id": "cht-admin-runtime-2026-09-08"
     },
     {
@@ -77,7 +81,7 @@
     "contribution_policy_understood": { "passed": true, "rationale": "Reviewed 2026-09-08: follow the branch/PR workflow, link the issue, provide testing evidence, self-review, and coordinate with a reviewer. Environment setup remains separately gated.", "source_ids": ["cht-workflow-2026-09-08"] },
     "ai_policy_understood": { "passed": true, "rationale": "Reviewed 2026-09-08: disclose the AI tool and its role; retain responsibility for review, regression tests, dependency/license checks, and explaining the contribution.", "source_ids": ["cht-ai-guidelines-2026-09-08", "cht-translations-2026-09-08"] },
     "problem_current_and_consequential": { "passed": true, "rationale": "Issue remains open, is labeled Help wanted, and prior PR #10824 closed stale rather than merged." },
-    "behavior_reproducible_or_verifiable": { "passed": true, "rationale": "Three synthetic Chrome/Angular controller probes reproduce unset edit models and absent modal error callbacks after SSO/settings failure, with a successful SSO control. The rendered modal and video are not verified.", "source_ids": ["cht-admin-runtime-2026-09-08"] },
+    "behavior_reproducible_or_verifiable": { "passed": true, "rationale": "Three synthetic Chrome/Angular controller probes reproduce unset edit models and absent modal error callbacks after SSO/settings failure, with a successful SSO control. Two further DOM probes verify the original modal pending/failure state; production styling and video remain unverified.", "source_ids": ["cht-admin-runtime-2026-09-08"] },
     "code_and_tests_located": { "passed": true, "rationale": "Controller, template, translation, and admin unit-test surfaces were located." },
     "change_bounded": { "passed": true, "rationale": "Likely limited to edit-user loading/error states and tests." },
     "regression_strategy_credible": { "passed": true, "rationale": "The unchanged 431-test admin baseline and three synthetic controller probes execute successfully. A fix still needs acceptance assertions for visible loading/error states, pending requests and unchanged successful flows; current-fault assertions are not fix acceptance criteria.", "source_ids": ["cht-admin-runtime-2026-09-08"] },

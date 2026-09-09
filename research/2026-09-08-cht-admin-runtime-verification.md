@@ -8,9 +8,11 @@ model; rejected SSO lookup and failed settings leave it unset and call the logge
 without calling the modal's error callback. These are current-behavior assertions,
 not acceptance assertions for a fix.
 
-The opportunity stays in `MAINTAINER-CHECK`. This run does not establish a new
-maintainer reply, visual modal behavior, a loading-state video, translation review,
-or permission to implement. No target source or existing preparation patch changed.
+The opportunity stays in `MAINTAINER-CHECK`. A subsequent two-case DOM run below
+extends the controller evidence to the compiled modal. Neither run establishes a
+new maintainer reply, production-styled modal appearance, a loading-state video,
+translation review, or permission to implement. No target source or existing
+preparation patch changed.
 
 ## Inspected setup and actual runner
 
@@ -103,7 +105,52 @@ there were no test failures. npm emitted dependency deprecation warnings.
 The browser user-agent reports macOS 10.15.7; the host version above comes from
 `sw_vers`, not that reduced user-agent string. Runtime feasibility is established
 for these admin tests on this host, not for every supported platform or full CHT
-deployment. Controller failure is reproduced, while compiled modal behavior and
-the requested video remain separate work. Once scope is confirmed, a patch needs
+deployment. Controller failure is reproduced; the subsequent DOM run below verifies
+the compiled modal, while the requested video remains separate work. Once scope is confirmed, a patch needs
 new assertions for visible loading/error behavior and unchanged successful flows;
 these current-fault probes must not be treated as the fix's acceptance criteria.
+
+## Compiled modal verification
+
+The additional [DOM probes](fixtures/cht-edit-user-dom-reproduction.spec.js) run with:
+
+```sh
+node research/fixtures/run_cht_admin_baseline.cjs --dom
+```
+
+The original `Modal` service constructs the scope and status callbacks. The original
+controller, `edit_user.html`, `mmModal` directive and `modal.html` are compiled by
+Angular and attached to the Chrome test document. The runner now also checks hashes
+for the modal service, directive and template. HTTP, permission and translation
+inputs are synthetic; unexpected database access is forbidden in the test injector.
+Bootstrap's window creation is stubbed, and contact-widget initialization remains
+deferred. No production styles or complete live CHT application are loaded.
+
+Two tests pass in Chrome (2.4 seconds wall time):
+
+- While the existing user's SSO lookup is pending, the username input is connected,
+  has nonzero layout height, is empty and enabled; the title says `Add User`, the
+  visible submit action is enabled, and there is no modal error alert. Resolving
+  that same lookup fills `synthetic-user`, disables username editing and changes
+  the title to `Edit User`.
+- After a rejected lookup, the form retains that same blank `Add User` state, with
+  no error alert and `status.error` false; the controller logged the failure.
+
+These DOM measurements demonstrate the misleading pending/failure state. They do
+not establish what submitting that form would do, production CSS appearance,
+screen-reader behavior, translation quality, or a corrected loading-state video.
+The assertions intentionally describe the fault; a fix needs opposite expectations.
+
+The first two harness attempts failed because CHT's document-ready bootstrap ran
+after the test had attached an already-compiled modal. A second injector attempted
+to compile it again, triggered the real local session lookup, and produced
+transclusion errors plus a login-page reload. Adding provider stubs alone did not
+fix this ordering problem. The final harness waits for document-ready callbacks
+to finish on the empty page before attaching test DOM. The passing run had no
+session request or reload; it retained the known duplicate-Chai warning and a
+local 404 for the unserved password-icon SVG. These harness failures are not
+additional CHT issue reproductions.
+
+The completed DOM research step has been removed from the opportunity record.
+Further implementation remains gated on confirmation, while independent research
+for other candidates remains available.

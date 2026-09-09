@@ -42,7 +42,8 @@
   ],
   "test_commands": [
     "node research/fixtures/run_cht_admin_baseline.cjs (from Humanifest with explicit target/browser paths)",
-    "node research/fixtures/run_cht_admin_baseline.cjs --reproduce"
+    "node research/fixtures/run_cht_admin_baseline.cjs --reproduce",
+    "node research/fixtures/run_cht_admin_baseline.cjs --dom"
   ],
   "checks_already_run": [
     "Historical local prep: node --check admin/src/js/controllers/edit-user.js",
@@ -50,11 +51,12 @@
     "2026-09-08: read-only committed manifest, lockfile, launcher, Karma config, bundler, workspace hook and CI inspection",
     "2026-09-08: root/admin locked installs with automatic hooks disabled; explicit inspected patches and builds pass",
     "2026-09-08: 431 existing admin tests and 3 synthetic real-controller probes pass in Chrome",
-    "2026-09-08: all 2767 tracked baseline blobs match pinned Git objects after builds"
+    "2026-09-08: all 2767 tracked baseline blobs match pinned Git objects after builds",
+    "2026-09-08: two compiled-modal DOM probes pass for pending/failed SSO lookup and successful resolution"
   ],
   "residual_risks": [
     "Maintainer confirmation remains absent; no target implementation authorized by this evidence",
-    "Rendered modal, loading-state video, translation validation, full deployment and Linux parity remain unverified",
+    "Compiled modal DOM verified with synthetic inputs; production styling, loading-state video, translation validation, full deployment and Linux parity remain unverified",
     "Bounded local runner is not a VM/container; no claim of network egress blocking",
     "Automatic install hooks remain disabled; no whole-dependency vulnerability audit",
     "Historical preparation patch is separate and unchanged"
@@ -81,7 +83,7 @@
     "Recheck upstream and retain current maintainer confirmation before advancing beyond MAINTAINER-CHECK",
     "Use inspected locked setup with automatic hooks disabled and no inherited account credentials",
     "Generate fresh datasource/main/template bundles before tests",
-    "Treat rendered-modal/video and live-service setup as separate work"
+    "Treat production styling/video and live-service setup as separate work"
   ],
   "verified_baseline": "/private/tmp/humanifest-cht-baseline@35b2bb6dac0844bee3228476591d08d56c5dd10d"
 }

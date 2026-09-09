@@ -48,10 +48,15 @@ connection in does not change the other connection.
 
 1. Use the approved `humanifest-bot` identity recorded in the contribution protocol.
 2. Verify the authenticated actor matches it immediately before outbound work.
-3. Recheck CHT #10155 for replies, assignment, closure, or competing work.
-4. Use the published inquiry above; do not send it again.
-5. Handle routine follow-ups within the existing authorization. Record actual
-   maintainer confirmation before advancing the opportunity.
+3. Select the next useful action under the contribution protocol. Check a waiting
+   discussion when its recorded review date is due, an actionable reply arrives,
+   or a dependent action requires fresh status. Do not poll CHT #10155 on every
+   resume while independent work is available.
+4. Before outbound work, check the relevant opportunity's existing message and
+   PR records and current discussion. Reuse the existing thread; avoid duplicates.
+5. Handle scoped coordination and routine follow-ups under standing authorization
+   for audited candidates. Record actual maintainer confirmation before advancing
+   the opportunity; keep independent work moving while waiting.
 
 ## Fork-based publication
 

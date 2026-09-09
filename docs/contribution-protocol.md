@@ -25,12 +25,28 @@ authorization before sending, and verify the actual authenticated GitHub actor.
 Repository ownership and Git commit author settings do not establish the identity
 that will publish a comment or PR.
 
-On 2026-09-08, the user authorized posting the prepared CHT #10155 inquiry,
-handling its follow-ups, and submitting a tested PR and review revisions if
-maintainers confirm the scope, without further routine approvals. Communication
-must use a Humanifest identity, never the user's personal account. This
-authorization does not waive maintainer confirmation, implementation gates,
-portfolio limits, or truthful AI and review disclosures.
+On 2026-09-08, the user directed Humanifest to handle GitHub communication through
+the Humanifest account and to keep working through and replenishing the queue.
+This standing authorization covers scoped issue coordination and routine replies
+for audited candidates, including the initially prepared CHT #10155 inquiry.
+It also covers tested contribution PRs and review revisions once maintainers
+confirm the scope and all applicable gates pass. Do not request another routine
+user approval merely because the next audited candidate belongs to another team.
+
+Before a new inquiry, read the current discussion and relevant source evidence,
+check for existing work and duplicate messages, and prepare a concrete question
+that helps the maintainer decide whether the bounded contribution is wanted.
+For an existing contributor's PR, coordinate support instead of submitting a
+replacement or an unsolicited formal automated review. Record the actual message
+URL, authenticated author, sent time and agreed scope in the opportunity record;
+an outbound inquiry is not maintainer confirmation.
+
+Communication must use `humanifest-bot`, never the user's personal account.
+Standing authorization does not waive maintainer confirmation, implementation
+gates, portfolio limits, target contribution policies, or truthful AI and human
+review disclosures. It does not cover email, signing agreements, account or
+repository permission changes, or automatic merging. Ask only when a concrete
+required action falls outside the established authorization.
 
 The approved posting identity is `humanifest-bot`, registered by the user and
 verified as a GitHub user on 2026-09-08. `humanifest` is the organization that
@@ -59,7 +75,7 @@ requests. Their standing authorization to improve this system covers creating
 the bot-owned Humanifest fork, pushing useful tested changes on dedicated
 branches, opening PRs, and handling routine review revisions through the bot.
 It does not authorize permission grants or automatic merging. External project
-work retains its contribution-specific authorization and all opportunity gates.
+work must match the audited opportunity's scope and retain all opportunity gates.
 
 1. Read the target's contribution and AI policies, check existing work, and
    confirm the authorized scope. For external opportunities, preserve maintainer

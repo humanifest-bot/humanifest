@@ -20,15 +20,25 @@
       "type": "measured",
       "claim": "On 2026-09-08 the issue timeline links open PR #7260 by another contributor. The public PR description identifies tests and a remaining API-schema documentation question; its automated review is not independent validation.",
       "source_id": "kobo-7260"
+    },
+    {
+      "type": "measured",
+      "claim": "A hash-checked probe of the pinned PR formatter maps timestamps 800 ms apart to the same second-precision string; a one-second-later control advances. Original fallback method cases also passed. This is isolated expression/method execution, not a database/API test.",
+      "source_id": "kobo-precision-probe"
+    },
+    {
+      "type": "inferred",
+      "claim": "A consumer advancing a strict greater-than cursor to a returned modified timestamp can miss an update in that same second. The PR query path filters before response injection; production frequency and complete sync semantics remain unverified.",
+      "source_id": "kobo-pr-backend"
     }
   ],
-  "code_surface": "Issue points to kobo/apps/openrosa/apps/viewer/models/parsed_instance.py and logger/utils/instance.py. PR description names viewer/tests/test_date_modified.py and API schema documentation. PR diff and actual test contents still need pinned inspection.",
-  "proposed_change": "Research now: pin the current PR #7260 head, read its diff and existing tests, and build an evidence matrix for ordinary edits, bulk validation changes, attachment-only changes, legacy records and incremental-query boundaries. Identify only uncovered behaviors or documentation gaps; coordinate with the existing author before proposing additions. Do not send an unsolicited automated PR review.",
-  "tests": "Compare the author's tests with the update-path matrix. Plan synthetic checks for timestamp monotonicity, equal-time pagination boundaries, legacy fallback/query consistency and unchanged exports. These are investigation questions, not established defects or executed tests.",
-  "environment": "Tier 0 public source/API inspection only. No target clone, dependency install, setup, test, or production write. Inspect manifests, hooks, services and secrets before any execution.",
+  "code_surface": "Pinned PR head 7968471a4d86ab701f61537499ee080144b2bf3e: all seven changed files and the new 100-line date-modified test file read. Traced OpenRosa backend -> MongoHelper query before response fallback; inspected AbstractTimeStampedModel and shared second-precision MONGO_STRFTIME.",
+  "proposed_change": "Coordinate a focused frozen-time API regression case and explicit cursor/overlap semantics with the existing PR author. The original formatter maps distinct subsecond updates to equal strings; strict newer-than cursors can therefore miss updates at the boundary. Do not create a replacement PR or change the shared timestamp format without agreement. Full findings: research/2026-09-08-kobo-incremental-sync-audit.md.",
+  "tests": "Ran a hash-checked standalone probe of the original formatter expression and fallback method: same-second timestamps collide, a later second advances, existing modified values survive, legacy values fall back, and missing timestamps remain missing. No target suite or database/API test ran. Proposed integration cases cover real edit/validation/attachment paths, equal-time cursors, delayed visibility and legacy filtering.",
+  "environment": "Public pinned-source inspection and Python standard-library probe only; no Kobo imports, clone, setup, dependencies, databases or production calls. Full stack/hook/CI inspection remains incomplete.",
   "maintainer": "Research can proceed independently now. Confirm the specific scope and whether support is wanted before implementation or outbound review.",
-  "risks": "Initial intake is not implementation readiness. Preserve existing contributors, avoid production data, and verify policy and scope before publishing target work.",
-  "priority_rationale": "Second new investigation, across a different maintainer team: two public users describe incremental-sync need, and an existing author has provided a patch. Independent gap analysis could reduce review burden without duplicating implementation.",
+  "risks": "Strict timestamp cursors require an explicit sync contract; increasing precision alone does not handle delayed writes. Legacy query limitations and missing schema documentation are already disclosed by the PR author. The returned check list contained an automated review, not proof of the target test suite passing. Avoid duplicate work or overstating production data loss.",
+  "priority_rationale": "Independent source verification identified an actionable same-second cursor boundary that the new tests do not exercise. A focused integration test and documented semantics could help the existing author; target scope and maintainer interest still require coordination.",
   "next_external_status_check": "2026-09-15",
   "gates": {
     "humanitarian_relevance_supported": {
@@ -57,19 +67,24 @@
     },
     "behavior_reproducible_or_verifiable": {
       "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "rationale": "Original formatter/fallback behavior verified in isolated probes. The proposed same-second sync failure has not been reproduced through the target database/API stack; gate remains false."
     },
     "code_and_tests_located": {
-      "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "passed": true,
+      "rationale": "Read all seven changed files and the entire new date-modified test file at the pinned PR head; traced timestamp source, serialization and Mongo query/fallback order. Located coverage does not mean it is sufficient or executed.",
+      "source_ids": [
+        "kobo-pr-date-tests",
+        "kobo-pr-serialization",
+        "kobo-pr-backend"
+      ]
     },
     "change_bounded": {
       "passed": false,
-      "rationale": "The next source-review job is bounded; implementation or review-addition scope is not selected until the existing PR and tests are inspected."
+      "rationale": "One focused boundary-test/documentation proposal is prepared for coordination. No shared-format change, backfill or replacement implementation is authorized by this research finding."
     },
     "regression_strategy_credible": {
       "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "rationale": "Coverage matrix distinguishes actual new tests from real edit, API filtering, equal-time and delayed-visibility gaps. Complete target integration setup and selected cursor semantics remain unverified."
     },
     "no_private_data_required": {
       "passed": true,
@@ -81,7 +96,7 @@
     },
     "environment_feasible": {
       "passed": false,
-      "rationale": "Not established in this initial research intake; inspect relevant evidence before advancing."
+      "rationale": "Standard-library probe runs without target dependencies, but this does not establish Kobo stack or target integration-test feasibility."
     },
     "maintainer_interest_confirmed": {
       "passed": false,
@@ -142,6 +157,46 @@
     {
       "id": "kobo-7259-timeline",
       "url": "https://api.github.com/repos/kobotoolbox/kpi/issues/7259/timeline",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-pr-date-tests",
+      "url": "https://github.com/RuneO/kpi/blob/7968471a4d86ab701f61537499ee080144b2bf3e/kobo/apps/openrosa/apps/viewer/tests/test_date_modified.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-pr-serialization",
+      "url": "https://github.com/RuneO/kpi/blob/7968471a4d86ab701f61537499ee080144b2bf3e/kobo/apps/openrosa/apps/viewer/models/parsed_instance.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-pr-time-format",
+      "url": "https://github.com/RuneO/kpi/blob/7968471a4d86ab701f61537499ee080144b2bf3e/kobo/apps/openrosa/libs/utils/common_tags.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-pr-backend",
+      "url": "https://github.com/RuneO/kpi/blob/7968471a4d86ab701f61537499ee080144b2bf3e/kpi/deployment_backends/openrosa_backend.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-pr-fallback",
+      "url": "https://github.com/RuneO/kpi/blob/7968471a4d86ab701f61537499ee080144b2bf3e/kpi/deployment_backends/base_backend.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-pr-checks",
+      "url": "https://api.github.com/repos/kobotoolbox/kpi/commits/7968471a4d86ab701f61537499ee080144b2bf3e/check-runs",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "kobo-precision-probe",
+      "url": "file:///Users/admin/dev/humanifest/research/fixtures/kobo-date-modified-reproduction.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "mongo-gt",
+      "url": "https://www.mongodb.com/docs/manual/reference/operator/query/gt/",
       "accessed": "2026-09-08"
     }
   ],

@@ -18,9 +18,9 @@ Neither has earned implementation approval or a claim of realized impact.
    Frontend handling alone does not resolve archived data availability. Continue
    Kobo verification while HOT scope and human-review requirements remain open.
 2. **KoboToolbox #7259 / PR #7260 — incremental-sync verification.** Support the
-   existing author with a bounded source and test-gap investigation. Pin the PR
-   head and compare edit, validation, attachment and legacy/query behavior with
-   actual tests. Treat the author's reported data-transfer workload as a case
+   existing author with a bounded source and test-gap investigation. The [pinned source audit](2026-09-08-kobo-incremental-sync-audit.md) now
+   compares these paths with actual tests and reproduces a same-second timestamp
+   collision. Coordinate one focused integration-test and cursor-contract proposal. Treat the author's reported data-transfer workload as a case
    report, not measured savings. Prepare findings locally; coordinate before
    proposing implementation or publishing a review.
 

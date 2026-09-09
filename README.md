@@ -121,9 +121,15 @@ The required `--as-of` date separates reviews due on or before that day from
 later reviews. Missing review dates are shown separately, not treated as a
 reason to poll on every run. Relevant new feedback can be handled sooner.
 Parked and declined records are excluded; explicit post-merge follow-up dates
-remain visible. Items are ordered by ID, not ranked by impact. When no active
-work or independent research is recorded, the view suggests verifying another
-bounded opportunity after due reviews. Add `--format json` for structured output.
+remain visible. Items are ordered by ID, not ranked by impact. Early-stage
+candidates without a next step or review date remain visible under
+**Candidates needing a research plan**.
+Assess those existing leads and record a bounded research step or a reason to wait
+or stop. They are not implementation-ready work. The view suggests finding another
+bounded opportunity only when no active work, independent research or such
+unplanned candidate remains. Candidates with a review date stay in the review
+sections until an independent step is recorded. Add `--format json` for structured
+output; `needs_research_plan` contains the unplanned candidates.
 The command validates the whole portfolio and performs no network requests or
 record changes.
 

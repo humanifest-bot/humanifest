@@ -61,6 +61,35 @@ class WorkTests(unittest.TestCase):
                 self.assertFalse(plan["refill_suggested"])
         self.assertTrue(self.plan()["refill_suggested"])
 
+    def test_unplanned_candidates_remain_visible_before_queue_refill(self):
+        for state in ["QUEUED", "PROJECT-AUDIT", "OPPORTUNITY-RESEARCH", "SHORTLISTED"]:
+            with self.subTest(state=state):
+                record = opportunity()
+                record["pipeline_state"] = state
+                record["gates"]["maintainer_interest_confirmed"]["passed"] = False
+                before = deepcopy(record)
+                plan = self.plan(record)
+                self.assertEqual([item["id"] for item in plan["needs_research_plan"]], [record["id"]])
+                self.assertEqual(plan["active_work"], [])
+                self.assertEqual(plan["independent_research"], [])
+                self.assertFalse(plan["refill_suggested"])
+                self.assertIn(record["title"], render_work_plan(plan))
+                self.assertIn("Candidates needing a research plan", render_work_plan(plan))
+                self.assertEqual(record, before)
+
+    def test_waiting_or_planned_research_is_not_an_unplanned_candidate(self):
+        record = opportunity()
+        record["pipeline_state"] = "OPPORTUNITY-RESEARCH"
+        record["next_external_status_check"] = "2026-09-15"
+        plan = self.plan(record)
+        self.assertEqual(plan["needs_research_plan"], [])
+        self.assertTrue(plan["refill_suggested"])
+        record.pop("next_external_status_check")
+        record["research_next_step"] = "Inspect the reported behavior."
+        plan = self.plan(record)
+        self.assertEqual(plan["needs_research_plan"], [])
+        self.assertEqual(len(plan["independent_research"]), 1)
+
     def test_optional_work_fields_require_canonical_dates_and_nonblank_text(self):
         for field, values in {
             "next_external_status_check": [None, True, 20260908, "", "20260908", "2026-W37-2", "2026-02-30"],

@@ -188,6 +188,27 @@ class CliTests(unittest.TestCase):
         self.assertEqual((status, out), (1, ""))
         self.assertIn("next_external_status_check", err)
 
+    def test_work_keeps_new_candidates_visible_without_optional_work_fields(self):
+        self.seed_portfolio()
+        record = opportunity()
+        record["pipeline_state"] = "QUEUED"
+        record["gates"]["maintainer_interest_confirmed"]["passed"] = False
+        path = self.write_record("portfolio/opportunities/sample.json", record)
+        before = path.read_bytes()
+        args = ["work", "--root", str(self.root), "--as-of", "2026-09-08"]
+        status, out, err = self.run_cli(*args)
+        self.assertEqual((status, err), (0, ""))
+        self.assertIn("Candidates needing a research plan", out)
+        self.assertIn(record["title"], out)
+        self.assertNotIn("find and verify another bounded opportunity", out)
+        status, out, err = self.run_cli(*args, "--format", "json")
+        self.assertEqual((status, err), (0, ""))
+        plan = json.loads(out)
+        self.assertEqual(plan["needs_research_plan"][0]["id"], record["id"])
+        self.assertEqual(plan["active_work"], [])
+        self.assertFalse(plan["refill_suggested"])
+        self.assertEqual(path.read_bytes(), before)
+
     def set_project_repository(self, repository, project_id="sample-project", **extra):
         project = json.loads((self.root / "portfolio/projects/sample.json").read_text())
         project.update(id=project_id, repository=repository, **extra)

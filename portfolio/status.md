@@ -1,7 +1,7 @@
 # Portfolio Status
 
-Projects: 4
-Opportunities: 6
+Projects: 5
+Opportunities: 7
 Active implementations: 0/1
 Open external PRs: 0/2 (at most 1 per organization)
 
@@ -22,6 +22,20 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
   - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.
   - user_can_explain_line_by_line: No implementation or human line-by-line review has occurred.
+- ifrc-usgs-economic-rounding: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=12
+  Next: Verify the issue is current and bound its code surface and regression strategy.
+  - contribution_policy_understood: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - ai_policy_understood: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - problem_current_and_consequential: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - behavior_reproducible_or_verifiable: Four original-helper/caller arithmetic cases reproduced. Full economic-item output and target environment remain unverified, so end-to-end readiness is not claimed.
+  - change_bounded: Candidate scope is economic scaling before integer rounding with fatality behavior preserved. Maintainers must confirm separation from the paused uncertainty/representation redesign.
+  - regression_strategy_credible: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - security_and_licensing_risk_acceptable: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - environment_feasible: Standard-library arithmetic probe ran without target imports. Full hooks, CI, submodule and HTTP-cassette behavior must be inspected before target execution.
+  - maintainer_interest_confirmed: A collaborator previously requested the original unit correction, which merged in #204. That does not confirm Humanifest work on the newly identified rounding edge case; no inquiry sent.
+  - probable_reviewer_identified: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - benefit_justifies_review_cost: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - user_can_explain_line_by_line: No target implementation or independent human review has occurred.
 - cht-10155-edit-user-load-failure: MAINTAINER-CHECK; score=0.0; failed_gates=3
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - behavior_reproducible_or_verifiable: Source-level behavior is mapped, but UI/Karma reproduction has not been run because dependencies are not installed.

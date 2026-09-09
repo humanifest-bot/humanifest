@@ -1,0 +1,206 @@
+{
+  "id": "ifrc-usgs-economic-rounding",
+  "project_id": "ifrc-pystac-monty",
+  "title": "Verify premature rounding after the merged USGS economic-unit correction",
+  "pipeline_state": "OPPORTUNITY-RESEARCH",
+  "problem": "The economic impact caller multiplies by one million after its shared midpoint helper has already truncated to an integer, losing fractional millions. The original unit fix is already merged; this is a separate precision edge case.",
+  "humanitarian_relevance": "Avoiding misleading zero or coarsened economic impact values has a pathway to clearer disaster analysis. Frequency, downstream reliance and actual benefit are unmeasured.",
+  "evidence": [
+    {
+      "type": "measured",
+      "claim": "PR #204 merged on 2026-08-31 and current source contains people/usd normalization and a one-million scale factor. Do not duplicate the original unit fix.",
+      "source_id": "monty-204"
+    },
+    {
+      "type": "measured",
+      "claim": "Hash-checked original arithmetic returns 0 for a synthetic 0.5-million midpoint and 5 million for a 5.5-million midpoint; scaling the same formula before integer conversion preserves 500000 and 5500000 respectively. Two control cases agree. No full transformer or production test ran.",
+      "source_id": "monty-rounding-probe"
+    },
+    {
+      "type": "inferred",
+      "claim": "Premature truncation can erase a nonzero value or discard up to almost one million dollars under the current nonnegative midpoint arithmetic. This does not validate that aggregation model or establish a real-world loss-estimation error.",
+      "source_id": "monty-usgs"
+    }
+  ],
+  "code_surface": "pystac_monty/sources/usgs.py economic caller and _calculate_value_from_bins; validators/usgs.py AlertBin; tests/extensions/test_usgs.py and tests/data/usgs/venezuela_alerts.json.",
+  "proposed_change": "Investigate a focused economic-item regression and source-faithful unit fixtures. Confirm whether scaling before integer conversion can proceed separately from the paused loss-model redesign. Preserve fatality and empty/error behavior; no target patch until scope and all hard gates pass.",
+  "tests": "Four dependency-free original-helper/caller cases pass: submillion, fractional-million, exact-integer and empty controls. Next verify full item values, source-unit fixtures and unchanged fatality behavior using target tests after setup inspection.",
+  "environment": "Public source/API reads and standard-library probe only; no clone, target import, setup, database, service or production action. Python 3.11+ and cassette-based pytest documented, full feasibility unknown.",
+  "maintainer": "Prior collaborator guidance establishes the original unit-fix intent, not approval of this new contribution. Prepare a focused scope question after checking remaining setup and policy evidence.",
+  "risks": "Do not revive paused histogram-model changes or duplicate #204. The repository fixture uses different economic-bin magnitudes from the cited USGS payload; it is not verified original source data. No impact or production-loss claims.",
+  "priority_rationale": "Independent IFRC team, published operational use, a deterministic numeric finding and located tests make this a concrete research candidate. Unresolved scope and environment gates keep implementation score at zero.",
+  "next_external_status_check": "2026-09-15",
+  "gates": {
+    "humanitarian_relevance_supported": {
+      "passed": true,
+      "rationale": "IFRC uses Montandon data in published disaster analysis.",
+      "source_ids": [
+        "ifrc-use"
+      ]
+    },
+    "repository_active": {
+      "passed": true,
+      "rationale": "Repository is active and the source audit is pinned to a complete current tree.",
+      "source_ids": [
+        "monty-repo",
+        "monty-tree"
+      ]
+    },
+    "external_contributions_accepted": {
+      "passed": true,
+      "rationale": "README explicitly welcomes issues and PRs.",
+      "source_ids": [
+        "monty-readme"
+      ]
+    },
+    "contribution_policy_understood": {
+      "passed": false,
+      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+    },
+    "ai_policy_understood": {
+      "passed": false,
+      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+    },
+    "problem_current_and_consequential": {
+      "passed": false,
+      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+    },
+    "behavior_reproducible_or_verifiable": {
+      "passed": false,
+      "rationale": "Four original-helper/caller arithmetic cases reproduced. Full economic-item output and target environment remain unverified, so end-to-end readiness is not claimed."
+    },
+    "code_and_tests_located": {
+      "passed": true,
+      "rationale": "Read USGS transformer, validator, fixture and existing alert regression tests.",
+      "source_ids": [
+        "monty-usgs",
+        "monty-tests",
+        "monty-alert-fixture"
+      ]
+    },
+    "change_bounded": {
+      "passed": false,
+      "rationale": "Candidate scope is economic scaling before integer rounding with fatality behavior preserved. Maintainers must confirm separation from the paused uncertainty/representation redesign."
+    },
+    "regression_strategy_credible": {
+      "passed": false,
+      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+    },
+    "no_private_data_required": {
+      "passed": true,
+      "rationale": "The finding uses public source and synthetic finite numeric bins; no operational records or credentials required.",
+      "source_ids": [
+        "monty-rounding-probe"
+      ]
+    },
+    "security_and_licensing_risk_acceptable": {
+      "passed": false,
+      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+    },
+    "environment_feasible": {
+      "passed": false,
+      "rationale": "Standard-library arithmetic probe ran without target imports. Full hooks, CI, submodule and HTTP-cassette behavior must be inspected before target execution."
+    },
+    "maintainer_interest_confirmed": {
+      "passed": false,
+      "rationale": "A collaborator previously requested the original unit correction, which merged in #204. That does not confirm Humanifest work on the newly identified rounding edge case; no inquiry sent."
+    },
+    "probable_reviewer_identified": {
+      "passed": false,
+      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+    },
+    "benefit_justifies_review_cost": {
+      "passed": false,
+      "rationale": "Not yet established; complete the specific policy, scope or runtime check before advancing."
+    },
+    "user_can_explain_line_by_line": {
+      "passed": false,
+      "rationale": "No target implementation or independent human review has occurred."
+    }
+  },
+  "score_inputs": {
+    "humanitarian_benefit": 3.5,
+    "acceptance_probability": 0,
+    "technical_confidence": 0,
+    "review_burden": 3,
+    "deployment_probability": 0
+  },
+  "score_basis": "Research priority only. Potential data-integrity benefit is plausible; acceptance, deployment and real impact are not established.",
+  "sources": [
+    {
+      "id": "ifrc-use",
+      "url": "https://wdr26.org/en/reports/wdr26/annex2",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-repo",
+      "url": "https://api.github.com/repos/IFRCGo/pystac-monty",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-readme",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/README.md",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-license",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/LICENSE",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-manifest",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/pyproject.toml",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-tree",
+      "url": "https://api.github.com/repos/IFRCGo/pystac-monty/git/trees/7dd2d48cd599c3e0b894f1676b5de88c19028c46?recursive=1",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-199",
+      "url": "https://github.com/IFRCGo/pystac-monty/issues/199",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-scope",
+      "url": "https://github.com/IFRCGo/pystac-monty/issues/199#issuecomment-5291242904",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-204",
+      "url": "https://github.com/IFRCGo/pystac-monty/pull/204",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-usgs",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/pystac_monty/sources/usgs.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-tests",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/tests/extensions/test_usgs.py",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-alert-fixture",
+      "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/tests/data/usgs/venezuela_alerts.json",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "usgs-alert-source",
+      "url": "https://earthquake.usgs.gov/product/losspager/us6000t7zp/us/1783916550513/json/alerts.json",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "usgs-thresholds",
+      "url": "https://earthquake.usgs.gov/data/pager/background.php",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-rounding-probe",
+      "url": "file:///Users/admin/dev/humanifest/research/fixtures/ifrc-usgs-rounding-reproduction.py",
+      "accessed": "2026-09-08"
+    }
+  ]
+}

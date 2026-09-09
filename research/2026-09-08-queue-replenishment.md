@@ -15,8 +15,9 @@ Neither has earned implementation approval or a claim of realized impact.
    PR was returned by the issue timeline, but a broader search remains necessary.
    The [completed source audit](2026-09-08-hot-download-audit.md) now traces the
    archive filter and reproduces two separate handler failures with mocked inputs.
-   Frontend handling alone does not resolve archived data availability. Continue
-   Kobo verification while HOT scope and human-review requirements remain open.
+   Frontend handling alone does not resolve archived data availability. A first scoped inquiry is now linked in that audit.
+   HOT scope and human-review requirements remain open; independent environment
+   verification and queue work can continue while it awaits a reply.
 2. **KoboToolbox #7259 / PR #7260 — incremental-sync verification.** Support the
    existing author with a bounded source and test-gap investigation. The [pinned source audit](2026-09-08-kobo-incremental-sync-audit.md) now
    compares these paths with actual tests and reproduces a same-second timestamp

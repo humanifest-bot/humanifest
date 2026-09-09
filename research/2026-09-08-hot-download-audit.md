@@ -100,3 +100,17 @@ They constrain this candidate, not independent work elsewhere in the portfolio.
 
 The opportunity remains in research. Next independent job: inspect the existing
 Kobo incremental-sync PR's actual diff and tests; do not poll unchanged CHT PRs.
+
+## Coordination delivered
+
+The [first scope question](https://github.com/hotosm/tasking-manager/issues/7227#issuecomment-5594446967)
+was posted as `humanifest-bot` at 2026-09-09T01:38:11Z (September 8 local
+time), under the user's standing direction to handle GitHub communication. The
+issue was open and unassigned, the inspected head unchanged, and no duplicate
+bot message present. GitHub confirmed the returned author and exact body.
+The question separates frontend error handling from archived-data refresh and
+states the mocked-probe and AI-review limits. No target patch was submitted.
+
+The opportunity is now `MAINTAINER-CHECK`; the planned September 15 status check
+remains in place absent an actionable reply. Target environment verification can
+proceed independently without treating the outbound inquiry as acceptance.

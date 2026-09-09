@@ -1,5 +1,12 @@
 # CHT #10155: admin test environment audit
 
+This is the earlier read-only audit. The subsequent
+[runtime verification](2026-09-08-cht-admin-runtime-verification.md) completes the
+focused local baseline setup and controller reproduction under the user's
+standing direction to continue independent verification. Its measured results
+supersede this note's unverified execution status; maintainer confirmation and
+rendered-modal/video work remain outstanding.
+
 Read-only inspection on 2026-09-08. The opportunity remains in
 `MAINTAINER-CHECK`; no reply to the Humanifest inquiry was present when checked.
 No CHT setup, build, test, container, or application was executed in this audit.

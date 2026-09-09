@@ -2,7 +2,7 @@
   "id": "ifrc-usgs-economic-rounding",
   "project_id": "ifrc-pystac-monty",
   "title": "Verify premature rounding after the merged USGS economic-unit correction",
-  "pipeline_state": "OPPORTUNITY-RESEARCH",
+  "pipeline_state": "MAINTAINER-CHECK",
   "problem": "The economic impact caller multiplies by one million after its shared midpoint helper has already truncated to an integer, losing fractional millions. The original unit fix is already merged; this is a separate precision edge case.",
   "humanitarian_relevance": "Avoiding misleading zero or coarsened economic impact values has a pathway to clearer disaster analysis. Frequency, downstream reliance and actual benefit are unmeasured.",
   "evidence": [
@@ -25,13 +25,18 @@
       "type": "measured",
       "claim": "Three full-transformer synthetic cases emitted the previously predicted rounded economic values while fatality and country controls held. All 8 existing USGS tests passed with networking blocked. No target code was changed; runtime warnings and limits are recorded.",
       "source_id": "monty-runtime-note"
+    },
+    {
+      "type": "measured",
+      "claim": "GitHub returned the exact prepared inquiry authored by humanifest-bot at 2026-09-09T01:18:23Z. This establishes delivery only; no maintainer acceptance is claimed.",
+      "source_id": "monty-coordination"
     }
   ],
   "code_surface": "pystac_monty/sources/usgs.py economic caller and _calculate_value_from_bins; validators/usgs.py AlertBin; tests/extensions/test_usgs.py and tests/data/usgs/venezuela_alerts.json.",
   "proposed_change": "Seek confirmation for a focused economic precision correction: scale before integer rounding while preserving fatality values and empty/error behavior. The full item output reproduces the problem. Add acceptance tests for 500000 and 5500000 USD plus controls after all hard gates pass; do not revive the paused loss-model redesign.",
   "tests": "Executed 3 real-transformer reproduction cases with networking blocked: emitted economic values 0, 5000000 and 1000000 USD; unchanged fatality control 139 people and VEN country. All 8 existing USGS tests passed offline. Probe checks current faulty behavior, not acceptance of a fix. Earlier 4 arithmetic cases also passed; whole-project suite and production behavior not tested.",
   "environment": "Verified clean temporary checkout at /private/tmp/humanifest-ifrc-pystac-monty, source 7dd2d48cd599c3e0b894f1676b5de88c19028c46, schema submodule b363a751f2d51b4169cd08aa5c17f0fc7b985763. Explicit Python 3.13.9, frozen lock, 86 wheel-only dependencies in temporary venv. No target package build, global install or service. Focused tests ran with --block-network --record-mode=none. Runtime note records setup attempts and sandbox diagnostics.",
-  "maintainer": "Prior collaborator guidance establishes the original unit-fix intent, not approval of this new contribution. Prepare a focused scope question after checking remaining setup and policy evidence.",
+  "maintainer": "Scoped precision-fix inquiry sent as humanifest-bot at 2026-09-09T01:18:23Z on #199. It asks whether a bot-authored, AI-disclosed correction and regression tests are welcome while preserving fatality behavior and leaving the paused representation work aside. Main source was unchanged and issue open immediately before posting. Await confirmation.",
   "risks": "Do not revive paused histogram-model changes or duplicate #204. The repository fixture uses different economic-bin magnitudes from the cited USGS payload; it is not verified original source data. No impact or production-loss claims.",
   "priority_rationale": "Independent IFRC work now has a feasible focused test environment and a reproduced item-output defect. Seek current maintainer confirmation and AI/contribution expectations before implementing; keep unrelated queue work moving while awaiting decisions.",
   "next_external_status_check": "2026-09-15",
@@ -120,7 +125,10 @@
     },
     "maintainer_interest_confirmed": {
       "passed": false,
-      "rationale": "A collaborator previously requested the original unit correction, which merged in #204. That does not confirm Humanifest work on the newly identified rounding edge case; no inquiry sent."
+      "rationale": "Inquiry delivered by humanifest-bot at 2026-09-09T01:18:23Z. Prior original-unit guidance and this outbound message do not establish approval of the new precision correction.",
+      "source_ids": [
+        "monty-coordination"
+      ]
     },
     "probable_reviewer_identified": {
       "passed": false,
@@ -237,6 +245,11 @@
     {
       "id": "monty-test-script",
       "url": "https://github.com/IFRCGo/pystac-monty/blob/7dd2d48cd599c3e0b894f1676b5de88c19028c46/scripts/test",
+      "accessed": "2026-09-08"
+    },
+    {
+      "id": "monty-coordination",
+      "url": "https://github.com/IFRCGo/pystac-monty/issues/199#issuecomment-5594287228",
       "accessed": "2026-09-08"
     }
   ]

@@ -22,17 +22,6 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
   - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.
   - user_can_explain_line_by_line: No implementation or human line-by-line review has occurred.
-- ifrc-usgs-economic-rounding: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=9
-  Next: Verify the issue is current and bound its code surface and regression strategy.
-  - contribution_policy_understood: Not yet established; complete the specific policy, scope or runtime check before advancing.
-  - ai_policy_understood: Not yet established; complete the specific policy, scope or runtime check before advancing.
-  - problem_current_and_consequential: Not yet established; complete the specific policy, scope or runtime check before advancing.
-  - change_bounded: Candidate scope is economic scaling before integer rounding with fatality behavior preserved. Maintainers must confirm separation from the paused uncertainty/representation redesign.
-  - security_and_licensing_risk_acceptable: Not yet established; complete the specific policy, scope or runtime check before advancing.
-  - maintainer_interest_confirmed: A collaborator previously requested the original unit correction, which merged in #204. That does not confirm Humanifest work on the newly identified rounding edge case; no inquiry sent.
-  - probable_reviewer_identified: Not yet established; complete the specific policy, scope or runtime check before advancing.
-  - benefit_justifies_review_cost: Not yet established; complete the specific policy, scope or runtime check before advancing.
-  - user_can_explain_line_by_line: No target implementation or independent human review has occurred.
 - cht-10155-edit-user-load-failure: MAINTAINER-CHECK; score=0.0; failed_gates=3
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - behavior_reproducible_or_verifiable: Source-level behavior is mapped, but UI/Karma reproduction has not been run because dependencies are not installed.
@@ -43,6 +32,17 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - change_bounded: Writer and exporter tags differ, but the admin picker retains a day-dependent timestamp and payload period remains Gregorian. Maintainers have not chosen whether lookup, picker, and label changes belong in one bounded fix. A backend-only change cannot yet be assumed to resolve the full report.
   - maintainer_interest_confirmed: Rechecked 2026-09-08: the issue has no comments or assignees; no issue-level confirmation was found.
   - probable_reviewer_identified: No reviewer is assigned on the issue.
+- ifrc-usgs-economic-rounding: MAINTAINER-CHECK; score=0.0; failed_gates=9
+  Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
+  - contribution_policy_understood: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - ai_policy_understood: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - problem_current_and_consequential: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - change_bounded: Candidate scope is economic scaling before integer rounding with fatality behavior preserved. Maintainers must confirm separation from the paused uncertainty/representation redesign.
+  - security_and_licensing_risk_acceptable: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - maintainer_interest_confirmed: Inquiry delivered by humanifest-bot at 2026-09-09T01:18:23Z. Prior original-unit guidance and this outbound message do not establish approval of the new precision correction.
+  - probable_reviewer_identified: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - benefit_justifies_review_cost: Not yet established; complete the specific policy, scope or runtime check before advancing.
+  - user_can_explain_line_by_line: No target implementation or independent human review has occurred.
 - kobo-7259-incremental-sync-verification: MAINTAINER-CHECK; score=0.0; failed_gates=12
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - contribution_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.

@@ -76,3 +76,14 @@ have not been verified. Scope confirmation and contribution/AI expectations are
 still needed before implementation. The unit-conversion precision proposal must
 preserve fatality behavior and remain separate from the paused uncertainty-model
 redesign. The current target checkout is clean and reusable for that work.
+
+## Coordination
+
+The [precision-fix inquiry](https://github.com/IFRCGo/pystac-monty/issues/199#issuecomment-5594287228)
+was delivered by `humanifest-bot` at 2026-09-09T01:18:23Z (September 8 local
+time), under the user's standing GitHub communication authorization. It reports
+the synthetic runtime evidence and asks for scope and bot/AI-contribution
+acceptance. Source head and issue openness were checked immediately beforehand;
+GitHub confirmed author and exact body. This is not maintainer confirmation.
+The opportunity remains gated in `MAINTAINER-CHECK`, with September 15 as the
+planned status check absent an actionable reply. Independent work can continue.

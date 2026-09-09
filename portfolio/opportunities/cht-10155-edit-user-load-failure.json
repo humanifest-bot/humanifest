@@ -3,6 +3,8 @@
   "project_id": "community-health-toolkit",
   "title": "Show a loading/error state when edit-user details fail to load",
   "pipeline_state": "MAINTAINER-CHECK",
+  "next_external_status_check": "2026-09-15",
+  "research_next_step": "Finish read-only inspection of the admin test runner, browser requirements, and workspace lifecycle hooks; derive an isolated baseline setup recipe without changing the existing preparation checkout.",
   "problem": "CHT issue #10155 reports that the admin edit-user modal can render empty fields when user-detail population fails, including an SSO username request failure reproduced with Chrome DevTools offline throttling.",
   "humanitarian_relevance": "Reliable user administration matters for health-system deployments, especially where offline users, SSO, and role/facility assignment affect field access. This is operational tooling rather than direct clinical logic.",
   "evidence": [

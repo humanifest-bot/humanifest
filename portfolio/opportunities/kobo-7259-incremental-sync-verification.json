@@ -3,6 +3,7 @@
   "project_id": "kobotoolbox-kpi",
   "title": "Support Kobo's existing incremental-sync PR with a same-second cursor regression",
   "pipeline_state": "MAINTAINER-CHECK",
+  "research_next_step": "Inspect the remaining contribution and AI policies, dependency hooks, services, and CI setup for the existing incremental-sync API tests before deciding whether an isolated baseline run is feasible.",
   "problem": "Issue #7259 reports that API consumers must re-download and compare entire submission collections to detect edits. Existing PR #7260 implements a modified-time field; Humanifest should investigate verification gaps and support its author, not open a replacement.",
   "humanitarian_relevance": "Correct incremental updates could reduce repeated data transfer and keep humanitarian analysis current. The reported workload is one user's account, not an independently measured platform-wide compute saving.",
   "evidence": [

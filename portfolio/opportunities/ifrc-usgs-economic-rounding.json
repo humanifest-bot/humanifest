@@ -3,6 +3,7 @@
   "project_id": "ifrc-pystac-monty",
   "title": "Verify premature rounding after the merged USGS economic-unit correction",
   "pipeline_state": "MAINTAINER-CHECK",
+  "research_next_step": "Finish contribution and licensing review against the pinned target tree; record which bot/AI and review expectations are documented and which still need the maintainer's answer, without advancing the confirmation gate.",
   "problem": "The economic impact caller multiplies by one million after its shared midpoint helper has already truncated to an integer, losing fractional millions. The original unit fix is already merged; this is a separate precision edge case.",
   "humanitarian_relevance": "Avoiding misleading zero or coarsened economic impact values has a pathway to clearer disaster analysis. Frequency, downstream reliance and actual benefit are unmeasured.",
   "evidence": [

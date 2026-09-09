@@ -3,6 +3,7 @@
   "project_id": "hot-tasking-manager",
   "title": "Investigate unavailable OSM data downloads for completed, archived projects",
   "pipeline_state": "MAINTAINER-CHECK",
+  "research_next_step": "Complete read-only frontend CI, nested dependency, and lifecycle-hook inspection to identify a safe isolated test command for download error handling, including the sandbox-iD install and Sentry upload paths.",
   "problem": "Issue #7227 reports that a completed project cannot supply its building GeoJSON to data requestors. A HOT member identifies archived status as the reason downloads are not updated and suggests considering on-demand refresh for authorized project users.",
   "humanitarian_relevance": "Enabling access to validated mapping outputs has a direct operational pathway to requestors using maps. The affected user describes an immediate sharing problem; reach and realized benefit remain unmeasured.",
   "evidence": [

@@ -21,8 +21,9 @@ Neither has earned implementation approval or a claim of realized impact.
    existing author with a bounded source and test-gap investigation. The [pinned source audit](2026-09-08-kobo-incremental-sync-audit.md) now
    compares these paths with actual tests and reproduces a same-second timestamp
    collision. Coordinate one focused integration-test and cursor-contract proposal. Treat the author's reported data-transfer workload as a case
-   report, not measured savings. Prepare findings locally; coordinate before
-   proposing implementation or publishing a review.
+   report, not measured savings. The bot has now sent a bounded scope question linked in the audit; await
+   confirmation before implementation or formal review. Continue independent
+   queue replenishment while this candidate waits.
 
 These jobs require public source reading, not a response on CHT or a merge of
 Humanifest's control-repository PRs. The new records include prioritization

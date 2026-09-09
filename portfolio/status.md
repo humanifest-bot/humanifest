@@ -22,20 +22,6 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
   - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.
   - user_can_explain_line_by_line: No implementation or human line-by-line review has occurred.
-- kobo-7259-incremental-sync-verification: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=12
-  Next: Verify the issue is current and bound its code surface and regression strategy.
-  - contribution_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - ai_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - problem_current_and_consequential: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - behavior_reproducible_or_verifiable: Original formatter/fallback behavior verified in isolated probes. The proposed same-second sync failure has not been reproduced through the target database/API stack; gate remains false.
-  - change_bounded: One focused boundary-test/documentation proposal is prepared for coordination. No shared-format change, backfill or replacement implementation is authorized by this research finding.
-  - regression_strategy_credible: Coverage matrix distinguishes actual new tests from real edit, API filtering, equal-time and delayed-visibility gaps. Complete target integration setup and selected cursor semantics remain unverified.
-  - security_and_licensing_risk_acceptable: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - environment_feasible: Standard-library probe runs without target dependencies, but this does not establish Kobo stack or target integration-test feasibility.
-  - maintainer_interest_confirmed: Historical discussion or another contributor's PR does not confirm a Humanifest contribution. No inquiry sent for this opportunity.
-  - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.
-  - user_can_explain_line_by_line: No implementation or human line-by-line review has occurred.
 - cht-10155-edit-user-load-failure: MAINTAINER-CHECK; score=0.0; failed_gates=3
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - behavior_reproducible_or_verifiable: Source-level behavior is mapped, but UI/Karma reproduction has not been run because dependencies are not installed.
@@ -46,6 +32,20 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - change_bounded: Writer and exporter tags differ, but the admin picker retains a day-dependent timestamp and payload period remains Gregorian. Maintainers have not chosen whether lookup, picker, and label changes belong in one bounded fix. A backend-only change cannot yet be assumed to resolve the full report.
   - maintainer_interest_confirmed: Rechecked 2026-09-08: the issue has no comments or assignees; no issue-level confirmation was found.
   - probable_reviewer_identified: No reviewer is assigned on the issue.
+- kobo-7259-incremental-sync-verification: MAINTAINER-CHECK; score=0.0; failed_gates=12
+  Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
+  - contribution_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - ai_policy_understood: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - problem_current_and_consequential: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - behavior_reproducible_or_verifiable: Original formatter/fallback behavior verified in isolated probes. The proposed same-second sync failure has not been reproduced through the target database/API stack; gate remains false.
+  - change_bounded: One focused boundary-test/documentation proposal is prepared for coordination. No shared-format change, backfill or replacement implementation is authorized by this research finding.
+  - regression_strategy_credible: Coverage matrix distinguishes actual new tests from real edit, API filtering, equal-time and delayed-visibility gaps. Complete target integration setup and selected cursor semantics remain unverified.
+  - security_and_licensing_risk_acceptable: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - environment_feasible: Standard-library probe runs without target dependencies, but this does not establish Kobo stack or target integration-test feasibility.
+  - maintainer_interest_confirmed: Coordination question sent as humanifest-bot at 2026-09-09T00:02:57Z; outbound communication is not acceptance or maintainer confirmation.
+  - probable_reviewer_identified: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - benefit_justifies_review_cost: Not established in this initial research intake; inspect relevant evidence before advancing.
+  - user_can_explain_line_by_line: No implementation or human line-by-line review has occurred.
 - cht-10241-unique-race: PARKED; score=0.0; failed_gates=8
   Next: Keep parked until the stopping reason is resolved and evidence supports reconsideration.
   - behavior_reproducible_or_verifiable: Reproduction depends on timing/resource constraints and was not independently reproduced in this run.

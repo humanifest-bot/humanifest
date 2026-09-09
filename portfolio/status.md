@@ -1,13 +1,25 @@
 # Portfolio Status
 
-Projects: 5
-Opportunities: 7
+Projects: 6
+Opportunities: 8
 Active implementations: 0/1
 Open external PRs: 0/2 (at most 1 per organization)
 
 Status reflects supplied records; source access dates are not a live upstream check.
 Scores do not authorize implementation or external writes. Candidates are listed by state and ID, not ranked by raw score.
 
+- odk-2169-worker-memory-threshold: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=10
+  Next: Verify the issue is current and bound its code surface and regression strategy.
+  - contribution_policy_understood: Not established in the bounded source review; verify before implementation.
+  - ai_policy_understood: Not established in the bounded source review; verify before implementation.
+  - problem_current_and_consequential: Byte-threshold mismatch is present on production and development source; actual excess memory use, OOM frequency and deployment consequence are unmeasured.
+  - change_bounded: A narrow unit-normalization/test proposal is plausible, but the intended threshold and separation from broader #2170 worker-sizing policy need confirmation.
+  - security_and_licensing_risk_acceptable: Not established in the bounded source review; verify before implementation.
+  - environment_feasible: Not established in the bounded source review; verify before implementation.
+  - maintainer_interest_confirmed: No Humanifest scope inquiry or maintainer confirmation yet; an open unassigned issue is not approval.
+  - probable_reviewer_identified: Not established in the bounded source review; verify before implementation.
+  - benefit_justifies_review_cost: Not established in the bounded source review; verify before implementation.
+  - user_can_explain_line_by_line: Not established in the bounded source review; verify before implementation.
 - cht-10155-edit-user-load-failure: MAINTAINER-CHECK; score=0.0; failed_gates=1
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - maintainer_interest_confirmed: Replacement inquiry sent as humanifest-bot at 2026-09-08T19:02:19Z. Await maintainer response; the outbound inquiry is not confirmation.

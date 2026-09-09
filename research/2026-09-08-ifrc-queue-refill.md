@@ -1,5 +1,10 @@
 # IFRC queue replenishment: USGS economic-unit rounding
 
+This initial screening is followed by [runtime verification](2026-09-08-ifrc-runtime-verification.md)
+and the completed [contribution review and archived-input check](2026-09-08-ifrc-contribution-review.md).
+Those later results supersede this note's unverified setup/policy status. Current
+acceptance and impact gates remain in the opportunity record.
+
 Accessed 2026-09-08 local time. Added one independent research opportunity in
 IFRC's `pystac-monty`, pinned to `7dd2d48cd599c3e0b894f1676b5de88c19028c46`.
 The queue item concerns an arithmetic follow-on to a merged correction, not a

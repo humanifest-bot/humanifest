@@ -46,6 +46,16 @@ def main(path):
         "exact_integer_control": [(0, 2, 1)],
         "empty_control": [],
     }
+    # Original public payload retrieved during the September 8 source audit.
+    # This is one input to the existing midpoint formula, not ground-truth loss.
+    payload = Path(__file__).with_name("usgs-us6000t7zp-alerts.json").read_bytes()
+    assert hashlib.sha256(payload).hexdigest() == (
+        "4058bea104960004b80cde32d21e3465d5bde9104fcd097eb5fe92d475177b68"
+    ), "Expected archived USGS payload"
+    cases["archived_public_payload"] = [
+        (item["min"], item["max"], item["probability"])
+        for item in json.loads(payload)["economic"]["bins"]
+    ]
     for name, values in cases.items():
         bins = [SimpleNamespace(min=lo, max=hi, probability=p) for lo, hi, p in values]
         actual = eval(expression, {}, {
@@ -57,13 +67,16 @@ def main(path):
         comparison = int(unrounded * scale)
         if name in {"submillion", "fractional_millions"}:
             assert comparison - actual == 500_000
+        elif name == "archived_public_payload":
+            assert actual == 1_768_846_000_000
+            assert comparison == 1_768_846_489_394
         else:
             assert actual == comparison
         results.append({"case": name, "current_usd": actual,
                         "same_formula_scaled_before_rounding_usd": comparison})
     print(json.dumps({
         "revision": "7dd2d48cd599c3e0b894f1676b5de88c19028c46",
-        "scope": "Original helper and economic caller expression; synthetic finite bins only",
+        "scope": "Original helper and economic caller; synthetic bins plus one archived public payload, not ground-truth losses",
         "cases": results,
     }, indent=2))
 

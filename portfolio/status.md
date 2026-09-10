@@ -13,8 +13,8 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - external_contributions_accepted: No verified acceptance of external Humanifest work; contact guidance is not confirmation.
   - contribution_policy_understood: Contributor agreements, complete project instructions and review process remain to verify.
   - ai_policy_understood: No explicit applicable AI/bot policy established; do not infer eligibility from silence.
-  - problem_current_and_consequential: Pinned global-mapping list omits indicator types, consistent with the report. Runtime behavior, current user cost and deployment consequence remain unverified.
-  - change_bounded: Existing mapper can rewrite supplied indicator-type references, but included source type fields survive under the destination ID. Agree import/reuse behavior and verify builder/persistence scope before a production change.
+  - problem_current_and_consequential: The original global selector omission is reproduced in a synthetic browser probe; issue remains open with zero comments on September 10. Current user cost and deployment consequence remain unverified.
+  - change_bounded: Native probes and the browser category control establish existing behavior, but included source indicator-type fields survive under the destination ID. Agree type reuse/update semantics and any required exclusions before proposing a production change.
   - security_and_licensing_risk_acceptable: Pinned target and published dependency setup inspected for local testing; network denied during 17 native checks. Full contribution/license eligibility remains unconfirmed. Workspace localization ran despite disabled dependency scripts, and its generated file was restored; do not repeat a claim that all scripts were disabled.
   - maintainer_interest_confirmed: No Humanifest inquiry or explicit acceptance; open unassigned issue is not maintainer confirmation.
   - probable_reviewer_identified: Issue author and PR template are known, but no reviewer has accepted this contribution.

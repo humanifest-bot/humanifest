@@ -20,16 +20,14 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - probable_reviewer_identified: Not established in the bounded source review; verify before implementation.
   - benefit_justifies_review_cost: Not established in the bounded source review; verify before implementation.
   - user_can_explain_line_by_line: Not established in the bounded source review; verify before implementation.
-- openaq-404-sensor-coverage-validation: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=12
+- openaq-404-sensor-coverage-validation: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=10
   Next: Verify the issue is current and bound its code surface and regression strategy.
   - contribution_policy_understood: Read the API contribution guide; organization policies, applicable agreements and full contributor workflow still need review.
   - ai_policy_understood: No explicit AI/bot acceptance established; do not infer it from a generic contribution invitation.
   - problem_current_and_consequential: Open report and diagnostic comment identify partial coverage metadata, but current runtime behavior, frequency and affected analysis remain unverified.
-  - behavior_reproducible_or_verifiable: Pinned response fields and SQL are consistent with the reported null-field errors. No original-code runtime reproduction or database-function verification has run.
   - change_bounded: Diagnostic commenter proposes required database periods; API fallback versus ingestion/database invariants is unresolved. Agree semantics before changing nullability or constraints.
-  - regression_strategy_credible: Synthetic valid, absent and partially null coverage controls are proposed, but runtime harness and database regression requirements remain unverified.
-  - security_and_licensing_risk_acceptable: Source browsing only. Full setup, dependency, license and policy audit remains incomplete; no production data or access requested.
-  - environment_feasible: Manifest and one CI workflow inspected, but current test paths differ from workflow assumptions and database/cloud dependencies need isolated setup planning. No installation ran.
+  - security_and_licensing_risk_acceptable: Bounded synthetic probes used lockfile-hashed wheels and OS network denial after setup inspection. Full dependency/license/contribution audit for an implementation remains incomplete; no production data or access requested.
+  - environment_feasible: Isolated original-model and PostgreSQL single-user probes ran successfully after manifest, lockfile, workflows, Dockerfile and settings inspection. Full application setup, current database schema and upstream test workflow paths remain unresolved.
   - maintainer_interest_confirmed: No Humanifest inquiry or scope acceptance; the existing diagnosis and proposed database fix do not authorize a new contribution.
   - probable_reviewer_identified: Issue author and diagnostic commenter are visible, but no reviewer has agreed to review Humanifest work.
   - benefit_justifies_review_cost: Data-access benefit is plausible, but frequency, affected users and comparative cost of a database versus API change remain unmeasured.

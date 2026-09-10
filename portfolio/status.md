@@ -8,17 +8,6 @@ Open external PRs: 0/2 (at most 1 per organization)
 Status reflects supplied records; source access dates are not a live upstream check.
 Scores do not authorize implementation or external writes. Candidates are listed by state and ID, not ranked by raw score.
 
-- epanet-883-tank-volume-curve-validation: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=9
-  Next: Verify the issue is current and bound its code surface and regression strategy.
-  - external_contributions_accepted: Not established in this bounded source intake; verify before implementation.
-  - contribution_policy_understood: Not established in this bounded source intake; verify before implementation.
-  - ai_policy_understood: Not established in this bounded source intake; verify before implementation.
-  - problem_current_and_consequential: Current pinned runtime accepts invalid volume ordering and returns NaN diameter without errors. Operational consequences and practical priority remain unconfirmed.
-  - change_bounded: Research can compare loader, assignment and later mutation. Production checks must preserve legitimate other curve types and agree error/rollback semantics.
-  - maintainer_interest_confirmed: Issue open, unassigned and without comments; no Humanifest inquiry, acceptance or bot eligibility established.
-  - probable_reviewer_identified: Not established in this bounded source intake; verify before implementation.
-  - benefit_justifies_review_cost: Not established in this bounded source intake; verify before implementation.
-  - user_can_explain_line_by_line: Not established in this bounded source intake; verify before implementation.
 - odk-2169-worker-memory-threshold: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=10
   Next: Verify the issue is current and bound its code surface and regression strategy.
   - contribution_policy_understood: Not established in the bounded source review; verify before implementation.
@@ -53,6 +42,17 @@ Scores do not authorize implementation or external writes. Candidates are listed
   - probable_reviewer_identified: Global CODEOWNERS identifies possible reviewers, but no reviewer has accepted this scope.
   - benefit_justifies_review_cost: Independent data confirmation was delivered; deployment need, reviewer interest and useful bounded change remain unconfirmed.
   - user_can_explain_line_by_line: Harnesses and exact results are documented; no independent human explanation or review is claimed.
+- epanet-883-tank-volume-curve-validation: MAINTAINER-CHECK; score=0.0; failed_gates=9
+  Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
+  - external_contributions_accepted: Not established in this bounded source intake; verify before implementation.
+  - contribution_policy_understood: Not established in this bounded source intake; verify before implementation.
+  - ai_policy_understood: Not established in this bounded source intake; verify before implementation.
+  - problem_current_and_consequential: Current pinned runtime accepts invalid volume ordering and returns NaN diameter without errors. Operational consequences and practical priority remain unconfirmed.
+  - change_bounded: Research can compare loader, assignment and later mutation. Production checks must preserve legitimate other curve types and agree error/rollback semantics.
+  - maintainer_interest_confirmed: Issue open, unassigned and without comments; no Humanifest inquiry, acceptance or bot eligibility established.
+  - probable_reviewer_identified: Not established in this bounded source intake; verify before implementation.
+  - benefit_justifies_review_cost: Not established in this bounded source intake; verify before implementation.
+  - user_can_explain_line_by_line: Not established in this bounded source intake; verify before implementation.
 - ifrc-usgs-economic-rounding: MAINTAINER-CHECK; score=0.0; failed_gates=7
   Next: Coordinate within standing authorization using the verified Humanifest identity; record current maintainer confirmation.
   - ai_policy_understood: No explicit AI/bot rule located in the bounded repository/default-policy review. The existing inquiry asks for acceptance; await its answer rather than infer approval from missing documentation.

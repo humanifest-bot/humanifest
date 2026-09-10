@@ -8,17 +8,16 @@ Open external PRs: 0/2 (at most 1 per organization)
 Status reflects supplied records; source access dates are not a live upstream check.
 Scores do not authorize implementation or external writes. Candidates are listed by state and ID, not ranked by raw score.
 
-- mdsync-1255-indicator-type-mapping: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=14
+- mdsync-1255-indicator-type-mapping: OPPORTUNITY-RESEARCH; score=0.0; failed_gates=13
   Next: Verify the issue is current and bound its code surface and regression strategy.
   - external_contributions_accepted: No verified acceptance of external Humanifest work; contact guidance is not confirmation.
   - contribution_policy_understood: Contributor agreements, complete project instructions and review process remain to verify.
   - ai_policy_understood: No explicit applicable AI/bot policy established; do not infer eligibility from silence.
   - problem_current_and_consequential: Pinned global-mapping list omits indicator types, consistent with the report. Runtime behavior, current user cost and deployment consequence remain unverified.
-  - behavior_reproducible_or_verifiable: Source omission observed, but no original app or mapping execution has reproduced the complete requested workflow.
-  - code_and_tests_located: Mapping page, models, application use case and Vitest configuration located. Relevant regression coverage and metadata-reference rewrite path remain to inspect.
-  - change_bounded: Issue suggests an existing mapping pattern; downstream payload transformation and persistence scope are still unknown.
+  - behavior_reproducible_or_verifiable: Original mapper behavior is verified in seven isolated cases with explicit adapters; missing-option UI and complete app workflow remain unreproduced, so the full behavior gate stays false.
+  - change_bounded: Existing mapper can rewrite supplied indicator-type references, but included source type fields survive under the destination ID. Agree import/reuse behavior and verify builder/persistence scope before a production change.
   - regression_strategy_credible: Need original-code tests covering different indicator-type IDs, retained mappings and resulting metadata references; no tests run.
-  - security_and_licensing_risk_acceptable: Target manifest has prepare/postinstall hooks and test configuration loads environment values; complete setup and dependency license audit is pending.
+  - security_and_licensing_risk_acceptable: Small probe uses verified published packages and pinned original files without installs or network-exposed adapters. Target Yarn disables scripts. Full application dependencies, shared workflows and fixture side effects are not yet fully audited.
   - environment_feasible: README and manifest describe Yarn/Vitest/DHIS2 setup, but no isolated baseline has been attempted.
   - maintainer_interest_confirmed: No Humanifest inquiry or explicit acceptance; open unassigned issue is not maintainer confirmation.
   - probable_reviewer_identified: Issue author and PR template are known, but no reviewer has accepted this contribution.
